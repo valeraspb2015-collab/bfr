@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>БФР — Сообщество хозяев квартир</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #e0f0ff, #d8ecf5);
+      text-align: center;
+      padding: 40px 10px;
+      border-bottom: 2px solid #bcd0e6;
+    }
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #004d80;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 0;
+      color: #555;
+    }
+    .btn {
+      background: #0078d7;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #005fa3; }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 30px;
+    }
+    h2 { color: #004d80; }
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .step {
+      flex: 1 1 250px;
+      background: #f9fcff;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 15px;
+      color: #666;
+    }
+    @media(max-width:600px){
+      header h1 {font-size: 22px;}
+      .btn {font-size: 16px; padding: 12px 22px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Сообщество хозяев квартир БФР</h1>
+    <p>Быстрый подбор квартир напрямую от собственников — без комиссий и переплат!</p>
+    <button class="btn" onclick="openQuiz()">Подобрать квартиру</button>
+  </header>
+
+  <section>
+    <h2>Почему выбирают БФР</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>🏠 Реальные хозяева</h3>
+        <p>Только проверенные владельцы квартир. Без посредников и обмана.</p>
+      </div>
+      <div class="step">
+        <h3>⚡ Быстрая обратная связь</h3>
+        <p>Мы подберём варианты жилья в течение 10 минут после заявки.</p>
+      </div>
+      <div class="step">
+        <h3>💬 Простая коммуникация</h3>
+        <p>Общайтесь с хозяином напрямую через Telegram или WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Как это работает</h2>
+    <ol>
+      <li>Заполняете короткую заявку.</li>
+      <li>Наш ассистент подбирает варианты по вашему запросу.</li>
+      <li>Выбираете подходящую квартиру и связываетесь с хозяином.</li>
+    </ol>
+    <button class="btn" onclick="openQuiz()">Оставить заявку</button>
+  </section>
+
+  <footer>
+    <p>© 2025 Сообщество хозяев квартир “БФР” | Telegram: @bfr_admin | WhatsApp: +7 (999) 000-00-00</p>
+  </footer>
+
+  <script>
+    function openQuiz() {
+      window.open("YOUR_MARQUIZ_LINK_HERE", "_blank");
+    }
+  </script>
+</body>
+</html>
