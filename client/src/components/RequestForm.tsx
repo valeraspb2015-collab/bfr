@@ -109,17 +109,17 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="budget" className="text-[15px] text-foreground/80">
-                  Бюджет (₽/мес) *
+                  Бюджет (₽/сутки) *
                 </Label>
                 <Select value={formData.budget} onValueChange={(value) => handleChange('budget', value)} required>
                   <SelectTrigger id="budget" data-testid="select-budget">
                     <SelectValue placeholder="Выберите бюджет" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="20000-30000">20 000 - 30 000 ₽</SelectItem>
-                    <SelectItem value="30000-50000">30 000 - 50 000 ₽</SelectItem>
-                    <SelectItem value="50000-80000">50 000 - 80 000 ₽</SelectItem>
-                    <SelectItem value="80000+">80 000+ ₽</SelectItem>
+                    <SelectItem value="до 3000">до 3 000 ₽</SelectItem>
+                    <SelectItem value="3000-5000">3 000 - 5 000 ₽</SelectItem>
+                    <SelectItem value="5000-10000">5 000 - 10 000 ₽</SelectItem>
+                    <SelectItem value="10000+">10 000+ ₽</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

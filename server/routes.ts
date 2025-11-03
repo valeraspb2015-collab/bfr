@@ -64,7 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 👤 <b>Имя:</b> ${request.name}
 📞 <b>Телефон:</b> ${request.phone}
 📍 <b>Район:</b> ${request.location}
-💰 <b>Бюджет:</b> ${request.budget} ₽/мес
+💰 <b>Бюджет:</b> ${request.budget} ₽/сутки
 🛏 <b>Комнат:</b> ${request.rooms}
 📅 <b>Дата заезда:</b> ${request.moveInDate}
 ${request.additionalInfo ? `\n📝 <b>Доп. информация:</b> ${request.additionalInfo}` : ''}
