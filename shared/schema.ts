@@ -25,6 +25,7 @@ export const apartmentRequests = pgTable("apartment_requests", {
   budget: text("budget").notNull(),
   rooms: text("rooms").notNull(),
   moveInDate: text("move_in_date").notNull(),
+  moveOutDate: text("move_out_date").notNull(),
   additionalInfo: text("additional_info"),
   status: text("status").notNull().default("new"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

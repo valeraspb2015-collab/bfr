@@ -19,6 +19,7 @@ export interface RequestFormData {
   budget: string;
   rooms: string;
   moveInDate: string;
+  moveOutDate: string;
   additionalInfo: string;
 }
 
@@ -30,6 +31,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
     budget: "",
     rooms: "",
     moveInDate: "",
+    moveOutDate: "",
     additionalInfo: ""
   });
 
@@ -143,18 +145,34 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="moveInDate" className="text-[15px] text-foreground/80">
-                Желаемая дата заезда *
-              </Label>
-              <Input
-                id="moveInDate"
-                type="date"
-                value={formData.moveInDate}
-                onChange={(e) => handleChange('moveInDate', e.target.value)}
-                required
-                data-testid="input-move-in-date"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="moveInDate" className="text-[15px] text-foreground/80">
+                  Дата заезда *
+                </Label>
+                <Input
+                  id="moveInDate"
+                  type="date"
+                  value={formData.moveInDate}
+                  onChange={(e) => handleChange('moveInDate', e.target.value)}
+                  required
+                  data-testid="input-move-in-date"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="moveOutDate" className="text-[15px] text-foreground/80">
+                  Дата выезда *
+                </Label>
+                <Input
+                  id="moveOutDate"
+                  type="date"
+                  value={formData.moveOutDate}
+                  onChange={(e) => handleChange('moveOutDate', e.target.value)}
+                  required
+                  data-testid="input-move-out-date"
+                />
+              </div>
             </div>
 
             <div className="space-y-2">
