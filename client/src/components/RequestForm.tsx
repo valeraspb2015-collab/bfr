@@ -5,7 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ArrowLeft, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
+import { cn } from "@/lib/utils";
+import type { DateRange } from "react-day-picker";
 
 interface RequestFormProps {
   onBack: () => void;
@@ -35,10 +41,23 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
     additionalInfo: ""
   });
 
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    onSubmit?.(formData);
+    
+    if (!dateRange?.from || !dateRange?.to) {
+      return;
+    }
+    
+    const submissionData = {
+      ...formData,
+      moveInDate: format(dateRange.from, "yyyy-MM-dd"),
+      moveOutDate: format(dateRange.to, "yyyy-MM-dd"),
+    };
+    
+    console.log('Form submitted:', submissionData);
+    onSubmit?.(submissionData);
   };
 
   const handleChange = (field: keyof RequestFormData, value: string) => {
@@ -145,34 +164,47 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="moveInDate" className="text-[15px] text-foreground/80">
-                  Дата заезда *
-                </Label>
-                <Input
-                  id="moveInDate"
-                  type="date"
-                  value={formData.moveInDate}
-                  onChange={(e) => handleChange('moveInDate', e.target.value)}
-                  required
-                  data-testid="input-move-in-date"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="moveOutDate" className="text-[15px] text-foreground/80">
-                  Дата выезда *
-                </Label>
-                <Input
-                  id="moveOutDate"
-                  type="date"
-                  value={formData.moveOutDate}
-                  onChange={(e) => handleChange('moveOutDate', e.target.value)}
-                  required
-                  data-testid="input-move-out-date"
-                />
-              </div>
+            <div className="space-y-2">
+              <Label className="text-[15px] text-foreground/80">
+                Дата заезда и выезда *
+              </Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !dateRange && "text-muted-foreground"
+                    )}
+                    data-testid="button-date-range"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {dateRange?.from ? (
+                      dateRange.to ? (
+                        <>
+                          {format(dateRange.from, "dd MMM yyyy", { locale: ru })} -{" "}
+                          {format(dateRange.to, "dd MMM yyyy", { locale: ru })}
+                        </>
+                      ) : (
+                        format(dateRange.from, "dd MMM yyyy", { locale: ru })
+                      )
+                    ) : (
+                      <span>Выберите даты заезда и выезда</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="range"
+                    selected={dateRange}
+                    onSelect={setDateRange}
+                    numberOfMonths={2}
+                    locale={ru}
+                    disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                    data-testid="calendar-date-range"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="space-y-2">
@@ -194,6 +226,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
               size="lg"
               className="w-full text-[18px] px-7 py-6 rounded-lg bg-[#0078d7] hover:bg-[#005fa3] text-white"
               data-testid="button-submit-form"
+              disabled={!dateRange?.from || !dateRange?.to}
             >
               Отправить заявку
             </Button>
