@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 
-export default function HowItWorks() {
-  const whatsappNumber = "79899865887";
-  const whatsappMessage = "Здравствуйте! Хочу подобрать квартиру через БФР.";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+interface HowItWorksProps {
+  onSubmitRequest: () => void;
+}
 
+export default function HowItWorks({ onSubmitRequest }: HowItWorksProps) {
   return (
     <section className="max-w-[900px] mx-auto my-10 bg-white rounded-lg shadow-lg p-8">
       <h2 className="text-[24px] font-semibold text-[#004d80] mb-6">Как это работает</h2>
@@ -14,14 +14,12 @@ export default function HowItWorks() {
         <li>Выбираете подходящую квартиру и связываетесь с хозяином.</li>
       </ol>
       <Button 
-        asChild
+        onClick={onSubmitRequest}
         size="lg"
         className="text-[18px] px-7 py-6 rounded-lg bg-[#0078d7] hover:bg-[#005fa3] text-white transition-colors"
         data-testid="button-submit-request"
       >
-        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-          Оставить заявку
-        </a>
+        Оставить заявку
       </Button>
     </section>
   );

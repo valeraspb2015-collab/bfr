@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
 
-export default function Hero() {
-  const whatsappNumber = "79899865887";
-  const whatsappMessage = "Здравствуйте! Хочу подобрать квартиру через БФР.";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+interface HeroProps {
+  onGetStarted: () => void;
+}
 
+export default function Hero({ onGetStarted }: HeroProps) {
   return (
     <header className="bg-gradient-to-br from-[hsl(var(--gradient-start))] to-[hsl(var(--gradient-end))] border-b-2 border-[#bcd0e6] py-10 px-4 text-center">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -24,14 +24,12 @@ export default function Hero() {
           Быстрый подбор квартир напрямую от собственников — без комиссий и переплат!
         </p>
         <Button 
-          asChild
+          onClick={onGetStarted}
           size="lg"
           className="text-[18px] px-7 py-6 rounded-lg bg-[#0078d7] hover:bg-[#005fa3] text-white transition-colors"
           data-testid="button-get-apartment"
         >
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            Подобрать квартиру
-          </a>
+          Подобрать квартиру
         </Button>
       </div>
     </header>
