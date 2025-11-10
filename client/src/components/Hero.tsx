@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
-import guestsImage from "@assets/stock_images/family_with_luggage__967f26b6.jpg";
+import guestsImage from "@assets/generated_images/Family_arriving_at_train_station_1421a439.png";
 import ownersImage from "@assets/stock_images/landlord_owner_givin_815f7266.jpg";
 
 interface HeroProps {
