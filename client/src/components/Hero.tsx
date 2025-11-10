@@ -31,9 +31,9 @@ export default function Hero({ onGetStarted }: HeroProps) {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col md:flex-row -mx-px">
+      <div className="flex-1 flex flex-col md:flex-row">
         <div 
-          className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden"
+          className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-visible z-10"
           style={{
             clipPath: 'polygon(0 0, 100% 0, 94% 100%, 0 100%)',
           }}
@@ -66,7 +66,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
         </div>
 
         <div 
-          className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden -ml-1"
+          className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-visible md:-ml-[6%] z-20"
           style={{
             clipPath: 'polygon(6% 0, 100% 0, 100% 100%, 0 100%)',
           }}
