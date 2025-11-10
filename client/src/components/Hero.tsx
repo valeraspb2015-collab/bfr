@@ -11,8 +11,8 @@ export default function Hero({ onGetStarted }: HeroProps) {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="bg-white py-4 px-4 md:px-8 border-b">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-3">
             <img src={logoImage} alt="БФР" className="w-10 h-10 object-contain" />
             <span 
               className="text-[18px] md:text-[22px] font-semibold text-[#0078d7] leading-none"
@@ -25,7 +25,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
               Booking for rent
             </span>
           </div>
-          <h2 className="text-[16px] md:text-[20px] font-semibold text-[#333]">
+          <h2 className="text-[19px] md:text-[24px] font-semibold text-[#333] text-center">
             Сообщество хозяев квартир БФР
           </h2>
         </div>
