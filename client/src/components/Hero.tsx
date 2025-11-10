@@ -10,32 +10,34 @@ interface HeroProps {
 export default function Hero({ onGetStarted }: HeroProps) {
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <div className="bg-white py-6 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4">
-            <img src={logoImage} alt="БФР" className="w-12 h-12 object-contain" />
-            <h1 
-              className="text-[28px] md:text-[36px] font-bold text-[#0078d7] leading-none"
+      <div className="bg-white py-4 px-4 md:px-8 border-b">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src={logoImage} alt="БФР" className="w-10 h-10 object-contain" />
+            <span 
+              className="text-[18px] md:text-[22px] font-semibold text-[#0078d7] leading-none"
               style={{ 
                 fontStyle: 'italic',
-                transform: 'skewX(-8deg)',
-                letterSpacing: '1px'
+                transform: 'skewX(-6deg)',
+                letterSpacing: '0.5px'
               }}
             >
               Booking for rent
-            </h1>
+            </span>
           </div>
+          <h2 className="text-[16px] md:text-[20px] font-semibold text-[#333]">
+            Сообщество хозяев квартир БФР
+          </h2>
         </div>
       </div>
 
-      <div className="text-center py-4 bg-white">
-        <h2 className="text-[20px] md:text-[24px] font-semibold text-[#333]">
-          Сообщество хозяев квартир
-        </h2>
-      </div>
-
-      <div className="flex-1 relative flex flex-col md:flex-row">
-        <div className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row">
+        <div 
+          className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden"
+          style={{
+            clipPath: 'polygon(0 0, 100% 0, 98% 100%, 0 100%)',
+          }}
+        >
           <div
             className="absolute inset-0"
             style={{
@@ -64,14 +66,11 @@ export default function Hero({ onGetStarted }: HeroProps) {
         </div>
 
         <div 
-          className="hidden md:block absolute top-0 bottom-0 left-1/2 w-24 bg-white -ml-12 z-20"
+          className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden"
           style={{
-            clipPath: 'polygon(0 0, 100% 0, 60% 100%, 0 100%)',
-            transform: 'skewX(-3deg)',
+            clipPath: 'polygon(2% 0, 100% 0, 100% 100%, 0 100%)',
           }}
-        />
-
-        <div className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden">
+        >
           <div
             className="absolute inset-0"
             style={{
