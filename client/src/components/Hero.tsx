@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
-import guestsImage from "@assets/stock_images/happy_family_vacatio_b2bd300f.jpg";
-import ownersImage from "@assets/stock_images/property_owner_landl_7f1ede93.jpg";
+import guestsImage from "@assets/stock_images/beautiful_modern_apa_a5d18398.jpg";
+import ownersImage from "@assets/stock_images/handshake_business_p_dbd52d17.jpg";
 
 interface HeroProps {
   onGetStarted: () => void;
@@ -34,8 +34,8 @@ export default function Hero({ onGetStarted }: HeroProps) {
         </h2>
       </div>
 
-      <div className="flex-1 grid md:grid-cols-2 gap-0">
-        <div className="relative min-h-[500px] flex items-center justify-center overflow-hidden">
+      <div className="flex-1 relative flex flex-col md:flex-row">
+        <div className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden">
           <div
             className="absolute inset-0"
             style={{
@@ -44,10 +44,10 @@ export default function Hero({ onGetStarted }: HeroProps) {
               backgroundPosition: "center",
             }}
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50" />
           
           <div className="relative z-10 px-8 py-12 text-center max-w-lg">
-            <h3 className="text-[32px] md:text-[40px] font-semibold text-white mb-6">
+            <h3 className="text-[32px] md:text-[42px] font-semibold text-white mb-6">
               Для гостей
             </h3>
             <p className="text-[16px] md:text-[18px] text-white leading-relaxed mb-8">
@@ -63,7 +63,15 @@ export default function Hero({ onGetStarted }: HeroProps) {
           </div>
         </div>
 
-        <div className="relative min-h-[500px] flex items-center justify-center overflow-hidden">
+        <div 
+          className="hidden md:block absolute top-0 bottom-0 left-1/2 w-24 bg-white -ml-12 z-20"
+          style={{
+            clipPath: 'polygon(0 0, 100% 0, 60% 100%, 0 100%)',
+            transform: 'skewX(-3deg)',
+          }}
+        />
+
+        <div className="relative min-h-[500px] md:min-h-[600px] flex-1 flex items-center justify-center overflow-hidden">
           <div
             className="absolute inset-0"
             style={{
@@ -72,14 +80,14 @@ export default function Hero({ onGetStarted }: HeroProps) {
               backgroundPosition: "center",
             }}
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50" />
           
           <div className="relative z-10 px-8 py-12 text-center max-w-lg">
-            <h3 className="text-[32px] md:text-[40px] font-semibold text-white mb-6">
+            <h3 className="text-[32px] md:text-[42px] font-semibold text-white mb-6">
               Для хозяев
             </h3>
             <p className="text-[16px] md:text-[18px] text-white leading-relaxed mb-8">
-              Начните принимать гостей через один корпоративный счет БФР. Получайте проверенных арендаторов без комиссий.
+              Начните принимать гостей через наше Сообщество. Получайте проверенных арендаторов.
             </p>
             <Button 
               onClick={onGetStarted}
