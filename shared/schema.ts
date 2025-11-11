@@ -39,3 +39,23 @@ export const insertApartmentRequestSchema = createInsertSchema(apartmentRequests
 
 export type InsertApartmentRequest = z.infer<typeof insertApartmentRequestSchema>;
 export type ApartmentRequest = typeof apartmentRequests.$inferSelect;
+
+export const ownerApplications = pgTable("owner_applications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  city: text("city").notNull(),
+  name: text("name").notNull(),
+  phone: text("phone").notNull(),
+  listingUrl: text("listing_url").notNull(),
+  question: text("question"),
+  status: text("status").notNull().default("new"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertOwnerApplicationSchema = createInsertSchema(ownerApplications).omit({
+  id: true,
+  status: true,
+  createdAt: true,
+});
+
+export type InsertOwnerApplication = z.infer<typeof insertOwnerApplicationSchema>;
+export type OwnerApplication = typeof ownerApplications.$inferSelect;

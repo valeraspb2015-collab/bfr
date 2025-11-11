@@ -5,9 +5,10 @@ import ownersImage from "@assets/stock_images/landlord_owner_givin_815f7266.jpg"
 
 interface HeroProps {
   onGetStarted: () => void;
+  onOwnerApplication: () => void;
 }
 
-export default function Hero({ onGetStarted }: HeroProps) {
+export default function Hero({ onGetStarted, onOwnerApplication }: HeroProps) {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="bg-white py-4 px-4 md:px-8 border-b">
@@ -89,7 +90,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
               Начните принимать гостей через наше Сообщество. Получайте проверенных арендаторов.
             </p>
             <Button 
-              onClick={onGetStarted}
+              onClick={onOwnerApplication}
               className="text-[16px] px-12 py-6 rounded-full bg-[#0070ba] hover:bg-[#005ea6] text-white transition-all min-w-[240px]"
               data-testid="button-submit-application"
             >

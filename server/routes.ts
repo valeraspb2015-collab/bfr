@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertApartmentRequestSchema } from "@shared/schema";
+import { insertApartmentRequestSchema, insertOwnerApplicationSchema } from "@shared/schema";
 
 async function sendTelegramMessage(text: string): Promise<void> {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -99,6 +99,39 @@ ${request.additionalInfo ? `\n📝 <b>Доп. информация:</b> ${reques
       res.status(500).json({ 
         success: false, 
         message: "Ошибка при получении заявок" 
+      });
+    }
+  });
+
+  app.post("/api/owner-applications", async (req, res) => {
+    try {
+      const validatedData = insertOwnerApplicationSchema.parse(req.body);
+      const application = await storage.createOwnerApplication(validatedData);
+      
+      const message = `
+🏠 <b>Новая заявка от хозяина!</b>
+
+🌆 <b>Город:</b> ${application.city}
+👤 <b>Имя:</b> ${application.name}
+📞 <b>Телефон:</b> ${application.phone}
+🔗 <b>Ссылка на квартиру:</b> ${application.listingUrl}
+${application.question ? `\n❓ <b>Вопрос:</b> ${application.question}` : ''}
+
+🆔 ID заявки: ${application.id}
+      `.trim();
+
+      await sendTelegramMessage(message);
+      
+      res.json({ 
+        success: true, 
+        message: "Спасибо. Скоро с вами свяжемся.",
+        applicationId: application.id 
+      });
+    } catch (error) {
+      console.error("Error processing owner application:", error);
+      res.status(400).json({ 
+        success: false, 
+        message: error instanceof Error ? error.message : "Ошибка при отправке заявки" 
       });
     }
   });

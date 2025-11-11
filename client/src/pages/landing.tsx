@@ -11,9 +11,13 @@ export default function Landing() {
     setLocation("/request");
   };
 
+  const handleOwnerApplication = () => {
+    setLocation("/owner-application");
+  };
+
   return (
     <div className="min-h-screen">
-      <Hero onGetStarted={handleGetStarted} />
+      <Hero onGetStarted={handleGetStarted} onOwnerApplication={handleOwnerApplication} />
       <Features />
       <HowItWorks onSubmitRequest={handleGetStarted} />
       <Footer />

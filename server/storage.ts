@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type ApartmentRequest, type InsertApartmentRequest } from "@shared/schema";
+import { type User, type InsertUser, type ApartmentRequest, type InsertApartmentRequest, type OwnerApplication, type InsertOwnerApplication } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -7,15 +7,19 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   createApartmentRequest(request: InsertApartmentRequest): Promise<ApartmentRequest>;
   getApartmentRequests(): Promise<ApartmentRequest[]>;
+  createOwnerApplication(application: InsertOwnerApplication): Promise<OwnerApplication>;
+  getOwnerApplications(): Promise<OwnerApplication[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private apartmentRequests: Map<string, ApartmentRequest>;
+  private ownerApplications: Map<string, OwnerApplication>;
 
   constructor() {
     this.users = new Map();
     this.apartmentRequests = new Map();
+    this.ownerApplications = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -50,6 +54,25 @@ export class MemStorage implements IStorage {
 
   async getApartmentRequests(): Promise<ApartmentRequest[]> {
     return Array.from(this.apartmentRequests.values()).sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
+  async createOwnerApplication(insertApplication: InsertOwnerApplication): Promise<OwnerApplication> {
+    const id = randomUUID();
+    const application: OwnerApplication = {
+      ...insertApplication,
+      id,
+      status: "new",
+      createdAt: new Date(),
+      question: insertApplication.question ?? null,
+    };
+    this.ownerApplications.set(id, application);
+    return application;
+  }
+
+  async getOwnerApplications(): Promise<OwnerApplication[]> {
+    return Array.from(this.ownerApplications.values()).sort(
       (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
     );
   }
