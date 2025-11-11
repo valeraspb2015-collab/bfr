@@ -4,47 +4,54 @@ import { storage } from "./storage";
 import { insertApartmentRequestSchema, insertOwnerApplicationSchema } from "@shared/schema";
 
 async function sendTelegramMessage(text: string): Promise<void> {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  if (!botToken) {
-    throw new Error("TELEGRAM_BOT_TOKEN not configured");
-  }
+  try {
+    const botToken = process.env.TELEGRAM_BOT_TOKEN;
+    if (!botToken) {
+      console.log("TELEGRAM_BOT_TOKEN not configured - skipping Telegram notification");
+      return;
+    }
 
-  // Получаем chat_id бота (обычно это ваш личный chat_id или chat_id группы)
-  // Для начала отправим в сам бот, чтобы получить chat_id
-  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  
-  // Сначала получим обновления, чтобы найти chat_id
-  const updatesUrl = `https://api.telegram.org/bot${botToken}/getUpdates`;
-  const updatesResponse = await fetch(updatesUrl);
-  const updatesData = await updatesResponse.json();
-  
-  let chatId = null;
-  if (updatesData.ok && updatesData.result.length > 0) {
-    // Берем последний chat_id из обновлений
-    chatId = updatesData.result[updatesData.result.length - 1]?.message?.chat?.id;
-  }
-  
-  if (!chatId) {
-    console.log("Chat ID not found. Please send any message to the bot first.");
-    // Используем тестовый chat_id или выбрасываем ошибку
-    throw new Error("Chat ID not found. Send a message to @bfrreplit_bot first to initialize chat.");
-  }
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    
+    // Получаем обновления, чтобы найти chat_id
+    const updatesUrl = `https://api.telegram.org/bot${botToken}/getUpdates`;
+    const updatesResponse = await fetch(updatesUrl);
+    const updatesData = await updatesResponse.json();
+    
+    let chatId = null;
+    if (updatesData.ok && updatesData.result.length > 0) {
+      // Берем последний chat_id из обновлений
+      chatId = updatesData.result[updatesData.result.length - 1]?.message?.chat?.id;
+    }
+    
+    if (!chatId) {
+      console.log("⚠️ Chat ID not found. Please send /start to @bfrreplit_bot first to initialize chat.");
+      console.log("📱 Notification will be sent via WhatsApp only.");
+      return;
+    }
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: text,
-      parse_mode: "HTML",
-    }),
-  });
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: text,
+        parse_mode: "HTML",
+      }),
+    });
 
-  const data = await response.json();
-  if (!data.ok) {
-    throw new Error(`Telegram API error: ${data.description}`);
+    const data = await response.json();
+    if (!data.ok) {
+      console.log(`⚠️ Telegram API error: ${data.description}`);
+      console.log("📱 Notification will be sent via WhatsApp only.");
+    } else {
+      console.log("✅ Message sent to Telegram successfully");
+    }
+  } catch (error) {
+    console.log("⚠️ Error sending Telegram message:", error);
+    console.log("📱 Notification will be sent via WhatsApp only.");
   }
 }
 
@@ -73,8 +80,10 @@ ${request.additionalInfo ? `\n📝 <b>Доп. информация:</b> ${reques
 🆔 ID заявки: ${request.id}
       `.trim();
 
-      // Отправка в Telegram
-      await sendTelegramMessage(message);
+      // Отправка в Telegram (опционально, не блокирует работу)
+      sendTelegramMessage(message).catch(err => 
+        console.log("Failed to send Telegram message:", err)
+      );
       
       res.json({ 
         success: true, 
@@ -120,7 +129,10 @@ ${application.question ? `\n❓ <b>Вопрос:</b> ${application.question}` : 
 🆔 ID заявки: ${application.id}
       `.trim();
 
-      await sendTelegramMessage(message);
+      // Отправка в Telegram (опционально, не блокирует работу)
+      sendTelegramMessage(message).catch(err => 
+        console.log("Failed to send Telegram message:", err)
+      );
       
       res.json({ 
         success: true, 
