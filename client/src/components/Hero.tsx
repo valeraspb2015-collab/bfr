@@ -104,13 +104,13 @@ export default function Hero({ onGetStarted, onOwnerApplication }: HeroProps) {
         <p className="text-[15px] text-[#6c7378]">
           Остались вопросы?{" "}
           <a 
-            href="https://t.me/+79213798941" 
+            href="https://t.me/bfrreplit_bot" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[#0070ba] hover:underline"
             data-testid="link-help-center"
           >
-            Напишите нам
+            Напишите нам в Telegram
           </a>
           , чтобы получить помощь
         </p>

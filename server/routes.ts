@@ -84,11 +84,26 @@ ${request.additionalInfo ? `\n📝 <b>Доп. информация:</b> ${reques
       sendTelegramMessage(message).catch(err => 
         console.log("Failed to send Telegram message:", err)
       );
+
+      // Формирование WhatsApp ссылки
+      const whatsappNumber = "79899865887";
+      const whatsappMessage = `Здравствуйте! Хочу подобрать квартиру через БФР.
+
+Имя: ${request.name}
+Телефон: ${request.phone}
+Район: ${request.location}
+Бюджет: ${request.budget} ₽/сутки
+Комнат: ${request.rooms}
+Дата заезда: ${request.moveInDate}
+Дата выезда: ${request.moveOutDate}${request.additionalInfo ? `\nДополнительная информация: ${request.additionalInfo}` : ''}`;
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       
       res.json({ 
         success: true, 
         message: "Заявка успешно отправлена!",
-        requestId: request.id 
+        requestId: request.id,
+        whatsappUrl
       });
     } catch (error) {
       console.error("Error processing apartment request:", error);
@@ -133,11 +148,23 @@ ${application.question ? `\n❓ <b>Вопрос:</b> ${application.question}` : 
       sendTelegramMessage(message).catch(err => 
         console.log("Failed to send Telegram message:", err)
       );
+
+      // Формирование WhatsApp ссылки
+      const whatsappNumber = "79213798941";
+      const whatsappMessage = `Здравствуйте! Хочу присоединиться к БФР как хозяин.
+
+Город: ${application.city}
+Имя: ${application.name}
+Телефон: ${application.phone}
+Ссылка на квартиру: ${application.listingUrl}${application.question ? `\nВопрос: ${application.question}` : ''}`;
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       
       res.json({ 
         success: true, 
         message: "Спасибо. Скоро с вами свяжемся.",
-        applicationId: application.id 
+        applicationId: application.id,
+        whatsappUrl
       });
     } catch (error) {
       console.error("Error processing owner application:", error);

@@ -14,23 +14,15 @@ export default function OwnerApplication() {
       const response = await apiRequest("POST", "/api/owner-applications", data);
       return await response.json();
     },
-    onSuccess: (data, formData) => {
+    onSuccess: (response) => {
       toast({
         title: "Спасибо!",
-        description: data.message || "Скоро с вами свяжемся.",
+        description: response.message || "Скоро с вами свяжемся.",
       });
 
-      const whatsappNumber = "79213798941";
-      const whatsappMessage = `Здравствуйте! Хочу присоединиться к БФР как хозяин.
-
-Город: ${formData.city}
-Имя: ${formData.name}
-Телефон: ${formData.phone}
-Ссылка на квартиру: ${formData.listingUrl}${formData.question ? `\nВопрос: ${formData.question}` : ''}`;
-
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-      
-      window.open(whatsappUrl, '_blank');
+      if (response.whatsappUrl) {
+        window.open(response.whatsappUrl, '_blank');
+      }
       
       setTimeout(() => {
         setLocation("/");
