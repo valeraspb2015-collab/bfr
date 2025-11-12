@@ -3,30 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Eye, MessageSquare, CheckCircle } from "lucide-react";
+import { ArrowLeft, Phone } from "lucide-react";
+import { SiTelegram, SiWhatsapp } from "react-icons/si";
+import { useQuery } from "@tanstack/react-query";
+import type { ApartmentRequest } from "@shared/schema";
 
 interface AdminPanelProps {
   onBack: () => void;
 }
 
 type RequestStatus = "new" | "in_progress" | "completed";
-
-interface Request {
-  id: string;
-  tenantName: string;
-  phone: string;
-  location: string;
-  budget: string;
-  rooms: string;
-  status: RequestStatus;
-  date: string;
-}
-
-const mockRequests: Request[] = [
-  { id: "REQ001", tenantName: "Анна Иванова", phone: "+7 (999) 111-11-11", location: "Москва, центр", budget: "50 000 ₽", rooms: "2", status: "new", date: "2025-11-01" },
-  { id: "REQ002", tenantName: "Петр Сидоров", phone: "+7 (999) 222-22-22", location: "СПб, Невский р-н", budget: "40 000 ₽", rooms: "1", status: "in_progress", date: "2025-11-01" },
-  { id: "REQ003", tenantName: "Мария Козлова", phone: "+7 (999) 333-33-33", location: "Москва, Юго-Запад", budget: "70 000 ₽", rooms: "3", status: "completed", date: "2025-10-31" },
-];
 
 const statusLabels: Record<RequestStatus, string> = {
   new: "Новая",
@@ -42,16 +28,45 @@ const statusColors: Record<RequestStatus, string> = {
 
 export default function AdminPanel({ onBack }: AdminPanelProps) {
   const [filter, setFilter] = useState<"all" | RequestStatus>("all");
-  const [requests, setRequests] = useState<Request[]>(mockRequests);
+
+  const { data: requests = [], isLoading } = useQuery<ApartmentRequest[]>({
+    queryKey: ['/api/apartment-requests'],
+  });
 
   const filteredRequests = filter === "all" 
     ? requests 
     : requests.filter(req => req.status === filter);
 
-  const handleStatusChange = (id: string, newStatus: RequestStatus) => {
-    setRequests(prev => prev.map(req => 
-      req.id === id ? { ...req, status: newStatus } : req
-    ));
+  const handleReplyWhatsApp = (request: ApartmentRequest) => {
+    const phone = request.phone.replace(/\D/g, '');
+    const message = `Здравствуйте, ${request.name}! Это БФР. 
+
+По вашей заявке на квартиру:
+📍 Район: ${request.location}
+💰 Бюджет: ${request.budget} ₽/сутки
+🛏 Комнат: ${request.rooms}
+📅 Заезд: ${request.moveInDate}
+📅 Выезд: ${request.moveOutDate}
+
+Готовы предложить варианты. Когда удобно обсудить?`;
+    
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleReplyTelegram = (request: ApartmentRequest) => {
+    const phone = request.phone.replace(/\D/g, '');
+    const telegramUrl = `https://t.me/+${phone}`;
+    window.open(telegramUrl, '_blank');
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
   };
 
   return (
@@ -72,7 +87,9 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-[20px] font-semibold text-foreground">Заявки арендаторов</h2>
+          <h2 className="text-[20px] font-semibold text-foreground">
+            Заявки от гостей ({requests.length})
+          </h2>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">Фильтр:</span>
             <Select value={filter} onValueChange={(value) => setFilter(value as typeof filter)}>
@@ -89,86 +106,116 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
           </div>
         </div>
 
-        <div className="space-y-4">
-          {filteredRequests.map((request) => (
-            <Card key={request.id} className="p-6" data-testid={`card-request-${request.id}`}>
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                <div className="flex-1 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm text-muted-foreground">{request.id}</span>
-                    <Badge className={`${statusColors[request.status]} text-xs no-default-hover-elevate no-default-active-elevate`}>
-                      {statusLabels[request.status]}
-                    </Badge>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">Имя: </span>
-                      <span className="font-medium text-foreground">{request.tenantName}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Телефон: </span>
-                      <span className="font-medium text-foreground">{request.phone}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Район: </span>
-                      <span className="font-medium text-foreground">{request.location}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Бюджет: </span>
-                      <span className="font-medium text-foreground">{request.budget}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Комнат: </span>
-                      <span className="font-medium text-foreground">{request.rooms}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Дата: </span>
-                      <span className="font-medium text-foreground">{new Date(request.date).toLocaleDateString('ru-RU')}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2 lg:flex-col">
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => console.log('View details:', request.id)}
-                    data-testid={`button-view-${request.id}`}
-                  >
-                    <Eye className="w-4 h-4 mr-2" />
-                    Детали
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => console.log('Contact:', request.id)}
-                    data-testid={`button-contact-${request.id}`}
-                  >
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    Связаться
-                  </Button>
-                  {request.status !== "completed" && (
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleStatusChange(request.id, "completed")}
-                      data-testid={`button-complete-${request.id}`}
-                    >
-                      <CheckCircle className="w-4 h-4 mr-2" />
-                      Завершить
-                    </Button>
-                  )}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {filteredRequests.length === 0 && (
+        {isLoading ? (
           <Card className="p-12 text-center">
-            <p className="text-muted-foreground">Нет заявок с выбранным фильтром</p>
+            <p className="text-muted-foreground">Загрузка заявок...</p>
           </Card>
+        ) : filteredRequests.length === 0 ? (
+          <Card className="p-12 text-center">
+            <p className="text-muted-foreground">
+              {requests.length === 0 
+                ? "Пока нет заявок от гостей" 
+                : "Нет заявок с выбранным фильтром"}
+            </p>
+          </Card>
+        ) : (
+          <div className="space-y-4">
+            {filteredRequests.map((request) => (
+              <Card key={request.id} className="p-6" data-testid={`card-request-${request.id}`}>
+                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+                  <div className="flex-1 space-y-3">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="font-mono text-xs text-muted-foreground">
+                        ID: {request.id.slice(0, 8)}
+                      </span>
+                      <Badge className={`${statusColors[request.status as RequestStatus]} text-xs no-default-hover-elevate no-default-active-elevate`}>
+                        {statusLabels[request.status as RequestStatus]}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        {formatDate(request.createdAt.toString())}
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Гость: </span>
+                        <span className="font-medium text-foreground">{request.name}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Телефон: </span>
+                        <a 
+                          href={`tel:${request.phone}`}
+                          className="font-medium text-foreground hover:text-primary"
+                        >
+                          {request.phone}
+                        </a>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Район: </span>
+                        <span className="font-medium text-foreground">{request.location}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Бюджет: </span>
+                        <span className="font-medium text-foreground">{request.budget} ₽/сутки</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Комнат: </span>
+                        <span className="font-medium text-foreground">{request.rooms}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Даты: </span>
+                        <span className="font-medium text-foreground">
+                          {request.moveInDate} — {request.moveOutDate}
+                        </span>
+                      </div>
+                      {request.additionalInfo && (
+                        <div className="md:col-span-2">
+                          <span className="text-muted-foreground">Доп. информация: </span>
+                          <span className="font-medium text-foreground">{request.additionalInfo}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 lg:flex-col lg:min-w-[140px]">
+                    <Button 
+                      variant="default"
+                      size="sm"
+                      onClick={() => handleReplyWhatsApp(request)}
+                      className="flex-1 lg:flex-none bg-[#25D366] hover:bg-[#20ba59]"
+                      data-testid={`button-whatsapp-${request.id}`}
+                    >
+                      <SiWhatsapp className="w-4 h-4 mr-2" />
+                      WhatsApp
+                    </Button>
+                    <Button 
+                      variant="default"
+                      size="sm"
+                      onClick={() => handleReplyTelegram(request)}
+                      className="flex-1 lg:flex-none bg-[#0088cc] hover:bg-[#0077b5]"
+                      data-testid={`button-telegram-${request.id}`}
+                    >
+                      <SiTelegram className="w-4 h-4 mr-2" />
+                      Telegram
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const phone = request.phone.replace(/\D/g, '');
+                        window.location.href = `tel:${phone}`;
+                      }}
+                      className="flex-1 lg:flex-none"
+                      data-testid={`button-call-${request.id}`}
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      Позвонить
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
         )}
       </div>
     </div>
