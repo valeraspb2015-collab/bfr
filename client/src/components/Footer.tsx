@@ -17,11 +17,13 @@ export default function Footer() {
             <span>Напишите в Telegram</span>
           </a>
           <a 
-            href="/request"
+            href="https://wa.me/79213798941"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 hover-elevate px-4 py-2 rounded-md transition-colors"
-            data-testid="link-contact"
+            data-testid="link-whatsapp"
           >
-            <MessageSquare className="w-5 h-5 text-[#25D366]" />
+            <SiWhatsapp className="w-5 h-5 text-[#25D366]" />
             <span>Связаться с нами</span>
           </a>
         </div>
