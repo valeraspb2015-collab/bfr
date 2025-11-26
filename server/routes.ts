@@ -6,29 +6,14 @@ import { insertApartmentRequestSchema, insertOwnerApplicationSchema } from "@sha
 async function sendTelegramMessage(text: string): Promise<void> {
   try {
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
-    if (!botToken) {
-      console.log("TELEGRAM_BOT_TOKEN not configured - skipping Telegram notification");
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+    
+    if (!botToken || !chatId) {
+      console.log("⚠️ Telegram not configured - skipping notification");
       return;
     }
 
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    
-    // Получаем обновления, чтобы найти chat_id
-    const updatesUrl = `https://api.telegram.org/bot${botToken}/getUpdates`;
-    const updatesResponse = await fetch(updatesUrl);
-    const updatesData = await updatesResponse.json();
-    
-    let chatId = null;
-    if (updatesData.ok && updatesData.result.length > 0) {
-      // Берем последний chat_id из обновлений
-      chatId = updatesData.result[updatesData.result.length - 1]?.message?.chat?.id;
-    }
-    
-    if (!chatId) {
-      console.log("⚠️ Chat ID not found. Please send /start to @bfrreplit_bot first to initialize chat.");
-      console.log("📱 Notification will be sent via WhatsApp only.");
-      return;
-    }
 
     const response = await fetch(url, {
       method: "POST",
@@ -45,13 +30,11 @@ async function sendTelegramMessage(text: string): Promise<void> {
     const data = await response.json();
     if (!data.ok) {
       console.log(`⚠️ Telegram API error: ${data.description}`);
-      console.log("📱 Notification will be sent via WhatsApp only.");
     } else {
       console.log("✅ Message sent to Telegram successfully");
     }
   } catch (error) {
     console.log("⚠️ Error sending Telegram message:", error);
-    console.log("📱 Notification will be sent via WhatsApp only.");
   }
 }
 

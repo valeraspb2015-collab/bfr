@@ -39,6 +39,10 @@ localPort = 41695
 externalPort = 3003
 
 [[ports]]
+localPort = 44209
+externalPort = 6000
+
+[[ports]]
 localPort = 46603
 externalPort = 4200
 
@@ -68,3 +72,8 @@ waitForPort = 5000
 
 [agent]
 integrations = ["javascript_mem_db:1.0.0"]
+
+[userenv]
+
+[userenv.shared]
+TELEGRAM_CHAT_ID = "5033331742"
