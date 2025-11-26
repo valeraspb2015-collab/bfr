@@ -14,15 +14,11 @@ export default function Request() {
       const response = await apiRequest("POST", "/api/apartment-requests", data);
       return await response.json();
     },
-    onSuccess: (response) => {
+    onSuccess: () => {
       toast({
-        title: "Заявка отправлена!",
-        description: "Мы свяжемся с вами в течение 10 минут. Проверьте @bfrreplit_bot в Telegram.",
+        title: "Спасибо",
+        description: "Ждите ответа.",
       });
-
-      if (response.whatsappUrl) {
-        window.open(response.whatsappUrl, '_blank');
-      }
       
       setTimeout(() => {
         setLocation("/");
