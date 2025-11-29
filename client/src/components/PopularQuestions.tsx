@@ -1,10 +1,11 @@
-import { ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { ChevronRight, X } from "lucide-react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const faqData = [
   {
@@ -42,45 +43,46 @@ const faqData = [
 ];
 
 export default function PopularQuestions() {
+  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+
   return (
     <section id="faq" className="py-12 px-4 bg-[#f7f9fc]">
       <div className="max-w-4xl mx-auto">
         <h2 
-          className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center"
+          className="text-2xl md:text-3xl font-bold text-gray-900 mb-10"
           data-testid="text-faq-title"
         >
-          Популярные вопросы
+          Популярные статьи
         </h2>
-        <p className="text-gray-600 text-center mb-10">
-          Ответы на часто задаваемые вопросы о работе платформы
-        </p>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <Accordion type="single" collapsible className="w-full">
-            {faqData.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="border-b border-gray-100 last:border-b-0"
-                data-testid={`card-faq-${index}`}
-              >
-                <AccordionTrigger 
-                  className="px-6 py-5 text-left text-base font-medium text-gray-900 hover:text-[#0078d7] hover:no-underline hover:bg-gray-50 transition-colors [&[data-state=open]>svg]:rotate-90"
-                  data-testid={`button-faq-${index}`}
-                >
-                  <span className="flex-1 pr-4">{faq.question}</span>
-                  <ChevronRight className="w-5 h-5 text-gray-400 transition-transform duration-200 shrink-0" />
-                </AccordionTrigger>
-                <AccordionContent 
-                  className="px-6 pb-5 text-gray-600 leading-relaxed"
-                  data-testid={`text-faq-answer-${index}`}
-                >
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+        <div className="space-y-0">
+          {faqData.map((faq, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedFaq(index)}
+              className="w-full flex items-center justify-between py-4 px-0 border-b border-gray-200 hover:bg-white/50 transition-colors text-left group"
+              data-testid={`link-article-${index}`}
+            >
+              <span className="text-base text-gray-900 group-hover:text-[#0078d7] transition-colors pr-4">
+                {faq.question}
+              </span>
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#0078d7] shrink-0 transition-colors" />
+            </button>
+          ))}
         </div>
+
+        <Dialog open={selectedFaq !== null} onOpenChange={() => setSelectedFaq(null)}>
+          <DialogContent className="max-w-lg rounded-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-semibold text-gray-900 pr-8">
+                {selectedFaq !== null && faqData[selectedFaq].question}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="text-gray-600 leading-relaxed mt-2">
+              {selectedFaq !== null && faqData[selectedFaq].answer}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
