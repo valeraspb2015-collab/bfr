@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import rulesImage from "@assets/generated_images/community_rules_guidelines.png";
 import safetyImage from "@assets/generated_images/safety_and_security_shield.png";
-import cancellationImage from "@assets/generated_images/cancellation_and_refund.png";
 
 export default function MoreInfoSection() {
   const infoCards = [
@@ -19,12 +18,6 @@ export default function MoreInfoSection() {
       title: "Советы по безопасности",
       description: "Рекомендации для безопасного бронирования и размещения гостей",
     },
-    {
-      id: "cancellation",
-      image: cancellationImage,
-      title: "Отмена бронирования",
-      description: "Что делать, если нужно изменить или отменить бронирование",
-    },
   ];
 
   return (
@@ -39,7 +32,7 @@ export default function MoreInfoSection() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {infoCards.map((card) => (
                 <Card
                   key={card.id}
