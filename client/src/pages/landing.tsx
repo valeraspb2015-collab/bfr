@@ -4,7 +4,6 @@ import HelpHero from "@/components/HelpHero";
 import GuidesSection from "@/components/GuidesSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import MoreInfoSection from "@/components/MoreInfoSection";
-import ContactSection from "@/components/ContactSection";
 import HelpFooter from "@/components/HelpFooter";
 
 export default function Landing() {
@@ -31,7 +30,6 @@ export default function Landing() {
       />
       <PopularQuestions />
       <MoreInfoSection />
-      <ContactSection />
       <HelpFooter 
         onGuestClick={handleGetStarted} 
         onOwnerClick={handleOwnerApplication} 
