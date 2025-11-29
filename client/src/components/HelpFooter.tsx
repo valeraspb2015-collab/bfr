@@ -11,25 +11,28 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
     <footer className="bg-gray-900 text-gray-300 py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 pb-10 border-b border-gray-800">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <h3 className="text-xl font-semibold text-white mb-4">Наша миссия</h3>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              БФР создан как ответ на дорогие комиссионные модели крупных площадок. 
-              Мы объединяем удобство современных технологий с прямым контактом между людьми, 
-              чтобы аренда жилья была честной и доступной для всех.
+            <p className="text-gray-400 leading-relaxed mb-4">
+              БФР создаётся как альтернативный путь к аренде жилья: вернуть прямой контакт между гостями и хозяевами, 
+              сохранив удобство онлайн-сервисов, но без лишних посреднических комиссий и задержек выплат.
+            </p>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+              Платформа опирается на силу сообществ и нейросетей, чтобы автоматизировать рутину и дать людям 
+              возможность договариваться напрямую — так, как это было до эпохи обязательных онлайн-бронирований.
             </p>
             <div className="flex flex-wrap gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#00a67d] rounded-full"></div>
-                <span>Прямые отношения</span>
+                <div className="w-2 h-2 bg-[#0078d7] rounded-full"></div>
+                <span>Прямой контакт без посредников</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#0078d7] rounded-full"></div>
-                <span>Технологии вместо посредников</span>
+                <div className="w-2 h-2 bg-[#00a67d] rounded-full"></div>
+                <span>Честная цена без комиссий</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-[#9b59b6] rounded-full"></div>
-                <span>Справедливые цены</span>
+                <span>Нейросети вместо рутины</span>
               </div>
             </div>
           </div>
@@ -45,7 +48,7 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Сообщество хозяев квартир — аренда напрямую без комиссий.
+              Сообщество хозяев квартир — аренда напрямую без комиссий площадке.
             </p>
           </div>
 

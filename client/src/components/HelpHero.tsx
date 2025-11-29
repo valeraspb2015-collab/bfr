@@ -33,7 +33,7 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
             className="inline-block px-4 py-2 bg-[#0078d7]/10 text-[#0078d7] text-sm font-medium rounded-full"
             data-testid="badge-slogan"
           >
-            Аренда без комиссий — напрямую от хозяев
+            Альтернатива комиссионным площадкам
           </span>
         </div>
 
@@ -41,19 +41,19 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
           data-testid="text-hero-title"
         >
-          Чем БФР может помочь?
+          БФР — честная аренда без лишних комиссий
         </h1>
         <p 
-          className="text-lg text-gray-600 mb-4"
+          className="text-lg text-gray-600 mb-4 max-w-2xl mx-auto"
           data-testid="text-hero-subtitle"
         >
-          Прямой контакт. Честные цены. Современные технологии.
+          Соединяем гостей и хозяев напрямую через мессенджеры, а нейросети берут на себя рутину — поиск, проверку и оформление
         </p>
         <p 
           className="text-base text-gray-500 mb-10"
           data-testid="text-hero-description"
         >
-          Центр помощи для гостей и хозяев жилья
+          Удобство онлайн-площадок без переплаты за посредников
         </p>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">

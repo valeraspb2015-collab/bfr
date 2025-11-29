@@ -2,6 +2,7 @@ import { useLocation } from "wouter";
 import HelpHeader from "@/components/HelpHeader";
 import HelpHero from "@/components/HelpHero";
 import WhyBFRSection from "@/components/WhyBFRSection";
+import ForGuestsHostsSection from "@/components/ForGuestsHostsSection";
 import GuidesSection from "@/components/GuidesSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import MoreInfoSection from "@/components/MoreInfoSection";
@@ -27,6 +28,10 @@ export default function Landing() {
         onOwnerClick={handleOwnerApplication} 
       />
       <WhyBFRSection />
+      <ForGuestsHostsSection
+        onGuestClick={handleGetStarted}
+        onOwnerClick={handleOwnerApplication}
+      />
       <GuidesSection 
         onGuestClick={handleGetStarted} 
         onOwnerClick={handleOwnerApplication} 
