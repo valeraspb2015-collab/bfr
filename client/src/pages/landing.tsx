@@ -1,8 +1,11 @@
 import { useLocation } from "wouter";
-import Hero from "@/components/Hero";
-import FAQ from "@/components/FAQ";
-import HowItWorks from "@/components/HowItWorks";
-import Footer from "@/components/Footer";
+import HelpHeader from "@/components/HelpHeader";
+import HelpHero from "@/components/HelpHero";
+import GuidesSection from "@/components/GuidesSection";
+import PopularQuestions from "@/components/PopularQuestions";
+import SafetySection from "@/components/SafetySection";
+import ContactSection from "@/components/ContactSection";
+import HelpFooter from "@/components/HelpFooter";
 
 export default function Landing() {
   const [, setLocation] = useLocation();
@@ -16,11 +19,26 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen">
-      <Hero onGetStarted={handleGetStarted} onOwnerApplication={handleOwnerApplication} />
-      <FAQ />
-      <HowItWorks onSubmitRequest={handleGetStarted} />
-      <Footer />
+    <div className="min-h-screen bg-white">
+      <HelpHeader 
+        onGuestClick={handleGetStarted} 
+        onOwnerClick={handleOwnerApplication} 
+      />
+      <HelpHero 
+        onGuestClick={handleGetStarted} 
+        onOwnerClick={handleOwnerApplication} 
+      />
+      <GuidesSection 
+        onGuestClick={handleGetStarted} 
+        onOwnerClick={handleOwnerApplication} 
+      />
+      <PopularQuestions />
+      <SafetySection />
+      <ContactSection />
+      <HelpFooter 
+        onGuestClick={handleGetStarted} 
+        onOwnerClick={handleOwnerApplication} 
+      />
     </div>
   );
 }
