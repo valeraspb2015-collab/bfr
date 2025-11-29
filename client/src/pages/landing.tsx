@@ -3,7 +3,7 @@ import HelpHeader from "@/components/HelpHeader";
 import HelpHero from "@/components/HelpHero";
 import GuidesSection from "@/components/GuidesSection";
 import PopularQuestions from "@/components/PopularQuestions";
-import SafetySection from "@/components/SafetySection";
+import MoreInfoSection from "@/components/MoreInfoSection";
 import ContactSection from "@/components/ContactSection";
 import HelpFooter from "@/components/HelpFooter";
 
@@ -30,7 +30,7 @@ export default function Landing() {
         onOwnerClick={handleOwnerApplication} 
       />
       <PopularQuestions />
-      <SafetySection />
+      <MoreInfoSection />
       <ContactSection />
       <HelpFooter 
         onGuestClick={handleGetStarted} 
