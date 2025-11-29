@@ -28,6 +28,15 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
   return (
     <section className="bg-gradient-to-b from-[#f7f9fc] to-white py-16 px-4">
       <div className="max-w-3xl mx-auto text-center">
+        <div className="mb-6">
+          <span 
+            className="inline-block px-4 py-2 bg-[#0078d7]/10 text-[#0078d7] text-sm font-medium rounded-full"
+            data-testid="badge-slogan"
+          >
+            Аренда без комиссий — напрямую от хозяев
+          </span>
+        </div>
+
         <h1 
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
           data-testid="text-hero-title"
@@ -35,8 +44,14 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
           Чем БФР может помочь?
         </h1>
         <p 
-          className="text-lg text-gray-600 mb-10"
+          className="text-lg text-gray-600 mb-4"
           data-testid="text-hero-subtitle"
+        >
+          Прямой контакт. Честные цены. Современные технологии.
+        </p>
+        <p 
+          className="text-base text-gray-500 mb-10"
+          data-testid="text-hero-description"
         >
           Центр помощи для гостей и хозяев жилья
         </p>

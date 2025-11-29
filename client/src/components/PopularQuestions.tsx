@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,6 +8,14 @@ import {
 } from "@/components/ui/dialog";
 
 const faqData = [
+  {
+    question: "Чем БФР отличается от Airbnb и Booking?",
+    answer: "БФР — это сообщество хозяев квартир, где гости и хозяева общаются напрямую через мессенджеры без посредников. Мы не берём комиссию с каждой сделки, как крупные площадки. Вы договариваетесь напрямую и платите только за жильё, без скрытых сервисных сборов."
+  },
+  {
+    question: "Почему аренда через БФР дешевле?",
+    answer: "Крупные площадки берут 12-20% комиссии с гостей и хозяев, что закладывается в итоговую цену. БФР использует модель прямого контакта и автоматизацию через ИИ, что позволяет убрать посреднические расходы и предложить более честные цены."
+  },
   {
     question: "Какие преимущества для гостей?",
     answer: "Персональный подбор квартиры без долгого поиска и звонков по объявлениям. Запрос обрабатывается оператором или ассистентом, гости получают актуальные предложения, которые максимально соответствуют их пожеланиям."
@@ -46,7 +54,7 @@ export default function PopularQuestions() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-12 px-4 bg-[#f7f9fc]">
+    <section id="faq" className="py-12 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
         <h2 
           className="text-2xl md:text-3xl font-bold text-gray-900 mb-10"
@@ -60,7 +68,7 @@ export default function PopularQuestions() {
             <button
               key={index}
               onClick={() => setSelectedFaq(index)}
-              className="w-full flex items-center justify-between py-4 px-0 border-b border-gray-200 hover:bg-white/50 transition-colors text-left group"
+              className="w-full flex items-center justify-between py-4 px-0 border-b border-gray-200 hover:bg-gray-50 transition-colors text-left group"
               data-testid={`link-article-${index}`}
             >
               <span className="text-base text-gray-900 group-hover:text-[#0078d7] transition-colors pr-4">
