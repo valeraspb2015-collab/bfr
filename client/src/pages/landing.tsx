@@ -20,10 +20,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-white">
-      <HelpHeader 
-        onGuestClick={handleGetStarted} 
-        onOwnerClick={handleOwnerApplication} 
-      />
+      <HelpHeader />
       <HelpHero 
         onGuestClick={handleGetStarted} 
         onOwnerClick={handleOwnerApplication} 

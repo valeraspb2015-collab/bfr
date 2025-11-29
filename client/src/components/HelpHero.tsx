@@ -1,23 +1,20 @@
 import { useState } from "react";
-import { Search, User, Home, Settings } from "lucide-react";
+import { User, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 interface HelpHeroProps {
   onGuestClick: () => void;
   onOwnerClick: () => void;
 }
 
-type RoleType = "guest" | "owner" | "admin";
+type RoleType = "guest" | "owner";
 
 export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) {
   const [activeRole, setActiveRole] = useState<RoleType>("guest");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const roles = [
     { id: "guest" as RoleType, label: "Гость", icon: User },
     { id: "owner" as RoleType, label: "Хозяин жилья", icon: Home },
-    { id: "admin" as RoleType, label: "Администратор", icon: Settings },
   ];
 
   const handleRoleAction = () => {
@@ -38,23 +35,11 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
           Чем БФР может помочь?
         </h1>
         <p 
-          className="text-lg text-gray-600 mb-8"
+          className="text-lg text-gray-600 mb-10"
           data-testid="text-hero-subtitle"
         >
           Центр помощи для гостей и хозяев жилья
         </p>
-
-        <div className="relative max-w-xl mx-auto mb-10">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="Поиск по вопросам и инструкциям"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 pr-4 py-6 text-base rounded-full border-gray-200 shadow-sm focus:border-[#0078d7] focus:ring-[#0078d7]"
-            data-testid="input-search"
-          />
-        </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {roles.map((role) => {
@@ -78,16 +63,14 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
           })}
         </div>
 
-        {activeRole !== "admin" && (
-          <Button
-            size="lg"
-            onClick={handleRoleAction}
-            className="bg-[#0078d7] hover:bg-[#005fa3] text-white rounded-full px-10 py-6 text-base shadow-lg"
-            data-testid="button-hero-action"
-          >
-            {activeRole === "guest" ? "Подобрать квартиру" : "Подать заявку хозяина"}
-          </Button>
-        )}
+        <Button
+          size="lg"
+          onClick={handleRoleAction}
+          className="bg-[#0078d7] hover:bg-[#005fa3] text-white rounded-full px-10 py-6 text-base shadow-lg"
+          data-testid="button-hero-action"
+        >
+          {activeRole === "guest" ? "Подобрать квартиру" : "Подать заявку хозяина"}
+        </Button>
       </div>
     </section>
   );
