@@ -1,5 +1,8 @@
-import { BookOpen, CreditCard, UserCheck, Lightbulb } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import guestImage from "@assets/generated_images/guest_arriving_at_apartment.png";
+import hostImage from "@assets/generated_images/host_with_apartment_keys.png";
+import bookingImage from "@assets/generated_images/booking_management_calendar.png";
+import tipsImage from "@assets/generated_images/tips_and_ideas_lightbulb.png";
 
 interface GuidesSectionProps {
   onGuestClick: () => void;
@@ -10,34 +13,30 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
   const guides = [
     {
       id: "guest-start",
-      icon: UserCheck,
+      image: guestImage,
       title: "Первые шаги гостя в БФР",
       description: "Узнайте, как быстро найти подходящую квартиру и связаться с хозяином",
-      color: "#0078d7",
       onClick: onGuestClick,
     },
     {
       id: "owner-start",
-      icon: BookOpen,
+      image: hostImage,
       title: "Первые шаги хозяина в БФР",
       description: "Как начать принимать гостей и получать заявки через сообщество",
-      color: "#00a67d",
       onClick: onOwnerClick,
     },
     {
       id: "booking",
-      icon: CreditCard,
+      image: bookingImage,
       title: "Управление бронированием",
       description: "Информация об оплате, подтверждении и условиях аренды",
-      color: "#9b59b6",
       onClick: undefined,
     },
     {
       id: "tips",
-      icon: Lightbulb,
+      image: tipsImage,
       title: "Полезные советы",
       description: "Рекомендации для успешного сотрудничества гостей и хозяев",
-      color: "#f39c12",
       onClick: undefined,
     },
   ];
@@ -56,30 +55,30 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {guides.map((guide) => {
-            const Icon = guide.icon;
-            return (
-              <Card
-                key={guide.id}
-                className={`group p-6 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all cursor-pointer bg-white ${guide.onClick ? 'hover:-translate-y-1' : ''}`}
-                onClick={guide.onClick}
-                data-testid={`card-guide-${guide.id}`}
-              >
-                <div 
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
-                  style={{ backgroundColor: `${guide.color}15` }}
-                >
-                  <Icon className="w-7 h-7" style={{ color: guide.color }} />
-                </div>
+          {guides.map((guide) => (
+            <Card
+              key={guide.id}
+              className={`group overflow-hidden border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all bg-white ${guide.onClick ? 'cursor-pointer hover:-translate-y-1' : 'cursor-default'}`}
+              onClick={guide.onClick}
+              data-testid={`card-guide-${guide.id}`}
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-gray-50">
+                <img 
+                  src={guide.image} 
+                  alt={guide.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-5">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#0078d7] transition-colors">
                   {guide.title}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
                   {guide.description}
                 </p>
-              </Card>
-            );
-          })}
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
