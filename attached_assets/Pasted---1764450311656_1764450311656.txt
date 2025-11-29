@@ -1,0 +1,50 @@
+Для главной страницы БФР можно сделать два коротких блока «Для гостей» и «Для хозяев», которые сразу объясняют выгоды каждой стороне.[1][2]
+
+## Блок «Для гостей»
+
+Заголовок:  
+Для гостей — больше выбора и ниже цена[3][1]
+
+Текст:  
+- Прямой контакт с хозяином без лишних посредников и скрытых сервисных сборов.[4][3]
+- Умные подборки и помощь нейросети: быстро находим подходящие варианты под ваши даты, бюджет и запросы.[2][5][6]
+- Поддержка и сопровождение в мессенджерах: все вопросы по заселению, оплате и допуслугам — в одном удобном чате.[7][8]
+
+## Блок «Для хозяев»
+
+Заголовок:  
+Для хозяев — больше дохода и меньше рутины[9][2]
+
+Текст:  
+- Нет комиссии площадке с каждой сделки: больше денег остается у вас, а цены для гостей остаются конкурентными.[10][3]
+- Нейросети и автоматизации помогают обрабатывать заявки, отвечать гостям и предлагать допуслуги без 24/7 онлайна.[5][11][12]
+- Сообщество хозяев, операторов и экспертов: обмен опытом, поддержка и инструменты для роста дохода от аренды.[13][2]
+
+Эти блоки можно поставить сразу под основным блоком «Почему БФР» и использовать как основу для разделов/вкладок «Гостям» и «Хозяевам» на сайте.
+
+[1](https://cascadepolicy.org/economic-opportunity/the-sharing-economy-benefits-homeowners-guests/)
+[2](https://ascendixtech.com/how-to-create-rental-website/)
+[3](https://www.perplexity.ai/search/903dbe26-64dd-4e3a-9e3f-411f3f9f7856)
+[4](https://www.buildupbookings.com/blog/direct-booking-fees/)
+[5](https://convin.ai/blog/vacation-rental-property-management)
+[6](https://www.perplexity.ai/search/75b9aefa-c3c3-42c9-a12b-cb3e1e2767cf)
+[7](https://www.avantio.com/blog/guest-experience-short-term-rentals/)
+[8](https://www.rentalready.com/blog/ai-communication-guest-engagement/)
+[9](https://www.hostfully.com/blog/benefits-of-dynamic-pricing-for-vacation-rental-hosts/)
+[10](https://fiare.com/articles/is-a-subscription-or-commission-model-better-for-property-marketplaces/)
+[11](https://www.hostaway.com/blog/how-to-use-ai-in-your-short-term-rental-business/)
+[12](https://hostex.io/blog/ai-tools-for-vacation-rental-hosts/)
+[13](https://www.perplexity.ai/search/16153eda-2305-4aa1-8778-cbaf508ebccb)
+[14](https://www.airbnb.ru/help)
+[15](https://www.qoreups.com/academy/top-must-have-features-of-online-b2b-rental-marketplace/)
+[16](https://www.hostfully.com/blog/amenities-and-services-vacation-rental-guests-will-pay-more-for/)
+[17](https://blog.innstyle.com/2023/11/5-unique-advantages-of-vacation-rentals/)
+[18](https://partner.expediagroup.com/en-us/landing-pages/vrbo-premier-host-program)
+[19](https://www.nowistay.com)
+[20](https://simtechdev.com/blog/things-to-consider-building-a-rental-marketplace/)
+[21](https://www.rentalscaleup.com/airbnb-host-marketplace/)
+[22](https://www.hostwise.pt/blogs/our-blog/benefits-vacation-rental-management-company)
+[23](https://www.linkedin.com/pulse/10-features-you-must-include-online-rental-marketplace-naiya-kush-qwrdc)
+[24](https://www.zodiak.co.nz/blog/top-3-benefits-of-short-term-rentals)
+[25](https://sloboda-studio.com/blog/how-to-build-a-rental-marketplace/)
+[26](https://www.igms.com/benefits-of-a-property-management-system/)
