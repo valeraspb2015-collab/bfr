@@ -1,49 +1,48 @@
-import { MessageCircle, Percent, Brain, Users, Shield, Zap } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import directContactImage from "@assets/generated_images/direct_contact_messaging_illustration.png";
+import savingsImage from "@assets/generated_images/savings_no_hidden_fees.png";
+import aiImage from "@assets/generated_images/ai_automation_neural_network.png";
+import communityImage from "@assets/generated_images/community_support_group.png";
+import securityImage from "@assets/generated_images/security_shield_protection.png";
+import speedImage from "@assets/generated_images/fast_payment_lightning.png";
 
 export default function WhyBFRSection() {
   const advantages = [
     {
       id: "direct-contact",
-      icon: MessageCircle,
+      image: directContactImage,
       title: "Прямой контакт",
       description: "Гость и хозяин общаются напрямую в привычных каналах без навязанных правил посредников.",
-      color: "#0078d7",
     },
     {
       id: "no-commission",
-      icon: Percent,
-      title: "Без лишних процентов",
-      description: "Ни комиссий с каждой сделки, ни скрытых сборов — базовая экономия уже заложена в модель.",
-      color: "#00a67d",
+      image: savingsImage,
+      title: "Без лишних затрат",
+      description: "Нет скрытых сборов — базовая экономия уже заложена в модель.",
     },
     {
       id: "ai-automation",
-      icon: Brain,
+      image: aiImage,
       title: "Умная автоматизация",
       description: "Нейросети помогают с подбором вариантов, проверкой сторон и документами, ускоряя весь процесс.",
-      color: "#9b59b6",
     },
     {
       id: "community",
-      icon: Users,
+      image: communityImage,
       title: "Сообщество",
       description: "Живые группы хозяев и операторов, взаимопомощь и репутация вместо анонимного рынка.",
-      color: "#e67e22",
     },
     {
       id: "security",
-      icon: Shield,
+      image: securityImage,
       title: "Безопасность",
       description: "Проверки, рейтинги и стандарты сообщества для защиты гостей и хозяев.",
-      color: "#3498db",
     },
     {
       id: "speed",
-      icon: Zap,
+      image: speedImage,
       title: "Быстрые выплаты",
       description: "Деньги поступают напрямую хозяину без задержек и ожидания от платформы.",
-      color: "#f39c12",
     },
   ];
 
@@ -63,29 +62,29 @@ export default function WhyBFRSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {advantages.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Card
-                key={item.id}
-                className="p-6 border border-gray-100 rounded-2xl shadow-sm bg-white hover:shadow-md transition-shadow"
-                data-testid={`card-advantage-${item.id}`}
-              >
-                <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ backgroundColor: `${item.color}15` }}
-                >
-                  <Icon className="w-6 h-6" style={{ color: item.color }} />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          {advantages.map((item) => (
+            <Card
+              key={item.id}
+              className="group overflow-hidden border border-gray-100 rounded-2xl shadow-sm bg-white hover:shadow-lg transition-all hover:-translate-y-1"
+              data-testid={`card-advantage-${item.id}`}
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#0078d7] transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
                   {item.description}
                 </p>
-              </Card>
-            );
-          })}
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
