@@ -1,0 +1,57 @@
+Ты очень точно сформулировала суть проблемы: классические площадки ушли в модель комиссий и онлайн‑бронирования, сделав процесс удобнее, но одновременно дороже и менее свободным для сторон, и БФР как раз рождается как ответ на эту ситуацию.[1][2]
+
+## Зафиксируем это как основу миссии БФР
+
+Суть:  
+- Большинство онлайн‑площадок по аренде живет за счет комиссии с каждой сделки (часто берут процент с гостя, хозяина или обоих), что в итоге закладывается в цену аренды и снижает чистый доход хозяев.[3][4][1]
+- Онлайн‑бронирование действительно повысило удобство и предсказуемость: быстрый поиск, прозрачные условия, защита платежей, меньше «человеческого фактора».[5][1]
+- Обратная сторона:  
+  - рост итоговой стоимости за счет сервисных, сервисных/уборочных и прочих «скрытых» сборов;  
+  - исчезновение прямого общения до оплаты комиссии платформе;  
+  - задержки с выплатами хозяевам и зависимость от правил площадки.[4][6][7]
+
+Миссия БФР в этой логике:  
+- Вернуть прямой контакт и гибкость между гостями и хозяевами, но не «в каменный век», а через современные инструменты — мессенджеры, ИИ и автоматизации.  
+- Сохранить удобство онлайн‑площадок (поиск, фильтры, безопасность, рейтинги), но отказаться от тяжелой комиссионной модели в пользу более легких схем монетизации (подписки, допуслуги, продвижение, страховка и т. п.), чтобы конечная цена аренды была ниже.[8][9][1]
+
+## Роль нейросетей в твоем видении
+
+То, что ты описываешь, уже подтверждается трендами:  
+- ИИ и смарт‑технологии позволяют автоматизировать переписку, показ объектов, бронирование, проверку арендаторов, управление договорами и платежами, что сильно снижает операционные затраты.[10][11][12]
+- Алгоритмы могут помогать с:  
+  - проверкой сторон (скоринг, базовые риски, флаги);  
+  - динамическим ценообразованием без участия дорогих посредников;  
+  - подготовкой договоров и допсоглашений;  
+  - организацией допуслуг (трансфер, уборка, экскурсии) более прозрачно и дешево.[11][13][10]
+
+В пространстве БФР это стоит зафиксировать как «корневую мотивацию проекта», примерно так:  
+
+- Проблема: Комиссионные модели крупных площадок удорожают аренду и делают участников зависимыми от правил платформ.[9][3][4]
+- Возможность: Комбинация сообществ (WhatsApp/Telegram), прямого контакта и нейросетей позволяет сохранить удобство, безопасность и автоматизацию, но с меньшими посредническими расходами.[14][10][11]
+- Цель БФР: Построить экосистему, где ИИ и автоматизация берут на себя «рутинную» работу платформы (поиск, фильтрация, проверка, оформление, напоминания), а люди — договариваются напрямую на более честных ценах.
+
+Если хочешь, следующим шагом можно оформить это в виде короткой «миссии и ценностей» БФР для шапки сайта и презентаций (2–3 абзаца + 3–5 ключевых принципов).
+
+[1](https://www.sharetribe.com/how-to-build/rental-marketplace/)
+[2](https://www.dittofi.com/learn/how-to-build-a-rental-marketplace)
+[3](https://www.codica.com/blog/how-to-build-a-rental-marketplace/)
+[4](https://www.smoobu.com/en/guides/commissions-booking-portals-of-vacation-rentals/)
+[5](https://www.irjmets.com/uploadedfiles/paper/issue_11_november_2023/45843/final/fin_irjmets1699032553.pdf)
+[6](https://hello.pricelabs.co/booking-com-fees/)
+[7](https://www.rentalscaleup.com/airbnb-vrbo-booking-com-all-in-pricing-is-the-new-standard/)
+[8](https://cart-power.com/blog/how-to-start-an-online-rental-marketplace/)
+[9](https://www.perplexity.ai/search/903dbe26-64dd-4e3a-9e3f-411f3f9f7856)
+[10](https://www.nar.realtor/magazine/real-estate-news/technology/ai-in-renting-enhanced-security-streamlined-services)
+[11](https://www.onrec.com/news/news-archive/how-ai-and-smart-technology-are-changing-rental-property-management)
+[12](https://lendlord.io/how-is-ai-used-in-property-management)
+[13](https://www.rentalready.com/blog/ai-for-property-management-tips/)
+[14](https://www.perplexity.ai/search/75b9aefa-c3c3-42c9-a12b-cb3e1e2767cf)
+[15](https://www.airbnb.ru/help)
+[16](https://www.code-brew.com/online-rental-marketplace-business-model-revenue-model/)
+[17](https://startupfinancialprojection.com/blogs/opening/online-rental-marketplace)
+[18](https://www.suffescom.com/blog/how-to-create-a-rental-marketplace-platform)
+[19](https://papers.ssrn.com/sol3/Delivery.cfm/4077985.pdf?abstractid=4077985&mirid=1)
+[20](https://www.cnbc.com/2025/08/15/ai-apartment-market.html)
+[21](https://www.buildupbookings.com/blog/direct-booking-fees/)
+[22](https://fiare.com/articles/is-a-subscription-or-commission-model-better-for-property-marketplaces/)
+[23](https://ascendixtech.com/how-to-create-rental-website/)
