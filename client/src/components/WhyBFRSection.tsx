@@ -54,10 +54,10 @@ export default function WhyBFRSection() {
             className="text-2xl md:text-3xl font-bold text-gray-900 mb-3"
             data-testid="text-why-bfr-title"
           >
-            Сообщество
+            Почему БФР?
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            БФР представляет собой неформальное сообщество, ориентированное на рынок аренды жилья, основанное на группах в мессенджерах
+            Сообщество
           </p>
         </div>
 
