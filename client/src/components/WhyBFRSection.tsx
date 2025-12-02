@@ -51,14 +51,11 @@ export default function WhyBFRSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 
-            className="text-2xl md:text-3xl font-bold text-gray-900 mb-3"
+            className="text-2xl md:text-3xl font-bold text-gray-900"
             data-testid="text-why-bfr-title"
           >
             Почему БФР?
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Вы получаете удобство онлайн-площадок без переплаты за посредников и задержек с выплатами
-          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
