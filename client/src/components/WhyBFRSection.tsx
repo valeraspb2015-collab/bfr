@@ -57,7 +57,7 @@ export default function WhyBFRSection() {
             Почему БФР?
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Сообщество
+            Вы получаете удобство онлайн-площадок без переплаты за посредников и задержек с выплатами
           </p>
         </div>
 
