@@ -36,7 +36,7 @@ export default function WhyBFRSection() {
       id: "security",
       image: securityImage,
       title: "Безопасность",
-      description: "Проверки, рейтинги и стандарты сообщества для защиты гостей и хозяев.",
+      description: "Доверие формируется через сбор данных из открытых источников, личные контакты и рекомендации других членов.",
     },
     {
       id: "speed",
