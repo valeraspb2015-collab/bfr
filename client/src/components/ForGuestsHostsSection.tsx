@@ -1,4 +1,4 @@
-import { User, Home, Send, Search, MessageCircle, Phone, CheckCircle, Link2, FileText, Users, Shield, Lightbulb } from "lucide-react";
+import { User, Home, FileText, CheckCircle, Shield, Lightbulb } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -9,76 +9,42 @@ interface ForGuestsHostsSectionProps {
 
 export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: ForGuestsHostsSectionProps) {
   const guestSteps = [
-    {
-      icon: Send,
-      title: "Оставьте запрос",
-      description: "Напишите в Telegram, WhatsApp или заполните форму «Подобрать квартиру» на сайте."
-    },
-    {
-      icon: Search,
-      title: "Получите подборку",
-      description: "ИИ-агент и админы подберут 5 вариантов квартир под ваш запрос с описанием и условиями."
-    },
-    {
-      icon: Phone,
-      title: "Получите контакты хозяев",
-      description: "Выберите варианты, сообщите админу и получите прямые контакты хозяев."
-    },
-    {
-      icon: MessageCircle,
-      title: "Договоритесь напрямую",
-      description: "Задайте вопросы, уточните детали бронирования, заселения и оплаты в мессенджере."
-    },
-    {
-      icon: CheckCircle,
-      title: "Забронируйте",
-      description: "Если всё устроило — бронируйте и сообщите админу для постановки на контроль."
-    }
+    "Напишите в чат поддержки Telegram, WhatsApp или Макс, либо заполните форму «Подобрать квартиру» на сайте. ИИ агент и админы подберут варианты от хозяев сообщества под ваш запрос.",
+    "Получите 5 предложений подходящих квартир с описанием и условиями.",
+    "Выберите варианты и сообщите администратору в канале связи.",
+    "Получите прямые контакты хозяев.",
+    "Перейдите к прямому диалогу с хозяином в мессенджере, задайте вопросы, уточните детали бронирования, заселения и оплаты. Если всё устроило, забронируйте и сообщите админу для постановки на контроль. Если не удалось договориться, попросите прислать следующие 5 вариантов."
   ];
 
   const hostSteps = [
-    {
-      icon: Link2,
-      title: "Подготовьте верификацию",
-      description: "Ссылка на квартиру на онлайн-сервисе и способ подтверждения права на управление."
-    },
-    {
-      icon: FileText,
-      title: "Подайте заявку",
-      description: "Нажмите «Стать хозяином БФР» и укажите контакты в мессенджерах."
-    },
-    {
-      icon: Users,
-      title: "Получайте заявки",
-      description: "Запросы на бронирование приходят в рабочих чатах мессенджеров сообщества."
-    },
-    {
-      icon: MessageCircle,
-      title: "Согласуйте условия",
-      description: "Зафиксируйте бронь и встречайте гостей, сохраняя переписку для подтверждения."
-    }
+    "Для верификации объекта подготовьте ссылку на квартиру на одном из онлайн-сервисов аренды и способ подтверждения права на её управление (например, менеджер каналов или площадка, где можно связать квартиру и контакт).",
+    "Нажмите «Стать хозяином БФР» или «Подать заявку хозяина» на сайте.",
+    "Укажите контакты в мессенджерах, чтобы заявки от гостей приходили к вам напрямую.",
+    "Подключите шаблоны ответов и автосообщений, чтобы не быть постоянно онлайн. (В разработке)",
+    "Получите запросы на бронирование в рабочих чатах мессенджеров сообщества.",
+    "Согласуйте условия, зафиксируйте бронь и встречайте гостей, сохраняя переписку для подтверждения в случае конфликтной ситуации."
   ];
 
   const bookingInfo = [
-    "Бронь подтверждается в переписке: дата, цена, состав гостей и условия.",
-    "При необходимости оформите договор через мессенджер.",
-    "Деньги переводятся гостем напрямую хозяину — без задержек.",
-    "Условия предоплаты и возврата оговариваются заранее."
+    "Бронь подтверждается в переписке: вы фиксируете дату, цену, состав гостей и дополнительные условия.",
+    "При необходимости можно оформить простой договор и обменяться документами через мессенджер, что по умолчанию принимается сторонами в качестве подтверждения бронирования.",
+    "Деньги переводятся гостем напрямую хозяину — без задержек на сторонней платформе.",
+    "Условия предоплаты и возврата оговариваются заранее и фиксируются в переписке."
   ];
 
   const guestTips = [
-    "Уточняйте реальные фото и условия заселения до оплаты.",
-    "Задавайте вопросы про Wi-Fi, парковку, детей, животных и депозиты."
+    "Всегда уточняйте реальные фото, электронный адрес и условия заселения до оплаты.",
+    "Не стесняйтесь задавать вопросы: про Wi-Fi, парковку, детей, животных и депозиты."
   ];
 
   const hostTips = [
-    "Делайте честные фото и подробное описание.",
-    "Зафиксируйте условия (курение, вечеринки, залог) до подтверждения брони."
+    "Делайте честные фото и подробное описание, чтобы избежать недопонимания при заезде.",
+    "Зафиксируйте основные условия (курение, вечеринка, залог) до подтверждения брони."
   ];
 
   const safetyTips = [
     "Проверяйте анкету, отзывы и рекомендации внутри сообщества.",
-    "Не отправляйте деньги третьим лицам — только по согласованным реквизитам."
+    "Не отправляйте деньги третьим лицам; все переводы делаются только по согласованным реквизитам хозяина или гостя."
   ];
 
   return (
@@ -95,22 +61,13 @@ export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: Fo
               </div>
             </div>
 
-            <div className="space-y-4 mb-8">
-              {guestSteps.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <div key={index} className="flex gap-3" data-testid={`step-guest-${index}`}>
-                    <div className="w-8 h-8 rounded-lg bg-[#0078d7]/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-4 h-4 text-[#0078d7]" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">{step.title}</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <ol className="space-y-3 mb-8 list-decimal list-inside">
+              {guestSteps.map((step, index) => (
+                <li key={index} className="text-sm text-gray-600 leading-relaxed" data-testid={`step-guest-${index}`}>
+                  {step}
+                </li>
+              ))}
+            </ol>
 
             <Button
               onClick={onGuestClick}
@@ -131,22 +88,14 @@ export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: Fo
               </div>
             </div>
 
-            <div className="space-y-4 mb-8">
-              {hostSteps.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <div key={index} className="flex gap-3" data-testid={`step-host-${index}`}>
-                    <div className="w-8 h-8 rounded-lg bg-[#00a67d]/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-4 h-4 text-[#00a67d]" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">{step.title}</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <ul className="space-y-3 mb-8">
+              {hostSteps.map((step, index) => (
+                <li key={index} className="flex gap-2 text-sm text-gray-600 leading-relaxed" data-testid={`step-host-${index}`}>
+                  <span className="text-[#00a67d] shrink-0">•</span>
+                  {step}
+                </li>
+              ))}
+            </ul>
 
             <Button
               onClick={onOwnerClick}
@@ -180,7 +129,7 @@ export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: Fo
             <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
               <Lightbulb className="w-6 h-6 text-amber-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">Полезные советы</h3>
+            <h3 className="text-xl font-bold text-gray-900">Полезные советы гостям и хозяевам</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -217,7 +166,7 @@ export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: Fo
             <div>
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <Shield className="w-4 h-4 text-amber-600" />
-                Безопасность
+                Общие рекомендации по безопасности
               </h4>
               <ul className="space-y-2">
                 {safetyTips.map((tip, index) => (
