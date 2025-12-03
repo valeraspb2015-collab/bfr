@@ -1,4 +1,4 @@
-import { User, Home, MessageCircle, Brain, Headphones, Percent, Bot, Users } from "lucide-react";
+import { User, Home, Send, Search, MessageCircle, Phone, CheckCircle, Link2, FileText, Users, Shield, Lightbulb } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -8,68 +8,104 @@ interface ForGuestsHostsSectionProps {
 }
 
 export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: ForGuestsHostsSectionProps) {
-  const guestBenefits = [
+  const guestSteps = [
+    {
+      icon: Send,
+      title: "Оставьте запрос",
+      description: "Напишите в Telegram, WhatsApp или заполните форму «Подобрать квартиру» на сайте."
+    },
+    {
+      icon: Search,
+      title: "Получите подборку",
+      description: "ИИ-агент и админы подберут 5 вариантов квартир под ваш запрос с описанием и условиями."
+    },
+    {
+      icon: Phone,
+      title: "Получите контакты хозяев",
+      description: "Выберите варианты, сообщите админу и получите прямые контакты хозяев."
+    },
     {
       icon: MessageCircle,
-      title: "Прямой контакт с хозяином",
-      description: "Без лишних посредников и скрытых сервисных сборов. Все вопросы решаете напрямую."
+      title: "Договоритесь напрямую",
+      description: "Задайте вопросы, уточните детали бронирования, заселения и оплаты в мессенджере."
     },
     {
-      icon: Brain,
-      title: "Умные подборки от нейросети",
-      description: "Быстро находим подходящие варианты под ваши даты, бюджет и запросы."
-    },
-    {
-      icon: Headphones,
-      title: "Поддержка в мессенджерах",
-      description: "Все вопросы по заселению, оплате и допуслугам — в одном удобном чате."
+      icon: CheckCircle,
+      title: "Забронируйте",
+      description: "Если всё устроило — бронируйте и сообщите админу для постановки на контроль."
     }
   ];
 
-  const hostBenefits = [
+  const hostSteps = [
     {
-      icon: Percent,
-      title: "Нет комиссии с каждой сделки",
-      description: "Больше денег остается у вас, а цены для гостей остаются конкурентными."
+      icon: Link2,
+      title: "Подготовьте верификацию",
+      description: "Ссылка на квартиру на онлайн-сервисе и способ подтверждения права на управление."
     },
     {
-      icon: Bot,
-      title: "Нейросети для автоматизации",
-      description: "Помогают обрабатывать заявки, отвечать гостям и предлагать допуслуги без 24/7 онлайна."
+      icon: FileText,
+      title: "Подайте заявку",
+      description: "Нажмите «Стать хозяином БФР» и укажите контакты в мессенджерах."
     },
     {
       icon: Users,
-      title: "Сообщество хозяев и экспертов",
-      description: "Обмен опытом, поддержка и инструменты для роста дохода от аренды."
+      title: "Получайте заявки",
+      description: "Запросы на бронирование приходят в рабочих чатах мессенджеров сообщества."
+    },
+    {
+      icon: MessageCircle,
+      title: "Согласуйте условия",
+      description: "Зафиксируйте бронь и встречайте гостей, сохраняя переписку для подтверждения."
     }
+  ];
+
+  const bookingInfo = [
+    "Бронь подтверждается в переписке: дата, цена, состав гостей и условия.",
+    "При необходимости оформите договор через мессенджер.",
+    "Деньги переводятся гостем напрямую хозяину — без задержек.",
+    "Условия предоплаты и возврата оговариваются заранее."
+  ];
+
+  const guestTips = [
+    "Уточняйте реальные фото и условия заселения до оплаты.",
+    "Задавайте вопросы про Wi-Fi, парковку, детей, животных и депозиты."
+  ];
+
+  const hostTips = [
+    "Делайте честные фото и подробное описание.",
+    "Зафиксируйте условия (курение, вечеринки, залог) до подтверждения брони."
+  ];
+
+  const safetyTips = [
+    "Проверяйте анкету, отзывы и рекомендации внутри сообщества.",
+    "Не отправляйте деньги третьим лицам — только по согласованным реквизитам."
   ];
 
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           <Card className="p-8 border border-gray-100 rounded-2xl shadow-sm bg-gradient-to-br from-blue-50/50 to-white" data-testid="card-for-guests">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-xl bg-[#0078d7]/10 flex items-center justify-center">
                 <User className="w-6 h-6 text-[#0078d7]" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Для гостей</h3>
-                <p className="text-sm text-gray-500">Больше выбора и ниже цена</p>
+                <h3 className="text-xl font-bold text-gray-900">Первые шаги гостей в БФР</h3>
               </div>
             </div>
 
-            <div className="space-y-5 mb-8">
-              {guestBenefits.map((benefit, index) => {
-                const Icon = benefit.icon;
+            <div className="space-y-4 mb-8">
+              {guestSteps.map((step, index) => {
+                const Icon = step.icon;
                 return (
-                  <div key={index} className="flex gap-4" data-testid={`benefit-guest-${index}`}>
-                    <div className="w-10 h-10 rounded-lg bg-[#0078d7]/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-[#0078d7]" />
+                  <div key={index} className="flex gap-3" data-testid={`step-guest-${index}`}>
+                    <div className="w-8 h-8 rounded-lg bg-[#0078d7]/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-4 h-4 text-[#0078d7]" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">{benefit.title}</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">{benefit.description}</p>
+                      <h4 className="font-semibold text-gray-900 text-sm">{step.title}</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
                     </div>
                   </div>
                 );
@@ -91,22 +127,21 @@ export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: Fo
                 <Home className="w-6 h-6 text-[#00a67d]" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Для хозяев</h3>
-                <p className="text-sm text-gray-500">Больше дохода и меньше рутины</p>
+                <h3 className="text-xl font-bold text-gray-900">Первые шаги хозяина в БФР</h3>
               </div>
             </div>
 
-            <div className="space-y-5 mb-8">
-              {hostBenefits.map((benefit, index) => {
-                const Icon = benefit.icon;
+            <div className="space-y-4 mb-8">
+              {hostSteps.map((step, index) => {
+                const Icon = step.icon;
                 return (
-                  <div key={index} className="flex gap-4" data-testid={`benefit-host-${index}`}>
-                    <div className="w-10 h-10 rounded-lg bg-[#00a67d]/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-[#00a67d]" />
+                  <div key={index} className="flex gap-3" data-testid={`step-host-${index}`}>
+                    <div className="w-8 h-8 rounded-lg bg-[#00a67d]/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-4 h-4 text-[#00a67d]" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">{benefit.title}</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">{benefit.description}</p>
+                      <h4 className="font-semibold text-gray-900 text-sm">{step.title}</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
                     </div>
                   </div>
                 );
@@ -122,6 +157,79 @@ export default function ForGuestsHostsSection({ onGuestClick, onOwnerClick }: Fo
             </Button>
           </Card>
         </div>
+
+        <Card className="p-8 border border-gray-100 rounded-2xl shadow-sm mb-8" data-testid="card-booking-management">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
+              <FileText className="w-6 h-6 text-gray-700" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">Управление бронированием</h3>
+          </div>
+          <ul className="space-y-3">
+            {bookingInfo.map((item, index) => (
+              <li key={index} className="flex gap-3 text-gray-600" data-testid={`booking-info-${index}`}>
+                <CheckCircle className="w-5 h-5 text-[#00a67d] shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+
+        <Card className="p-8 border border-gray-100 rounded-2xl shadow-sm" data-testid="card-tips">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
+              <Lightbulb className="w-6 h-6 text-amber-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">Полезные советы</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <User className="w-4 h-4 text-[#0078d7]" />
+                Для гостей
+              </h4>
+              <ul className="space-y-2">
+                {guestTips.map((tip, index) => (
+                  <li key={index} className="text-sm text-gray-600 flex gap-2">
+                    <span className="text-[#0078d7]">•</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <Home className="w-4 h-4 text-[#00a67d]" />
+                Для хозяев
+              </h4>
+              <ul className="space-y-2">
+                {hostTips.map((tip, index) => (
+                  <li key={index} className="text-sm text-gray-600 flex gap-2">
+                    <span className="text-[#00a67d]">•</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <Shield className="w-4 h-4 text-amber-600" />
+                Безопасность
+              </h4>
+              <ul className="space-y-2">
+                {safetyTips.map((tip, index) => (
+                  <li key={index} className="text-sm text-gray-600 flex gap-2">
+                    <span className="text-amber-600">•</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Card>
       </div>
     </section>
   );
