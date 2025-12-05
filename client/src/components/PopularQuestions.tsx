@@ -44,7 +44,7 @@ export default function PopularQuestions() {
           className="text-2xl md:text-3xl font-bold text-gray-900 mb-10"
           data-testid="text-faq-title"
         >
-          Популярные статьи
+          Популярные вопросы
         </h2>
 
         <div className="space-y-0">
