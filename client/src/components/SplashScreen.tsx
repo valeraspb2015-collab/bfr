@@ -41,14 +41,33 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         ref={videoRef}
         src={splashVideo}
         className="max-w-full max-h-full object-contain"
-        muted
+        autoPlay
         playsInline
         onEnded={handleVideoEnd}
         data-testid="splash-video"
       />
+      
+      <div className="absolute bottom-20 left-0 right-0 overflow-hidden">
+        <div 
+          className="whitespace-nowrap text-white text-lg md:text-xl font-medium animate-marquee"
+          style={{
+            animation: 'marquee 8s linear infinite'
+          }}
+        >
+          Привет, я Бронник, ваш помощник. Добро пожаловать в БФР! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Привет, я Бронник, ваш помощник. Добро пожаловать в БФР! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+      </div>
+      
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      
       <button
         onClick={handleSkip}
-        className="absolute bottom-8 right-8 text-white/70 hover:text-white text-sm px-4 py-2 rounded-full border border-white/30 hover:border-white/60 transition-colors"
+        className="absolute bottom-4 right-8 text-white/70 hover:text-white text-sm px-4 py-2 rounded-full border border-white/30 hover:border-white/60 transition-colors"
         data-testid="button-skip-splash"
       >
         Пропустить
