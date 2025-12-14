@@ -42,6 +42,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         src={splashVideo}
         className="max-w-full max-h-full object-contain"
         autoPlay
+        muted
         playsInline
         onEnded={handleVideoEnd}
         data-testid="splash-video"
