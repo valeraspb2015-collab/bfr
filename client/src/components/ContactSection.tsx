@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiTelegram, SiWhatsapp } from "react-icons/si";
 
@@ -52,6 +52,25 @@ export default function ContactSection() {
             >
               <SiWhatsapp className="w-5 h-5" />
               Написать в WhatsApp
+            </Button>
+          </a>
+          
+          <a 
+            href="https://max.ru"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="link-contact-max"
+            onClick={() => {
+              alert('Найдите нас в мессенджере MAX по номеру: +7 921 379-89-41');
+            }}
+          >
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-[#7B68EE] text-[#7B68EE] hover:bg-[#7B68EE] hover:text-white rounded-full px-8 py-6 gap-3"
+            >
+              <MessageSquare className="w-5 h-5" />
+              Написать в Макс
             </Button>
           </a>
         </div>
