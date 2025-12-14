@@ -56,13 +56,10 @@ export default function ContactSection() {
           </a>
           
           <a 
-            href="https://max.ru"
+            href="https://max.ru/u/f9LHodD0cOJGqIR7nRudfc6Wx4fiZADACwanqE4IJkMfLa6mgbmdQ0Ei69A"
             target="_blank"
             rel="noopener noreferrer"
             data-testid="link-contact-max"
-            onClick={() => {
-              alert('Найдите нас в мессенджере MAX по номеру: +7 921 379-89-41');
-            }}
           >
             <Button
               size="lg"
