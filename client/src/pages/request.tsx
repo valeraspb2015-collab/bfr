@@ -14,11 +14,16 @@ export default function Request() {
       const response = await apiRequest("POST", "/api/apartment-requests", data);
       return await response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
-        title: "Спасибо",
-        description: "Ждите ответа.",
+        title: "Заявка отправлена!",
+        description: "Открываем WhatsApp для связи с нами...",
       });
+      
+      // Открываем WhatsApp с заполненным сообщением
+      if (data.whatsappUrl) {
+        window.open(data.whatsappUrl, "_blank");
+      }
       
       setTimeout(() => {
         setLocation("/");
