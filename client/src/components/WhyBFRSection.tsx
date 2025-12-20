@@ -24,7 +24,7 @@ export default function WhyBFRSection() {
       id: "ai-automation",
       image: aiImage,
       title: "Умная автоматизация",
-      description: "Нейросети помогают с подбором вариантов, проверкой сторон и документами, ускоряя весь процесс.",
+      description: "Нейросети ускоряют процесс поиска и аренды квартир.",
     },
     {
       id: "community",
