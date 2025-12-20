@@ -51,6 +51,7 @@ export default function NewYearBanner() {
           </span>
           <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
         </div>
+        <span className="text-white/90 text-xs font-medium">Осталось</span>
         <div className="flex items-center gap-3 text-white" data-testid="countdown-timer">
           <div className="flex flex-col items-center">
             <span className="text-lg sm:text-xl font-bold tabular-nums">{formatNumber(timeLeft.days)}</span>
