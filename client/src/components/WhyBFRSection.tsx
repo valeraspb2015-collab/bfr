@@ -41,8 +41,8 @@ export default function WhyBFRSection() {
     {
       id: "speed",
       image: speedImage,
-      title: "Быстрые выплаты",
-      description: "Деньги поступают напрямую хозяину без задержек и ожидания от платформы.",
+      title: "Прямая оплата",
+      description: "Деньги поступают напрямую хозяину без сервисов-посредников.",
     },
   ];
 
