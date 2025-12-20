@@ -41,7 +41,7 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
           data-testid="text-hero-title"
         >
-          БФР — честная аренда без лишних комиссий
+          БФР — соединяем гостей и хозяев без посредников
         </h1>
         <p 
           className="text-lg text-gray-600 mb-4 max-w-2xl mx-auto"
