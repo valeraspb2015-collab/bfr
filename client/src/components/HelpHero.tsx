@@ -49,12 +49,6 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
         >
           Соединяем гостей и хозяев напрямую через мессенджеры, а нейросети берут на себя рутину — поиск, проверку и оформление
         </p>
-        <p 
-          className="text-base text-gray-500 mb-10"
-          data-testid="text-hero-description"
-        >
-          Удобство онлайн-площадок без переплаты за посредников
-        </p>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {roles.map((role) => {
