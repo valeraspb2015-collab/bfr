@@ -33,7 +33,7 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
             className="inline-block px-4 py-2 bg-[#0078d7]/10 text-[#0078d7] text-sm font-medium rounded-full"
             data-testid="badge-slogan"
           >
-            Альтернатива комиссионным площадкам
+            Альтернатива сервисам бронирования
           </span>
         </div>
 
