@@ -11,8 +11,8 @@ export default function WhyBFRSection() {
     {
       id: "direct-contact",
       image: directContactImage,
-      title: "Прямой контакт",
-      description: "Гость и хозяин общаются напрямую в привычных каналах без навязанных правил посредников.",
+      title: "Надежный контакт",
+      description: "Резервная связь в случае проблем.",
     },
     {
       id: "no-commission",
