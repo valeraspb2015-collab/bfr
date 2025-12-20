@@ -7,6 +7,9 @@ import PopularQuestions from "@/components/PopularQuestions";
 import MoreInfoSection from "@/components/MoreInfoSection";
 import ContactSection from "@/components/ContactSection";
 import HelpFooter from "@/components/HelpFooter";
+import Snowfall from "@/components/Snowfall";
+import NewYearBanner from "@/components/NewYearBanner";
+import Garland from "@/components/Garland";
 
 export default function Landing() {
   const [, setLocation] = useLocation();
@@ -20,8 +23,13 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <HelpHeader />
+    <div className="min-h-screen bg-white relative">
+      <Snowfall />
+      <NewYearBanner />
+      <div className="relative">
+        <Garland />
+        <HelpHeader />
+      </div>
       <HelpHero 
         onGuestClick={handleGetStarted} 
         onOwnerClick={handleOwnerApplication} 
