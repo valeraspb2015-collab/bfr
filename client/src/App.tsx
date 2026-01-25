@@ -8,6 +8,8 @@ import Request from "@/pages/request";
 import OwnerApplication from "@/pages/owner-application";
 import Owner from "@/pages/owner";
 import Admin from "@/pages/admin";
+import Privacy from "@/pages/privacy";
+import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +20,8 @@ function Router() {
       <Route path="/owner-application" component={OwnerApplication} />
       <Route path="/owner" component={Owner} />
       <Route path="/admin" component={Admin} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -68,6 +68,17 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
                   Написать в WhatsApp
                 </a>
               </li>
+              <li>
+                <a 
+                  href="https://max.ru/bfr_support" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  data-testid="link-footer-max"
+                >
+                  Написать в Макс
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -84,10 +95,26 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
                 </button>
               </li>
               <li>
-                <span className="text-gray-500 cursor-default">Материалы для хозяев</span>
+                <a 
+                  href="https://t.me/bfrreplit_bot" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  data-testid="link-footer-host-materials"
+                >
+                  Материалы для хозяев
+                </a>
               </li>
               <li>
-                <span className="text-gray-500 cursor-default">Сообщество БФР</span>
+                <a 
+                  href="https://t.me/bfr_community" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  data-testid="link-footer-community"
+                >
+                  Сообщество БФР
+                </a>
               </li>
             </ul>
           </div>
@@ -101,10 +128,14 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
                 </Link>
               </li>
               <li>
-                <span className="text-gray-500 cursor-default">Политика конфиденциальности</span>
+                <Link href="/privacy" className="hover:text-white transition-colors" data-testid="link-footer-privacy">
+                  Политика конфиденциальности
+                </Link>
               </li>
               <li>
-                <span className="text-gray-500 cursor-default">Условия использования</span>
+                <Link href="/terms" className="hover:text-white transition-colors" data-testid="link-footer-terms">
+                  Условия использования
+                </Link>
               </li>
             </ul>
           </div>
