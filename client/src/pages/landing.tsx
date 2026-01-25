@@ -6,7 +6,6 @@ import GuidesSection from "@/components/GuidesSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import MoreInfoSection from "@/components/MoreInfoSection";
 import HomeReserveWidget from "@/components/HomeReserveWidget";
-import HomeReserveSearch from "@/components/HomeReserveSearch";
 import ContactSection from "@/components/ContactSection";
 import HelpFooter from "@/components/HelpFooter";
 
@@ -36,7 +35,6 @@ export default function Landing() {
       <PopularQuestions />
       <MoreInfoSection />
       <HomeReserveWidget />
-      <HomeReserveSearch />
       <ContactSection />
       <HelpFooter 
         onGuestClick={handleGetStarted} 
