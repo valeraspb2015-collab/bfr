@@ -42,11 +42,6 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             <h4 className="text-white font-semibold mb-4">Поддержка</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/#faq" className="hover:text-white transition-colors" data-testid="link-footer-faq">
-                  Центр помощи
-                </Link>
-              </li>
-              <li>
                 <a 
                   href="https://t.me/bfrreplit_bot" 
                   target="_blank" 
