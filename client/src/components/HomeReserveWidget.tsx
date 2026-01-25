@@ -3,26 +3,29 @@ import { useEffect } from "react";
 declare global {
   interface Window {
     homereserve?: {
-      initWidgetList: (config: { token: string }) => void;
+      initWidgetList: (config: { token: string; container?: string }) => void;
+      initWidgetSearch: (config: { token: string; container?: string }) => void;
     };
   }
 }
 
 export default function HomeReserveWidget() {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = "https://homereserve.ru/widget.js";
-    script.onload = () => {
+    const initWidget = () => {
       if (window.homereserve) {
-        window.homereserve.initWidgetList({ token: "vPqBfHl4Xy" });
+        window.homereserve.initWidgetList({ token: "vPqBfHl4Xy", container: "#hr-widget-list" });
       }
     };
-    document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
+    if (window.homereserve) {
+      initWidget();
+    } else {
+      const script = document.createElement("script");
+      script.type = "module";
+      script.src = "https://homereserve.ru/widget.js";
+      script.onload = initWidget;
+      document.body.appendChild(script);
+    }
   }, []);
 
   return (
@@ -31,7 +34,7 @@ export default function HomeReserveWidget() {
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">
           Некоторые квартиры для тех, кто привык к традиционным методам подбора
         </h2>
-        <div id="hr-widget"></div>
+        <div id="hr-widget-list"></div>
       </div>
     </section>
   );
