@@ -7,7 +7,6 @@ import GuidesSection from "@/components/GuidesSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import MoreInfoSection from "@/components/MoreInfoSection";
 import CooperationSection from "@/components/CooperationSection";
-import ContactSection from "@/components/ContactSection";
 import HelpFooter from "@/components/HelpFooter";
 
 export default function Landing() {
@@ -37,7 +36,6 @@ export default function Landing() {
       <PopularQuestions />
       <MoreInfoSection />
       <CooperationSection />
-      <ContactSection />
       <HelpFooter 
         onGuestClick={handleGetStarted} 
         onOwnerClick={handleOwnerApplication} 

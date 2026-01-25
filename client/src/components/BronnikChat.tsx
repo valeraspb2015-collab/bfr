@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { X, Send, Loader2 } from "lucide-react";
+import { X, Send, Loader2, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SiTelegram, SiWhatsapp } from "react-icons/si";
 import bronnikAvatar from "@/assets/bronnik-avatar.png";
 
 interface Message {
@@ -103,21 +104,52 @@ export default function BronnikChat() {
   return (
     <>
       {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-white hover:bg-gray-50 text-gray-800 rounded-2xl shadow-lg flex items-center gap-3 px-4 py-3 transition-all hover:scale-105 hover:shadow-xl z-50 border border-gray-200"
-          data-testid="button-bronnik-open"
-        >
-          <img 
-            src={bronnikAvatar} 
-            alt="Бронник" 
-            className="w-12 h-12 rounded-full object-cover border-2 border-blue-500"
-          />
-          <div className="text-left">
-            <div className="font-semibold text-sm text-blue-600">Спросить Бронника AI</div>
-            <div className="text-xs text-gray-500">Гид по городам России</div>
+        <div className="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-50">
+          <div className="flex gap-2">
+            <a
+              href="https://t.me/bfrreplit_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-[#0088cc] hover:bg-[#0077b5] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
+              data-testid="button-telegram"
+            >
+              <SiTelegram className="w-6 h-6 text-white" />
+            </a>
+            <a
+              href="https://wa.me/79899865887"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-[#25D366] hover:bg-[#20bd5a] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
+              data-testid="button-whatsapp"
+            >
+              <SiWhatsapp className="w-6 h-6 text-white" />
+            </a>
+            <a
+              href="https://max.ru/u/f9LHodD0cOJGqIR7nRudfc6Wx4fiZADACwanqE4IJkMfLa6mgbmdQ0Ei69A"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-[#7B68EE] hover:bg-[#6a5acd] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
+              data-testid="button-max"
+            >
+              <MessageSquare className="w-6 h-6 text-white" />
+            </a>
           </div>
-        </button>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="bg-white hover:bg-gray-50 text-gray-800 rounded-2xl shadow-lg flex items-center gap-3 px-4 py-3 transition-all hover:scale-105 hover:shadow-xl border border-gray-200"
+            data-testid="button-bronnik-open"
+          >
+            <img 
+              src={bronnikAvatar} 
+              alt="Бронник" 
+              className="w-12 h-12 rounded-full object-cover border-2 border-blue-500"
+            />
+            <div className="text-left">
+              <div className="font-semibold text-sm text-blue-600">Спросить Бронника AI</div>
+              <div className="text-xs text-gray-500">Гид по городам России</div>
+            </div>
+          </button>
+        </div>
       )}
 
       {isOpen && (
