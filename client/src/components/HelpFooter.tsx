@@ -123,6 +123,11 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
                 </Link>
               </li>
               <li>
+                <Link href="/#cooperation" className="hover:text-white transition-colors" data-testid="link-footer-cooperation">
+                  Сотрудничество
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy" className="hover:text-white transition-colors" data-testid="link-footer-privacy">
                   Политика конфиденциальности
                 </Link>
