@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertApartmentRequestSchema, insertOwnerApplicationSchema } from "@shared/schema";
+import { registerBronnikRoutes } from "./bronnik";
 
 async function sendTelegramMessage(text: string): Promise<void> {
   try {
@@ -39,6 +40,9 @@ async function sendTelegramMessage(text: string): Promise<void> {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register Bronnik AI assistant routes
+  registerBronnikRoutes(app);
+
   app.post("/api/apartment-requests", async (req, res) => {
     try {
       // Валидация данных

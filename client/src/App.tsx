@@ -11,6 +11,7 @@ import Admin from "@/pages/admin";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
+import BronnikChat from "@/components/BronnikChat";
 
 function Router() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <BronnikChat />
       </TooltipProvider>
     </QueryClientProvider>
   );

@@ -59,3 +59,5 @@ export const insertOwnerApplicationSchema = createInsertSchema(ownerApplications
 
 export type InsertOwnerApplication = z.infer<typeof insertOwnerApplicationSchema>;
 export type OwnerApplication = typeof ownerApplications.$inferSelect;
+
+export * from "./models/chat";
