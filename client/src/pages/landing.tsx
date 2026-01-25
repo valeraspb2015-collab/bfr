@@ -5,6 +5,7 @@ import WhyBFRSection from "@/components/WhyBFRSection";
 import GuidesSection from "@/components/GuidesSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import MoreInfoSection from "@/components/MoreInfoSection";
+import HomeReserveWidget from "@/components/HomeReserveWidget";
 import ContactSection from "@/components/ContactSection";
 import HelpFooter from "@/components/HelpFooter";
 
@@ -33,6 +34,7 @@ export default function Landing() {
       />
       <PopularQuestions />
       <MoreInfoSection />
+      <HomeReserveWidget />
       <ContactSection />
       <HelpFooter 
         onGuestClick={handleGetStarted} 
