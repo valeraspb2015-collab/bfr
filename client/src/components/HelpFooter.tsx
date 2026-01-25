@@ -70,7 +70,7 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
               </li>
               <li>
                 <a 
-                  href="https://max.ru/bfr_support" 
+                  href="https://max.ru/call/+79213798941" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
