@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { X, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import bronnikAvatar from "@/assets/bronnik-avatar.png";
 
 interface Message {
   role: "user" | "assistant";
@@ -104,10 +105,18 @@ export default function BronnikChat() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-105 z-50"
+          className="fixed bottom-6 right-6 bg-white hover:bg-gray-50 text-gray-800 rounded-2xl shadow-lg flex items-center gap-3 px-4 py-3 transition-all hover:scale-105 hover:shadow-xl z-50 border border-gray-200"
           data-testid="button-bronnik-open"
         >
-          <MessageCircle className="w-6 h-6" />
+          <img 
+            src={bronnikAvatar} 
+            alt="Бронник" 
+            className="w-12 h-12 rounded-full object-cover border-2 border-blue-500"
+          />
+          <div className="text-left">
+            <div className="font-semibold text-sm text-blue-600">Спросить Бронника AI</div>
+            <div className="text-xs text-gray-500">Гид по городам России</div>
+          </div>
         </button>
       )}
 
@@ -115,11 +124,13 @@ export default function BronnikChat() {
         <div className="fixed bottom-6 right-6 w-[360px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-gray-200">
           <div className="bg-blue-600 text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                <MessageCircle className="w-4 h-4" />
-              </div>
+              <img 
+                src={bronnikAvatar} 
+                alt="Бронник" 
+                className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
+              />
               <div>
-                <h3 className="font-semibold text-sm">Бронник</h3>
+                <h3 className="font-semibold text-sm">Бронник AI</h3>
                 <p className="text-xs text-blue-100">Гид по городам России</p>
               </div>
             </div>
