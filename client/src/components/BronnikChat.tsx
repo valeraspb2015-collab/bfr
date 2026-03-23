@@ -136,46 +136,46 @@ export default function BronnikChat() {
           </div>
           <button
             onClick={() => setIsOpen(true)}
-            className="bg-white hover:bg-gray-50 text-gray-800 rounded-2xl shadow-lg flex items-center gap-3 px-4 py-3 transition-all hover:scale-105 hover:shadow-xl border border-gray-200"
+            className="bg-[#13131a] border border-indigo-500/30 hover:border-indigo-400/60 rounded-2xl shadow-[0_0_20px_rgba(99,102,241,0.2)] flex items-center gap-3 px-4 py-3 transition-all hover:scale-105"
             data-testid="button-bronnik-open"
           >
-            <img 
-              src={bronnikAvatar} 
-              alt="Бронник" 
-              className="w-12 h-12 rounded-full object-cover border-2 border-blue-500"
+            <img
+              src={bronnikAvatar}
+              alt="Бронник"
+              className="w-12 h-12 rounded-full object-cover border-2 border-indigo-500/50"
             />
             <div className="text-left">
-              <div className="font-semibold text-sm text-blue-600">Спросить Бронника AI</div>
-              <div className="text-xs text-gray-500">Гид по городам России</div>
+              <div className="font-semibold text-sm text-indigo-300">Спросить Бронника AI</div>
+              <div className="text-xs text-slate-500">Гид по городам России</div>
             </div>
           </button>
         </div>
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[360px] h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-gray-200">
-          <div className="bg-blue-600 text-white px-4 py-3 flex items-center justify-between">
+        <div className="fixed bottom-6 right-6 w-[360px] h-[500px] bg-[#13131a] rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-indigo-500/25">
+          <div className="bg-[#0a0a0f] border-b border-white/[0.06] px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <img 
-                src={bronnikAvatar} 
-                alt="Бронник" 
-                className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
+              <img
+                src={bronnikAvatar}
+                alt="Бронник"
+                className="w-8 h-8 rounded-full object-cover border-2 border-indigo-500/50"
               />
               <div>
-                <h3 className="font-semibold text-sm">Бронник AI</h3>
-                <p className="text-xs text-blue-100">Гид по городам России</p>
+                <h3 className="font-semibold text-sm text-slate-100">Бронник AI</h3>
+                <p className="text-xs text-slate-500">Гид по городам России</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-white/20 p-1 rounded"
+              className="hover:bg-white/10 p-1 rounded text-slate-400"
               data-testid="button-bronnik-close"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#0f0f16]">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -184,8 +184,8 @@ export default function BronnikChat() {
                 <div
                   className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm ${
                     msg.role === "user"
-                      ? "bg-blue-600 text-white rounded-br-md"
-                      : "bg-white text-gray-800 border border-gray-200 rounded-bl-md shadow-sm"
+                      ? "bg-indigo-600 text-white rounded-br-md"
+                      : "bg-[#1a1a24] text-slate-200 border border-white/[0.07] rounded-bl-md"
                   }`}
                   data-testid={`message-${msg.role}-${idx}`}
                 >
@@ -198,7 +198,7 @@ export default function BronnikChat() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-3 border-t border-gray-200 bg-white">
+          <div className="p-3 border-t border-white/[0.06] bg-[#13131a]">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -206,7 +206,7 @@ export default function BronnikChat() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Напишите сообщение..."
-                className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 px-3 py-2 text-sm bg-white/[0.05] border border-white/[0.08] text-slate-200 placeholder-slate-600 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 disabled={isLoading}
                 data-testid="input-bronnik-message"
               />
@@ -214,7 +214,7 @@ export default function BronnikChat() {
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading}
                 size="icon"
-                className="rounded-full bg-blue-600 hover:bg-blue-700"
+                className="rounded-full bg-indigo-600"
                 data-testid="button-bronnik-send"
               >
                 {isLoading ? (

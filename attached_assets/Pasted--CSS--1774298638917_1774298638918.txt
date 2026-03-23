@@ -1,0 +1,424 @@
+Отлично. Вот полный CSS и рекомендации по редизайну в стиле «Тёмный премиум» — всё готово для вставки в Replit.
+
+***
+
+## Дизайн-система БФР — Вариант A «Тёмный премиум»
+
+### Палитра цветов
+
+| Роль | Цвет | HEX |
+|---|---|---|
+| Фон основной | Почти чёрный | `#0a0a0f` |
+| Фон карточек | Тёмно-серый | `#13131a` |
+| Фон секций | Чуть светлее | `#1a1a24` |
+| Акцент основной | Электрик-индиго | `#6366f1` |
+| Акцент hover | Ярче | `#818cf8` |
+| Акцент свечение | Glow | `rgba(99,102,241,0.3)` |
+| Текст основной | Белый | `#f8fafc` |
+| Текст вторичный | Серый | `#94a3b8` |
+| Граница | Тонкая | `rgba(255,255,255,0.08)` |
+
+### Шрифты
+- **Заголовки:** `Inter` (или `Manrope`) — жирный, крупный
+- **Текст:** `Inter` — обычный вес
+- Подключение: `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap`
+
+***
+
+## Полный CSS для вставки
+
+```css
+/* ===== ИМПОРТ ШРИФТА ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ===== СБРОС И БАЗА ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary:    #0a0a0f;
+  --bg-card:       #13131a;
+  --bg-section:    #1a1a24;
+  --accent:        #6366f1;
+  --accent-hover:  #818cf8;
+  --accent-glow:   rgba(99, 102, 241, 0.25);
+  --text-primary:  #f8fafc;
+  --text-secondary:#94a3b8;
+  --border:        rgba(255, 255, 255, 0.08);
+  --radius:        14px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== НАВБАР ===== */
+header, nav {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav a, header a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover, header a:hover {
+  color: var(--text-primary);
+}
+
+.logo {
+  color: var(--text-primary) !important;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.5px;
+}
+
+/* ===== HERO СЕКЦИЯ ===== */
+.hero, section:first-of-type {
+  background: 
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99, 102, 241, 0.2) 0%, transparent 60%),
+    var(--bg-primary);
+  padding: 100px 20px 80px;
+  text-align: center;
+}
+
+/* Бейдж "Альтернатива сервисам" */
+.badge, .hero-badge, [class*="badge"] {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: var(--accent-hover);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-bottom: 24px;
+}
+
+/* Главный заголовок */
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+/* Градиентное выделение слова в заголовке */
+h1 span, .gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a78bfa, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Подзаголовок */
+.subtitle, h1 + p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  font-weight: 400;
+}
+
+/* ===== КНОПКИ ===== */
+button, .btn, input[type="submit"] {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+/* Основная кнопка */
+.btn-primary, button[class*="primary"], 
+button:not([class*="secondary"]):not([class*="outline"]) {
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 28px;
+  box-shadow: 0 0 24px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 36px rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Вторичная кнопка */
+.btn-secondary, button[class*="secondary"] {
+  background: transparent;
+  color: var(--text-primary);
+  padding: 14px 28px;
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+/* ===== БЕГУЩАЯ СТРОКА ЗАЯВОК ===== */
+.ticker, .marquee, [class*="ticker"], [class*="marquee"] {
+  background: linear-gradient(90deg, #13131a, #1a1a24, #13131a);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.ticker span, .ticker .tag {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: var(--accent-hover);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.78rem;
+}
+
+/* ===== СЕКЦИЯ "ПОЧЕМУ БФР?" ===== */
+section {
+  padding: 80px 20px;
+}
+
+section:nth-child(even) {
+  background: var(--bg-section);
+}
+
+section h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin-bottom: 48px;
+  color: var(--text-primary);
+}
+
+/* ===== КАРТОЧКИ ПРЕИМУЩЕСТВ ===== */
+.card, [class*="card"], .feature {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover, [class*="card"]:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+}
+
+.card h3, .feature h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.card p, .feature p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Иконка в карточке */
+.card-icon, .feature-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(99, 102, 241, 0.12);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+}
+
+/* ===== ФОРМА ЗАЯВКИ ===== */
+form, .form-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form h2, .form-container h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* Кнопка отправки формы */
+form button[type="submit"],
+form input[type="submit"],
+.btn-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 0 28px var(--accent-glow);
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+form button[type="submit"]:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ===== FAQ ===== */
+details {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+
+details[open] {
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  list-style: none;
+}
+
+summary::after {
+  content: '+';
+  float: right;
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+details[open] summary::after {
+  content: '−';
+}
+
+details p {
+  margin-top: 12px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ===== ФУТЕР ===== */
+footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 60px 20px 30px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  color: var(--accent-hover);
+}
+
+footer .footer-logo {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+/* ===== ПЛАВАЮЩИЕ КНОПКИ МЕССЕНДЖЕРОВ ===== */
+.messenger-buttons, [class*="messenger"], [class*="chat-buttons"] {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.messenger-buttons a, [class*="messenger"] a {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.messenger-buttons a:hover {
+  transform: scale(1.12);
+}
+
+/* ===== СКРОЛЛБАР ===

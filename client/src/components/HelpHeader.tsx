@@ -3,21 +3,21 @@ import logoImage from "@assets/IMG_1708_1762164822589.jpg";
 
 export default function HelpHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+    <header className="sticky top-0 z-50 bg-[#0a0a0f]/85 backdrop-blur-xl border-b border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3" data-testid="link-logo">
             <div className="flex flex-col items-center">
-              <img src={logoImage} alt="БФР" className="w-10 h-10 object-contain rounded-lg shadow-sm" />
-              <span className="text-[10px] text-gray-500 font-medium tracking-tight leading-tight">
+              <img src={logoImage} alt="БФР" className="w-10 h-10 object-contain rounded-lg" />
+              <span className="text-[10px] text-slate-500 font-medium tracking-tight leading-tight">
                 Booking For Rent
               </span>
             </div>
           </Link>
 
           <div className="flex-1 flex justify-center px-4">
-            <span 
-              className="text-lg md:text-xl lg:text-2xl font-bold tracking-tight text-center bg-gradient-to-r from-[#0078d7] via-[#00a67d] to-[#0078d7] bg-clip-text text-transparent"
+            <span
+              className="text-lg md:text-xl lg:text-2xl font-bold tracking-tight text-center bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent"
               data-testid="text-community-title"
             >
               Сообщество хозяев квартир БФР

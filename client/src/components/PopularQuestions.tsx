@@ -26,7 +26,7 @@ const faqData = [
   },
   {
     question: "Какие гарантии и защита в БФР?",
-    answer: "БФР — это сообщество, а не платформа-гарант, поэтому ответственность лежит на её участниках: гостях и хозяевах. Условия вы обсуждаете сами. Но это не означает, что вы остались без защиты. В БФР есть чёрный список ненадёжных участников, система репутации и отзывов, поддержка администраторов в спорах. В случае возникновения конфликта мы помогаем разобраться и найти решение в рамках правил."
+    answer: "БФР — это сообщество, а не платформа-гарант, поэтому ответственность лежит на её участниках: гостях и хозяевах. Условия вы обсуждаете сами. Но это не означает, что вы остались без защиты. В БФР есть чёрный список ненадёжных участников, система репутации и отзывов, поддержка администраторов в спорах."
   },
   {
     question: "Что делать, если гость отменил бронь?",
@@ -46,10 +46,10 @@ export default function PopularQuestions() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-12 px-4 bg-white">
+    <section id="faq" className="py-16 px-4 bg-[#1a1a24]">
       <div className="max-w-4xl mx-auto">
-        <h2 
-          className="text-2xl md:text-3xl font-bold text-gray-900 mb-10"
+        <h2
+          className="text-3xl md:text-4xl font-bold text-slate-50 mb-12 tracking-tight"
           data-testid="text-faq-title"
         >
           Популярные вопросы
@@ -60,25 +60,25 @@ export default function PopularQuestions() {
             <button
               key={index}
               onClick={() => setSelectedFaq(index)}
-              className="w-full flex items-center justify-between py-4 px-0 border-b border-gray-200 hover:bg-gray-50 transition-colors text-left group"
+              className="w-full flex items-center justify-between py-4 px-0 border-b border-white/[0.07] hover:bg-white/[0.02] transition-colors text-left group"
               data-testid={`link-article-${index}`}
             >
-              <span className="text-base text-gray-900 group-hover:text-[#0078d7] transition-colors pr-4">
+              <span className="text-base text-slate-300 group-hover:text-indigo-300 transition-colors pr-4">
                 {faq.question}
               </span>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#0078d7] shrink-0 transition-colors" />
+              <ChevronRight className="w-5 h-5 text-slate-600 group-hover:text-indigo-400 shrink-0 transition-colors" />
             </button>
           ))}
         </div>
 
         <Dialog open={selectedFaq !== null} onOpenChange={() => setSelectedFaq(null)}>
-          <DialogContent className="max-w-lg rounded-2xl">
+          <DialogContent className="max-w-lg rounded-xl bg-[#13131a] border border-white/[0.08]">
             <DialogHeader>
-              <DialogTitle className="text-xl font-semibold text-gray-900 pr-8">
+              <DialogTitle className="text-xl font-semibold text-slate-100 pr-8">
                 {selectedFaq !== null && faqData[selectedFaq].question}
               </DialogTitle>
             </DialogHeader>
-            <div className="text-gray-600 leading-relaxed mt-2 whitespace-pre-line">
+            <div className="text-slate-400 leading-relaxed mt-2 whitespace-pre-line">
               {selectedFaq !== null && faqData[selectedFaq].answer}
             </div>
           </DialogContent>

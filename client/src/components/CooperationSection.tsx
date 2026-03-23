@@ -2,48 +2,55 @@ import { Handshake, Users, Briefcase, TrendingDown } from "lucide-react";
 
 export default function CooperationSection() {
   return (
-    <section id="cooperation" className="py-16 px-4 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <section id="cooperation" className="py-20 px-4 bg-[#0a0a0f]">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
-            <Handshake className="w-8 h-8 text-white" />
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 rounded-xl mb-5">
+            <Handshake className="w-7 h-7 text-indigo-400" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">Сотрудничество</h2>
-          <p className="text-lg text-gray-600">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-50 mb-3 tracking-tight">
+            Сотрудничество
+          </h2>
+          <p className="text-slate-400 text-lg">
             Приглашаем к взаимовыгодному сотрудничеству
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <Users className="w-6 h-6 text-purple-600" />
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            {
+              icon: Users,
+              iconColor: "text-violet-400",
+              bg: "bg-violet-500/10 border-violet-500/20",
+              title: "Администраторы сообществ",
+              desc: "Администраторов групп и сообществ владельцев квартир городов РФ",
+            },
+            {
+              icon: Briefcase,
+              iconColor: "text-emerald-400",
+              bg: "bg-emerald-500/10 border-emerald-500/20",
+              title: "Предприниматели",
+              desc: "Предпринимателей, оказывающих услуги гостям или хозяевам",
+            },
+            {
+              icon: TrendingDown,
+              iconColor: "text-amber-400",
+              bg: "bg-amber-500/10 border-amber-500/20",
+              title: "Единомышленники",
+              desc: "Всех, кого интересует развитие альтернативы интернет-площадкам бронирования",
+            },
+          ].map(({ icon: Icon, iconColor, bg, title, desc }) => (
+            <div
+              key={title}
+              className="bg-[#13131a] border border-white/[0.07] rounded-xl p-6 hover:border-indigo-500/30 transition-all duration-300"
+            >
+              <div className={`w-11 h-11 ${bg} border rounded-lg flex items-center justify-center mb-4`}>
+                <Icon className={`w-5 h-5 ${iconColor}`} />
+              </div>
+              <h3 className="font-semibold text-slate-100 mb-2">{title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">Администраторы сообществ</h3>
-            <p className="text-gray-600 text-sm">
-              Администраторов групп и сообществ владельцев квартир городов РФ
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-              <Briefcase className="w-6 h-6 text-green-600" />
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">Предприниматели</h3>
-            <p className="text-gray-600 text-sm">
-              Предпринимателей, оказывающих услуги гостям или хозяевам
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-              <TrendingDown className="w-6 h-6 text-orange-600" />
-            </div>
-            <h3 className="font-semibold text-gray-900 mb-2">Единомышленники</h3>
-            <p className="text-gray-600 text-sm">
-              Всех, кого интересует развитие альтернативы интернет-площадкам бронирования и снижение за счет этого стоимости аренды и услуг
-            </p>
-          </div>
+          ))}
         </div>
 
         <div className="mt-10 text-center">
@@ -51,7 +58,7 @@ export default function CooperationSection() {
             href="https://t.me/bfrreplit_bot"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-3 rounded-lg transition-colors shadow-[0_0_24px_rgba(99,102,241,0.3)]"
             data-testid="button-cooperation-contact"
           >
             <Handshake className="w-5 h-5" />

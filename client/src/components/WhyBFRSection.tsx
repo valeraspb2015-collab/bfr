@@ -30,13 +30,13 @@ export default function WhyBFRSection() {
       id: "community",
       image: communityImage,
       title: "Сообщество",
-      description: "БФР представляет собой неформальное сообщество, ориентированное на рынок аренды жилья, основанное на группах в мессенджерах и социальных сетях.",
+      description: "Неформальное сообщество, ориентированное на рынок аренды жилья, основанное на группах в мессенджерах и социальных сетях.",
     },
     {
       id: "security",
       image: securityImage,
       title: "Безопасность",
-      description: "Доверие формируется через сбор данных из открытых источников, личные контакты и рекомендации других участников.",
+      description: "Доверие формируется через открытые источники, личные контакты и рекомендации участников.",
     },
     {
       id: "speed",
@@ -47,36 +47,36 @@ export default function WhyBFRSection() {
   ];
 
   return (
-    <section className="py-16 px-4 bg-[#f7f9fc]">
+    <section className="py-20 px-4 bg-[#1a1a24]">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 
-            className="text-2xl md:text-3xl font-bold text-gray-900"
+        <div className="text-center mb-14">
+          <h2
+            className="text-3xl md:text-4xl font-bold text-slate-50 tracking-tight"
             data-testid="text-why-bfr-title"
           >
             Почему БФР?
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {advantages.map((item) => (
             <Card
               key={item.id}
-              className="group overflow-hidden border border-gray-100 rounded-2xl shadow-sm bg-white hover:shadow-lg transition-all hover:-translate-y-1"
+              className="group overflow-hidden border border-white/[0.07] bg-[#13131a] hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(99,102,241,0.12)]"
               data-testid={`card-advantage-${item.id}`}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
-                <img 
-                  src={item.image} 
+              <div className="aspect-[4/3] overflow-hidden bg-[#0a0a0f]">
+                <img
+                  src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                 />
               </div>
               <div className="p-5">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#0078d7] transition-colors">
+                <h3 className="text-base font-semibold text-slate-100 mb-2 group-hover:text-indigo-300 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-slate-400 leading-relaxed">
                   {item.description}
                 </p>
               </div>

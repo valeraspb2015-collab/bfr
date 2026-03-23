@@ -19,34 +19,34 @@ export default function MoreInfoSection() {
   ];
 
   return (
-    <section className="py-12 px-4 bg-white">
+    <section className="py-16 px-4 bg-[#0a0a0f]">
       <div className="max-w-4xl mx-auto">
-        <h2 
-          className="text-2xl md:text-3xl font-bold text-gray-900 mb-10"
+        <h2
+          className="text-3xl md:text-4xl font-bold text-slate-50 mb-12 tracking-tight"
           data-testid="text-more-info-title"
         >
           Подробнее
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {infoCards.map((card) => (
             <Card
               key={card.id}
-              className="group overflow-hidden border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all cursor-pointer bg-white hover:-translate-y-1"
+              className="group overflow-hidden border border-white/[0.07] bg-[#13131a] hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(99,102,241,0.12)] cursor-pointer"
               data-testid={`card-info-${card.id}`}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-gray-50">
-                <img 
-                  src={card.image} 
+              <div className="aspect-[4/3] overflow-hidden bg-[#0a0a0f]">
+                <img
+                  src={card.image}
                   alt={card.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                 />
               </div>
               <div className="p-5">
-                <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-[#0078d7] transition-colors">
+                <h3 className="text-base font-semibold text-slate-100 mb-2 group-hover:text-indigo-300 transition-colors">
                   {card.title}
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-slate-400 leading-relaxed">
                   {card.description}
                 </p>
               </div>

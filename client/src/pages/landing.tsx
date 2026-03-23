@@ -21,7 +21,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-[#0a0a0f] relative">
       <HelpHeader />
       <HelpHero 
         onGuestClick={handleGetStarted} 
