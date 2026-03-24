@@ -41,8 +41,8 @@ export default function WhyBFRSection() {
     {
       id: "speed",
       image: speedImage,
-      title: "Прямая оплата",
-      description: "Всё общение в Telegram, WhatsApp или Макс — там, где вам удобно.",
+      title: "Всегда на связи",
+      description: "Вне зависимости от блокировок, вы всегда будете на связи.",
     },
   ];
 
