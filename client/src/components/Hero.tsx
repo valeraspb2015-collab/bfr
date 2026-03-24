@@ -23,7 +23,7 @@ export default function Hero({ onGetStarted, onOwnerApplication }: HeroProps) {
                 letterSpacing: '0.5px'
               }}
             >
-              Booking for rent
+              Best Flat Rent
             </span>
           </div>
           <h2 className="text-[19px] md:text-[24px] font-semibold text-[#333] text-center">
