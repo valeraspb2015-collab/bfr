@@ -24,7 +24,7 @@ export default function WhyBFRSection() {
       id: "ai-automation",
       image: aiImage,
       title: "Умная автоматизация",
-      description: "Бронник AI из всех откликов выбирает 5 самых подходящих под ваш запрос.",
+      description: "Бронник AI из всех откликов выбирает 5 самых подходящих под ваш запрос, пока не подберет подходящий вам вариант.",
     },
     {
       id: "community",
