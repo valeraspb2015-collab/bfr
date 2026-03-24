@@ -23,7 +23,7 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: "#a39e98" }}>
-              Опишите — получите предложения. Без посредников.
+              Заполни заявку — получи предложения напрямую от хозяев.
             </p>
             <div className="flex flex-wrap gap-3 text-xs">
               <div className="flex items-center gap-1.5">
