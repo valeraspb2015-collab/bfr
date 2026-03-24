@@ -11,7 +11,7 @@ export default function WhyBFRSection() {
     {
       id: "direct-contact",
       image: directContactImage,
-      title: "Надежный контакт",
+      title: "Прямой контакт",
       description: "Вы не ищете — вас находят. Хозяева сами откликаются на вашу заявку.",
     },
     {
