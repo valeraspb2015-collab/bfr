@@ -77,7 +77,7 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
           style={{ color: "#6b6560" }}
           data-testid="text-hero-subtitle"
         >
-          Заполните заявку один раз. Бронник AI разошлёт её хозяевам и вернёт вам топ-5 предложений прямо в Telegram или WhatsApp
+          Заполните заявку один раз. Бронник AI разошлёт её хозяевам и вернёт вам топ-5 предложений в выбранный вами способ связи
         </p>
 
         <div className="flex flex-wrap justify-center gap-3 mb-10">

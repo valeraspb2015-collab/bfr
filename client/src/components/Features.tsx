@@ -15,7 +15,7 @@ const features = [
   {
     icon: MessageCircle,
     title: "Простая коммуникация",
-    description: "Общайтесь с хозяином напрямую через Telegram или WhatsApp."
+    description: "Общайтесь с хозяином напрямую в выбранный вами способ связи."
   }
 ];
 
