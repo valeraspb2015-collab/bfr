@@ -1,46 +1,41 @@
+import { MessageCircle, Wallet, Sparkles, Users, Shield, Smartphone } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import directContactImage from "@assets/generated_images/direct_contact_messaging_illustration.png";
-import savingsImage from "@assets/generated_images/savings_no_hidden_fees.png";
-import aiImage from "@assets/generated_images/ai_automation_neural_network.png";
-import communityImage from "@assets/generated_images/community_support_group.png";
-import securityImage from "@assets/generated_images/security_shield_protection.png";
-import speedImage from "@assets/generated_images/fast_payment_lightning.png";
 
 export default function WhyBFRSection() {
   const advantages = [
     {
       id: "direct-contact",
-      image: directContactImage,
+      icon: MessageCircle,
       title: "Прямой контакт",
       description: "Вы не ищете — вас находят. Хозяева сами откликаются на вашу заявку.",
     },
     {
       id: "no-commission",
-      image: savingsImage,
+      icon: Wallet,
       title: "Без лишних затрат",
       description: "Никаких сервисных сборов. Вы платите напрямую хозяину.",
     },
     {
       id: "ai-automation",
-      image: aiImage,
+      icon: Sparkles,
       title: "Умная автоматизация",
       description: "Бронник AI из всех откликов выбирает 5 самых подходящих под ваш запрос, пока не подберет подходящий вам вариант.",
     },
     {
       id: "community",
-      image: communityImage,
+      icon: Users,
       title: "Сообщество",
       description: "За платформой стоят реальные хозяева из городов России, а не агрегаторы.",
     },
     {
       id: "security",
-      image: securityImage,
+      icon: Shield,
       title: "Безопасность",
       description: "Прямой контакт с хозяином после выбора — общайтесь без посредников.",
     },
     {
       id: "speed",
-      image: speedImage,
+      icon: Smartphone,
       title: "Всегда на связи",
       description: "Вне зависимости от блокировок, вы всегда будете на связи.",
     },
@@ -60,45 +55,52 @@ export default function WhyBFRSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {advantages.map((item) => (
-            <Card
-              key={item.id}
-              className="group overflow-hidden transition-all duration-300 hover:-translate-y-1"
-              style={{
-                background: "#ffffff",
-                border: "1px solid rgba(28,25,23,0.08)",
-                boxShadow: "0 2px 12px rgba(28,25,23,0.06)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  "0 8px 28px rgba(200,98,42,0.12), 0 2px 8px rgba(28,25,23,0.06)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  "0 2px 12px rgba(28,25,23,0.06)";
-              }}
-              data-testid={`card-advantage-${item.id}`}
-            >
-              <div className="aspect-[4/3] overflow-hidden" style={{ background: "#f3ede3" }}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                />
-              </div>
-              <div className="p-5">
-                <h3
-                  className="text-base font-semibold mb-2 transition-colors"
-                  style={{ color: "#1c1917" }}
-                >
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
-                  {item.description}
-                </p>
-              </div>
-            </Card>
-          ))}
+          {advantages.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Card
+                key={item.id}
+                className="group transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid rgba(28,25,23,0.08)",
+                  boxShadow: "0 2px 12px rgba(28,25,23,0.06)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    "0 8px 28px rgba(200,98,42,0.12), 0 2px 8px rgba(28,25,23,0.06)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    "0 2px 12px rgba(28,25,23,0.06)";
+                }}
+                data-testid={`card-advantage-${item.id}`}
+              >
+                <div className="p-6">
+                  <div
+                    className="mb-4 flex items-center justify-center"
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 12,
+                      background: "rgba(200,98,42,0.12)",
+                    }}
+                  >
+                    <Icon className="w-6 h-6" style={{ color: "#c8622a" }} />
+                  </div>
+                  <h3
+                    className="text-base font-semibold mb-2 transition-colors"
+                    style={{ color: "#1c1917" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
+                    {item.description}
+                  </p>
+                </div>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -27,7 +27,7 @@ export default function HelpHero({ onGuestClick, onOwnerClick }: HelpHeroProps) 
 
   return (
     <section
-      className="relative py-24 px-4 text-center overflow-hidden"
+      className="relative pt-24 pb-10 px-4 text-center overflow-hidden"
       style={{
         background:
           "radial-gradient(ellipse 55% 50% at 85% 15%, rgba(200,98,42,0.14) 0%, transparent 60%), " +

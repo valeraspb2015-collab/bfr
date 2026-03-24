@@ -29,12 +29,7 @@ export default function HelpHeader() {
           <div className="flex-1 flex justify-center px-4">
             <span
               className="text-lg md:text-xl lg:text-2xl font-bold tracking-tight text-center"
-              style={{
-                background: "linear-gradient(135deg, #c8622a 0%, #e07540 50%, #4a7c59 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
+              style={{ color: "#1c1917" }}
               data-testid="text-community-title"
             >
               Сообщество хозяев квартир БФР
