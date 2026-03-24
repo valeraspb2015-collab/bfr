@@ -52,6 +52,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const request = await storage.createApartmentRequest(validatedData);
       
       // Формирование сообщения для Telegram
+      const messengerEmoji = request.messengerType === "telegram" ? "✈️" : request.messengerType === "whatsapp" ? "💬" : "📱";
+      const messengerLabel = request.messengerType === "telegram" ? "Telegram" : request.messengerType === "whatsapp" ? "WhatsApp" : "Макс";
+
       const message = `
 🏠 <b>Новая заявка на квартиру!</b>
 
@@ -62,6 +65,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 🛏 <b>Комнат:</b> ${request.rooms}
 📅 <b>Дата заезда:</b> ${request.moveInDate}
 📅 <b>Дата выезда:</b> ${request.moveOutDate}
+${messengerEmoji} <b>Куда слать предложения (${messengerLabel}):</b> ${request.messengerContact}
 ${request.additionalInfo ? `\n📝 <b>Доп. информация:</b> ${request.additionalInfo}` : ''}
 
 🆔 ID заявки: ${request.id}

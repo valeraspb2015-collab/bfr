@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ArrowLeft, CalendarIcon } from "lucide-react";
+import { ArrowLeft, CalendarIcon, Send, MessageCircle, Smartphone } from "lucide-react";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,35 @@ export interface RequestFormData {
   moveInDate: string;
   moveOutDate: string;
   additionalInfo: string;
+  messengerType: string;
+  messengerContact: string;
 }
+
+type MessengerType = "telegram" | "whatsapp" | "max";
+
+const messengerOptions: { id: MessengerType; label: string; icon: React.ReactNode; placeholder: string; hint: string }[] = [
+  {
+    id: "telegram",
+    label: "Telegram",
+    icon: <Send className="w-4 h-4" />,
+    placeholder: "@username или +7 999 123-45-67",
+    hint: "Укажите @username или номер телефона",
+  },
+  {
+    id: "whatsapp",
+    label: "WhatsApp",
+    icon: <MessageCircle className="w-4 h-4" />,
+    placeholder: "+7 999 123-45-67",
+    hint: "Укажите номер телефона",
+  },
+  {
+    id: "max",
+    label: "Макс",
+    icon: <Smartphone className="w-4 h-4" />,
+    placeholder: "Номер телефона или ссылка",
+    hint: "Укажите номер телефона или ссылку на профиль",
+  },
+];
 
 export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
   const [formData, setFormData] = useState<RequestFormData>({
@@ -38,25 +66,28 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
     rooms: "",
     moveInDate: "",
     moveOutDate: "",
-    additionalInfo: ""
+    additionalInfo: "",
+    messengerType: "",
+    messengerContact: "",
   });
 
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [selectedMessenger, setSelectedMessenger] = useState<MessengerType | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!dateRange?.from || !dateRange?.to) {
-      return;
-    }
-    
+
+    if (!dateRange?.from || !dateRange?.to) return;
+    if (!selectedMessenger || !formData.messengerContact.trim()) return;
+
     const submissionData = {
       ...formData,
       moveInDate: format(dateRange.from, "yyyy-MM-dd"),
       moveOutDate: format(dateRange.to, "yyyy-MM-dd"),
+      messengerType: selectedMessenger,
     };
-    
-    console.log('Form submitted:', submissionData);
+
+    console.log("Form submitted:", submissionData);
     onSubmit?.(submissionData);
   };
 
@@ -64,11 +95,24 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleMessengerSelect = (type: MessengerType) => {
+    setSelectedMessenger(type);
+    setFormData(prev => ({ ...prev, messengerType: type, messengerContact: "" }));
+  };
+
+  const activeMessenger = messengerOptions.find(m => m.id === selectedMessenger);
+
+  const isFormValid =
+    !!dateRange?.from &&
+    !!dateRange?.to &&
+    !!selectedMessenger &&
+    !!formData.messengerContact.trim();
+
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-2xl mx-auto">
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           onClick={onBack}
           className="mb-6"
           data-testid="button-back"
@@ -92,7 +136,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
                 id="name"
                 placeholder="Иван Иванов"
                 value={formData.name}
-                onChange={(e) => handleChange('name', e.target.value)}
+                onChange={(e) => handleChange("name", e.target.value)}
                 required
                 data-testid="input-name"
               />
@@ -107,7 +151,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
                 type="tel"
                 placeholder="+7 (999) 123-45-67"
                 value={formData.phone}
-                onChange={(e) => handleChange('phone', e.target.value)}
+                onChange={(e) => handleChange("phone", e.target.value)}
                 required
                 data-testid="input-phone"
               />
@@ -121,7 +165,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
                 id="location"
                 placeholder="Москва, центр"
                 value={formData.location}
-                onChange={(e) => handleChange('location', e.target.value)}
+                onChange={(e) => handleChange("location", e.target.value)}
                 required
                 data-testid="input-location"
               />
@@ -132,7 +176,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
                 <Label htmlFor="budget" className="text-[15px] text-foreground/80">
                   Бюджет (₽/сутки) *
                 </Label>
-                <Select value={formData.budget} onValueChange={(value) => handleChange('budget', value)} required>
+                <Select value={formData.budget} onValueChange={(value) => handleChange("budget", value)} required>
                   <SelectTrigger id="budget" data-testid="select-budget">
                     <SelectValue placeholder="Выберите бюджет" />
                   </SelectTrigger>
@@ -149,7 +193,7 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
                 <Label htmlFor="rooms" className="text-[15px] text-foreground/80">
                   Количество комнат *
                 </Label>
-                <Select value={formData.rooms} onValueChange={(value) => handleChange('rooms', value)} required>
+                <Select value={formData.rooms} onValueChange={(value) => handleChange("rooms", value)} required>
                   <SelectTrigger id="rooms" data-testid="select-rooms">
                     <SelectValue placeholder="Выберите" />
                   </SelectTrigger>
@@ -207,6 +251,56 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
               </Popover>
             </div>
 
+            <div className="space-y-3">
+              <Label className="text-[15px] text-foreground/80">
+                Куда прислать предложения? *
+              </Label>
+              <p className="text-[13px] text-muted-foreground -mt-1">
+                Выберите мессенджер и укажите контакт — хозяева пришлют вам варианты напрямую
+              </p>
+
+              <div className="flex flex-wrap gap-2" data-testid="messenger-selector">
+                {messengerOptions.map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() => handleMessengerSelect(m.id)}
+                    data-testid={`button-messenger-${m.id}`}
+                    className={cn(
+                      "flex items-center gap-2 px-4 py-2 rounded-md border text-[14px] font-medium transition-colors",
+                      selectedMessenger === m.id
+                        ? "bg-[#6366f1] border-[#6366f1] text-white"
+                        : "bg-transparent border-border text-foreground/70 hover-elevate"
+                    )}
+                  >
+                    {m.icon}
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+
+              {selectedMessenger && (
+                <div className="space-y-1">
+                  <Input
+                    placeholder={activeMessenger?.placeholder}
+                    value={formData.messengerContact}
+                    onChange={(e) => handleChange("messengerContact", e.target.value)}
+                    required
+                    data-testid="input-messenger-contact"
+                  />
+                  <p className="text-[12px] text-muted-foreground pl-1">
+                    {activeMessenger?.hint}
+                  </p>
+                </div>
+              )}
+
+              {!selectedMessenger && (
+                <p className="text-[12px] text-amber-500 pl-1">
+                  Выберите мессенджер для получения предложений
+                </p>
+              )}
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="additionalInfo" className="text-[15px] text-foreground/80">
                 Дополнительная информация
@@ -215,18 +309,18 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
                 id="additionalInfo"
                 placeholder="Особые пожелания, наличие домашних животных, и т.д."
                 value={formData.additionalInfo}
-                onChange={(e) => handleChange('additionalInfo', e.target.value)}
+                onChange={(e) => handleChange("additionalInfo", e.target.value)}
                 rows={4}
                 data-testid="textarea-additional-info"
               />
             </div>
 
-            <Button 
+            <Button
               type="submit"
               size="lg"
               className="w-full text-[18px] px-7 py-6 rounded-lg bg-[#0078d7] hover:bg-[#005fa3] text-white"
               data-testid="button-submit-form"
-              disabled={!dateRange?.from || !dateRange?.to}
+              disabled={!isFormValid}
             >
               Отправить заявку
             </Button>

@@ -27,6 +27,8 @@ export const apartmentRequests = pgTable("apartment_requests", {
   moveInDate: text("move_in_date").notNull(),
   moveOutDate: text("move_out_date").notNull(),
   additionalInfo: text("additional_info"),
+  messengerType: text("messenger_type").notNull(),
+  messengerContact: text("messenger_contact").notNull(),
   status: text("status").notNull().default("new"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

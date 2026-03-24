@@ -47,6 +47,8 @@ export class MemStorage implements IStorage {
       status: "new",
       createdAt: new Date(),
       additionalInfo: insertRequest.additionalInfo ?? null,
+      messengerType: insertRequest.messengerType,
+      messengerContact: insertRequest.messengerContact,
     };
     this.apartmentRequests.set(id, request);
     return request;
