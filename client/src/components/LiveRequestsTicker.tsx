@@ -23,15 +23,37 @@ const russianNames = [
 
 const roomOptions = ["Студия", "1-комн.", "2-комн.", "3-комн."];
 
+const monthNamesGenitive = [
+  "января", "февраля", "марта", "апреля", "мая", "июня",
+  "июля", "августа", "сентября", "октября", "ноября", "декабря"
+];
+
+function generateRandomDate(): string {
+  const today = new Date();
+  const daysOffset = Math.floor(Math.random() * 240) + 1;
+  const start = new Date(today);
+  start.setDate(today.getDate() + daysOffset);
+
+  const duration = Math.floor(Math.random() * 7) + 2;
+  const end = new Date(start);
+  end.setDate(start.getDate() + duration);
+
+  const startDay = start.getDate();
+  const endDay = end.getDate();
+  const startMonth = start.getMonth();
+  const endMonth = end.getMonth();
+
+  if (startMonth === endMonth) {
+    return `${startDay}–${endDay} ${monthNamesGenitive[startMonth]}`;
+  }
+  return `${startDay} ${monthNamesGenitive[startMonth]} – ${endDay} ${monthNamesGenitive[endMonth]}`;
+}
+
 function generateMockRequest(id: number): MockRequest {
   const name = russianNames[Math.floor(Math.random() * russianNames.length)];
   const city = russianCities[Math.floor(Math.random() * russianCities.length)];
   const rooms = roomOptions[Math.floor(Math.random() * roomOptions.length)];
-  const startDay = Math.floor(Math.random() * 20) + 1;
-  const duration = Math.floor(Math.random() * 7) + 2;
-  const month = Math.floor(Math.random() * 3) + 1;
-  const monthNames = ["февраля", "марта", "апреля"];
-  const dates = `${startDay}-${startDay + duration} ${monthNames[month - 1]}`;
+  const dates = generateRandomDate();
   const budgets = ["2500-3500₽", "3000-4000₽", "4000-5000₽", "5000-7000₽", "до 6000₽"];
   const budget = budgets[Math.floor(Math.random() * budgets.length)];
   return { id, name, location: city, rooms, dates, budget };
