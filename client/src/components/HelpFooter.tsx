@@ -16,7 +16,7 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
               <img src={logoImage} alt="БФР" className="w-8 h-8 object-contain rounded" />
               <div>
                 <span className="text-slate-100 font-bold">БФР</span>
-                <p className="text-xs text-slate-500">Booking For Rent</p>
+                <p className="text-xs text-slate-500">Best flat rent · Лучшая аренда квартир</p>
               </div>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed mb-4">

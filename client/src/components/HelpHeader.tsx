@@ -10,7 +10,7 @@ export default function HelpHeader() {
             <div className="flex flex-col items-center">
               <img src={logoImage} alt="БФР" className="w-10 h-10 object-contain rounded-lg" />
               <span className="text-[10px] text-slate-500 font-medium tracking-tight leading-tight">
-                Booking For Rent
+                Best flat rent
               </span>
             </div>
           </Link>
