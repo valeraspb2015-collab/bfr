@@ -85,9 +85,9 @@ export default function BronnikChat() {
       }
     } catch (error) {
       console.error("Chat error:", error);
-      setMessages(prev => [...prev, { 
-        role: "assistant", 
-        content: "Извините, произошла ошибка. Попробуйте позже." 
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: "Извините, произошла ошибка. Попробуйте позже."
       }]);
     } finally {
       setIsLoading(false);
@@ -136,61 +136,92 @@ export default function BronnikChat() {
           </div>
           <button
             onClick={() => setIsOpen(true)}
-            className="bg-[#13131a] border border-indigo-500/30 hover:border-indigo-400/60 rounded-2xl shadow-[0_0_20px_rgba(99,102,241,0.2)] flex items-center gap-3 px-4 py-3 transition-all hover:scale-105"
+            className="rounded-2xl flex items-center gap-3 px-4 py-3 transition-all hover:scale-105"
+            style={{
+              background: "#ffffff",
+              border: "1px solid rgba(200,98,42,0.25)",
+              boxShadow: "0 4px 20px rgba(200,98,42,0.12), 0 2px 8px rgba(28,25,23,0.08)",
+            }}
             data-testid="button-bronnik-open"
           >
             <img
               src={bronnikAvatar}
               alt="Бронник"
-              className="w-12 h-12 rounded-full object-cover border-2 border-indigo-500/50"
+              className="w-12 h-12 rounded-full object-cover"
+              style={{ border: "2px solid rgba(200,98,42,0.4)" }}
             />
             <div className="text-left">
-              <div className="font-semibold text-sm text-indigo-300">Спросить Бронника AI</div>
-              <div className="text-xs text-slate-500">Гид по городам России</div>
+              <div className="font-semibold text-sm" style={{ color: "#c8622a" }}>Спросить Бронника AI</div>
+              <div className="text-xs" style={{ color: "#6b6560" }}>Гид по городам России</div>
             </div>
           </button>
         </div>
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[360px] h-[500px] bg-[#13131a] rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-indigo-500/25">
-          <div className="bg-[#0a0a0f] border-b border-white/[0.06] px-4 py-3 flex items-center justify-between">
+        <div
+          className="fixed bottom-6 right-6 w-[360px] h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50"
+          style={{
+            background: "#ffffff",
+            border: "1px solid rgba(200,98,42,0.2)",
+            boxShadow: "0 20px 60px rgba(28,25,23,0.15)",
+          }}
+        >
+          <div
+            className="px-4 py-3 flex items-center justify-between"
+            style={{
+              background: "#faf7f2",
+              borderBottom: "1px solid rgba(28,25,23,0.08)",
+            }}
+          >
             <div className="flex items-center gap-2">
               <img
                 src={bronnikAvatar}
                 alt="Бронник"
-                className="w-8 h-8 rounded-full object-cover border-2 border-indigo-500/50"
+                className="w-8 h-8 rounded-full object-cover"
+                style={{ border: "2px solid rgba(200,98,42,0.35)" }}
               />
               <div>
-                <h3 className="font-semibold text-sm text-slate-100">Бронник AI</h3>
-                <p className="text-xs text-slate-500">Гид по городам России</p>
+                <h3 className="font-semibold text-sm" style={{ color: "#1c1917" }}>Бронник AI</h3>
+                <p className="text-xs" style={{ color: "#6b6560" }}>Гид по городам России</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-white/10 p-1 rounded text-slate-400"
+              className="p-1 rounded transition-colors"
+              style={{ color: "#6b6560" }}
               data-testid="button-bronnik-close"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#0f0f16]">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ background: "#faf7f2" }}>
             {messages.map((msg, idx) => (
               <div
                 key={idx}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm ${
+                  className="max-w-[80%] px-3 py-2 rounded-2xl text-sm"
+                  style={
                     msg.role === "user"
-                      ? "bg-indigo-600 text-white rounded-br-md"
-                      : "bg-[#1a1a24] text-slate-200 border border-white/[0.07] rounded-bl-md"
-                  }`}
+                      ? {
+                          background: "#c8622a",
+                          color: "#ffffff",
+                          borderBottomRightRadius: "4px",
+                        }
+                      : {
+                          background: "#ffffff",
+                          color: "#1c1917",
+                          border: "1px solid rgba(28,25,23,0.08)",
+                          borderBottomLeftRadius: "4px",
+                        }
+                  }
                   data-testid={`message-${msg.role}-${idx}`}
                 >
                   {msg.content || (isLoading && idx === messages.length - 1 ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#c8622a" }} />
                   ) : null)}
                 </div>
               </div>
@@ -198,7 +229,10 @@ export default function BronnikChat() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-3 border-t border-white/[0.06] bg-[#13131a]">
+          <div
+            className="p-3"
+            style={{ borderTop: "1px solid rgba(28,25,23,0.08)", background: "#ffffff" }}
+          >
             <div className="flex gap-2">
               <input
                 type="text"
@@ -206,7 +240,12 @@ export default function BronnikChat() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Напишите сообщение..."
-                className="flex-1 px-3 py-2 text-sm bg-white/[0.05] border border-white/[0.08] text-slate-200 placeholder-slate-600 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="flex-1 px-3 py-2 text-sm rounded-full focus:outline-none"
+                style={{
+                  background: "#faf7f2",
+                  border: "1px solid rgba(28,25,23,0.12)",
+                  color: "#1c1917",
+                }}
                 disabled={isLoading}
                 data-testid="input-bronnik-message"
               />
@@ -214,7 +253,8 @@ export default function BronnikChat() {
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading}
                 size="icon"
-                className="rounded-full bg-indigo-600"
+                className="rounded-full text-white"
+                style={{ background: "#c8622a" }}
                 data-testid="button-bronnik-send"
               >
                 {isLoading ? (

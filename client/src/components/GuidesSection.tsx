@@ -20,7 +20,7 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
   };
 
   const guestSteps = [
-    "Заполните заявку по кнопке «Подобрать квартиру».",
+    "Заполните заявку по кнопке «Отправить заявку хозяевам».",
     "Получите 5 предложений подходящих квартир с описанием и условиями.",
     "Выберите варианты и сообщите администратору в канале связи.",
     "Получите прямые контакты хозяев.",
@@ -62,7 +62,7 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
       id: "guest-start",
       image: guestImage,
       icon: User,
-      iconColor: "text-indigo-400",
+      iconColor: "#c8622a",
       title: "Первые шаги гостей в БФР",
       description: "Узнайте, как быстро найти подходящую квартиру и связаться с хозяином",
     },
@@ -70,7 +70,7 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
       id: "owner-start",
       image: hostImage,
       icon: Home,
-      iconColor: "text-emerald-400",
+      iconColor: "#4a7c59",
       title: "Первые шаги хозяина в БФР",
       description: "Как начать принимать гостей и получать заявки через сообщество",
     },
@@ -78,7 +78,7 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
       id: "booking",
       image: bookingImage,
       icon: FileText,
-      iconColor: "text-slate-400",
+      iconColor: "#6b6560",
       title: "Управление бронированием",
       description: "Информация об оплате, подтверждении и условиях аренды",
     },
@@ -86,7 +86,7 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
       id: "tips",
       image: tipsImage,
       icon: Lightbulb,
-      iconColor: "text-amber-400",
+      iconColor: "#e07540",
       title: "Полезные советы гостям и хозяевам",
       description: "Рекомендации для успешного сотрудничества",
     },
@@ -96,40 +96,50 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
     switch (id) {
       case "guest-start":
         return (
-          <div className="mt-6 pt-6 border-t border-white/[0.07]">
+          <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(28,25,23,0.08)" }}>
             <ol className="space-y-3 mb-6 list-decimal list-inside">
               {guestSteps.map((step, index) => (
-                <li key={index} className="text-sm text-slate-400 leading-relaxed">{step}</li>
+                <li key={index} className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>{step}</li>
               ))}
             </ol>
-            <Button onClick={onGuestClick} className="w-full bg-indigo-600 text-white rounded-full py-5" data-testid="button-guest-action-guide">
-              Подобрать квартиру
+            <Button
+              onClick={onGuestClick}
+              className="w-full text-white rounded-xl py-5"
+              style={{ background: "#c8622a", boxShadow: "0 4px 16px rgba(200,98,42,0.2)" }}
+              data-testid="button-guest-action-guide"
+            >
+              Отправить заявку хозяевам
             </Button>
           </div>
         );
       case "owner-start":
         return (
-          <div className="mt-6 pt-6 border-t border-white/[0.07]">
+          <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(28,25,23,0.08)" }}>
             <ul className="space-y-3 mb-6">
               {hostSteps.map((step, index) => (
-                <li key={index} className="flex gap-2 text-sm text-slate-400 leading-relaxed">
-                  <span className="text-emerald-400 shrink-0">•</span>
+                <li key={index} className="flex gap-2 text-sm leading-relaxed" style={{ color: "#6b6560" }}>
+                  <span style={{ color: "#4a7c59" }} className="shrink-0">•</span>
                   {step}
                 </li>
               ))}
             </ul>
-            <Button onClick={onOwnerClick} className="w-full bg-emerald-600 text-white rounded-full py-5" data-testid="button-host-action-guide">
+            <Button
+              onClick={onOwnerClick}
+              className="w-full text-white rounded-xl py-5"
+              style={{ background: "#4a7c59", boxShadow: "0 4px 16px rgba(74,124,89,0.2)" }}
+              data-testid="button-host-action-guide"
+            >
               Стать хозяином БФР
             </Button>
           </div>
         );
       case "booking":
         return (
-          <div className="mt-6 pt-6 border-t border-white/[0.07]">
+          <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(28,25,23,0.08)" }}>
             <ul className="space-y-3">
               {bookingInfo.map((item, index) => (
-                <li key={index} className="flex gap-3 text-sm text-slate-400">
-                  <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <li key={index} className="flex gap-3 text-sm" style={{ color: "#6b6560" }}>
+                  <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#4a7c59" }} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -138,22 +148,22 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
         );
       case "tips":
         return (
-          <div className="mt-6 pt-6 border-t border-white/[0.07]">
+          <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(28,25,23,0.08)" }}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { label: "Для гостей", icon: User, color: "text-indigo-400", tips: guestTips },
-                { label: "Для хозяев", icon: Home, color: "text-emerald-400", tips: hostTips },
-                { label: "Общие рекомендации", icon: Shield, color: "text-amber-400", tips: safetyTips },
+                { label: "Для гостей", icon: User, color: "#c8622a", tips: guestTips },
+                { label: "Для хозяев", icon: Home, color: "#4a7c59", tips: hostTips },
+                { label: "Общие рекомендации", icon: Shield, color: "#e07540", tips: safetyTips },
               ].map(({ label, icon: Icon, color, tips }) => (
                 <div key={label}>
-                  <h4 className={`font-semibold text-slate-200 mb-3 flex items-center gap-2 text-sm`}>
-                    <Icon className={`w-4 h-4 ${color}`} />
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm" style={{ color: "#1c1917" }}>
+                    <Icon className="w-4 h-4" style={{ color }} />
                     {label}
                   </h4>
                   <ul className="space-y-2">
                     {tips.map((tip, i) => (
-                      <li key={i} className="text-sm text-slate-400 flex gap-2">
-                        <span className={color}>•</span>
+                      <li key={i} className="text-sm flex gap-2" style={{ color: "#6b6560" }}>
+                        <span style={{ color }}>•</span>
                         {tip}
                       </li>
                     ))}
@@ -169,12 +179,16 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
   };
 
   return (
-    <section className="py-16 px-4 bg-[#0a0a0f]">
+    <section className="py-16 px-4" style={{ background: "#faf7f2" }}>
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-50 mb-2 text-center tracking-tight" data-testid="text-guides-title">
+        <h2
+          className="text-3xl md:text-4xl font-bold mb-2 text-center tracking-tight"
+          style={{ color: "#1c1917" }}
+          data-testid="text-guides-title"
+        >
           Руководство для новичков
         </h2>
-        <p className="text-slate-400 text-center mb-12">
+        <p className="text-center mb-12" style={{ color: "#6b6560" }}>
           Начните знакомство с платформой БФР
         </p>
 
@@ -185,7 +199,12 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
             return (
               <Card
                 key={guide.id}
-                className="overflow-hidden border border-white/[0.07] bg-[#13131a] hover:border-indigo-500/30 transition-colors"
+                className="overflow-hidden transition-colors"
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid rgba(28,25,23,0.08)",
+                  boxShadow: "0 2px 8px rgba(28,25,23,0.04)",
+                }}
                 data-testid={`card-guide-${guide.id}`}
               >
                 <button
@@ -193,20 +212,20 @@ export default function GuidesSection({ onGuestClick, onOwnerClick }: GuidesSect
                   className="w-full flex items-center gap-4 p-4 text-left"
                   data-testid={`button-toggle-${guide.id}`}
                 >
-                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-[#0a0a0f]">
-                    <img src={guide.image} alt={guide.title} className="w-full h-full object-cover opacity-80" />
+                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0" style={{ background: "#f3ede3" }}>
+                    <img src={guide.image} alt={guide.title} className="w-full h-full object-cover opacity-90" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <Icon className={`w-5 h-5 ${guide.iconColor}`} />
-                      <h3 className="text-base font-semibold text-slate-100">{guide.title}</h3>
+                      <Icon className="w-5 h-5" style={{ color: guide.iconColor }} />
+                      <h3 className="text-base font-semibold" style={{ color: "#1c1917" }}>{guide.title}</h3>
                     </div>
-                    <p className="text-sm text-slate-400">{guide.description}</p>
+                    <p className="text-sm" style={{ color: "#6b6560" }}>{guide.description}</p>
                   </div>
                   <div className="shrink-0">
                     {isExpanded
-                      ? <ChevronUp className="w-5 h-5 text-slate-500" />
-                      : <ChevronDown className="w-5 h-5 text-slate-500" />}
+                      ? <ChevronUp className="w-5 h-5" style={{ color: "#6b6560" }} />
+                      : <ChevronDown className="w-5 h-5" style={{ color: "#6b6560" }} />}
                   </div>
                 </button>
                 {isExpanded && (

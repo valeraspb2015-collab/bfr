@@ -73,22 +73,29 @@ export default function LiveRequestsTicker() {
     return () => clearInterval(interval);
   }, []);
 
-  const Card = ({ request }: { request: MockRequest }) => (
-    <div className="flex-shrink-0 bg-white/[0.04] rounded-lg px-4 py-2 flex items-center gap-4 border border-white/[0.07]">
-      <span className="text-slate-200 font-medium text-sm">{request.name}</span>
-      <div className="flex items-center gap-1 text-slate-400 text-xs">
+  const TickerCard = ({ request }: { request: MockRequest }) => (
+    <div
+      className="flex-shrink-0 rounded-xl px-4 py-2 flex items-center gap-4"
+      style={{
+        background: "#fff",
+        border: "1px solid rgba(28,25,23,0.08)",
+        boxShadow: "0 1px 4px rgba(28,25,23,0.05)",
+      }}
+    >
+      <span className="font-medium text-sm" style={{ color: "#1c1917" }}>{request.name}</span>
+      <div className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
         <MapPin className="w-3 h-3" />
         {request.location}
       </div>
-      <div className="flex items-center gap-1 text-slate-400 text-xs">
+      <div className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
         <Users className="w-3 h-3" />
         {request.rooms}
       </div>
-      <div className="flex items-center gap-1 text-slate-400 text-xs">
+      <div className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
         <Calendar className="w-3 h-3" />
         {request.dates}
       </div>
-      <div className="flex items-center gap-1 text-indigo-400 text-xs font-medium">
+      <div className="flex items-center gap-1 text-xs font-medium" style={{ color: "#c8622a" }}>
         <Banknote className="w-3 h-3" />
         {request.budget}
       </div>
@@ -97,19 +104,32 @@ export default function LiveRequestsTicker() {
 
   return (
     <section
-      className="py-3 overflow-hidden border-t border-b border-white/[0.06]"
-      style={{ background: "linear-gradient(90deg, #13131a, #1a1a24, #13131a)" }}
+      className="py-3 overflow-hidden"
+      style={{
+        background: "#f3ede3",
+        borderTop: "1px solid rgba(28,25,23,0.08)",
+        borderBottom: "1px solid rgba(28,25,23,0.08)",
+      }}
     >
       <div className="flex items-center">
-        <div className="px-4 py-1.5 rounded-r-full mr-4 flex-shrink-0 bg-indigo-500/10 border-r border-indigo-500/20">
-          <span className="text-indigo-300 text-sm font-medium flex items-center gap-2">
-            <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+        <div
+          className="px-4 py-1.5 rounded-r-full mr-4 flex-shrink-0"
+          style={{
+            background: "rgba(200,98,42,0.08)",
+            borderRight: "1px solid rgba(200,98,42,0.2)",
+          }}
+        >
+          <span className="text-sm font-medium flex items-center gap-2" style={{ color: "#c8622a" }}>
+            <span
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ background: "#4a7c59" }}
+            ></span>
             Новые заявки
           </span>
         </div>
-        <div className="flex animate-marquee gap-6">
-          {requests.map((r) => <Card key={r.id} request={r} />)}
-          {requests.map((r) => <Card key={`dup-${r.id}`} request={r} />)}
+        <div className="flex animate-marquee gap-4">
+          {requests.map((r) => <TickerCard key={r.id} request={r} />)}
+          {requests.map((r) => <TickerCard key={`dup-${r.id}`} request={r} />)}
         </div>
       </div>
     </section>

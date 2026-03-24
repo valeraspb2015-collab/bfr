@@ -122,9 +122,11 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
         </Button>
 
         <Card className="p-8">
-          <h1 className="text-[28px] font-semibold text-[#004d80] mb-2">Заявка на подбор квартиры</h1>
-          <p className="text-[15px] text-muted-foreground mb-6">
-            Заполните форму, и мы подберём варианты в течение 10 минут
+          <h1 className="text-[28px] font-semibold mb-2" style={{ color: "#1c1917" }}>
+            Оставьте заявку — хозяева сами предложат варианты
+          </h1>
+          <p className="text-[15px] mb-6" style={{ color: "#6b6560" }}>
+            Ваша заявка уйдёт в сети хозяев в мессенджерах. Бронник AI отберёт 5 лучших откликов и пришлёт их вам — обычно в течение 10–30 минут
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -318,11 +320,15 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
             <Button
               type="submit"
               size="lg"
-              className="w-full text-[18px] px-7 py-6 rounded-lg bg-[#0078d7] hover:bg-[#005fa3] text-white"
+              className="w-full text-[18px] px-7 py-6 rounded-xl text-white"
+              style={{
+                background: "#c8622a",
+                boxShadow: "0 4px 20px rgba(200,98,42,0.2)",
+              }}
               data-testid="button-submit-form"
               disabled={!isFormValid}
             >
-              Отправить заявку
+              Отправить заявку хозяевам
             </Button>
           </form>
         </Card>

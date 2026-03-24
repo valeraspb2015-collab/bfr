@@ -46,10 +46,11 @@ export default function PopularQuestions() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-16 px-4 bg-[#1a1a24]">
+    <section id="faq" className="py-16 px-4" style={{ background: "#f3ede3" }}>
       <div className="max-w-4xl mx-auto">
         <h2
-          className="text-3xl md:text-4xl font-bold text-slate-50 mb-12 tracking-tight"
+          className="text-3xl md:text-4xl font-bold mb-12 tracking-tight"
+          style={{ color: "#1c1917" }}
           data-testid="text-faq-title"
         >
           Популярные вопросы
@@ -60,25 +61,35 @@ export default function PopularQuestions() {
             <button
               key={index}
               onClick={() => setSelectedFaq(index)}
-              className="w-full flex items-center justify-between py-4 px-0 border-b border-white/[0.07] hover:bg-white/[0.02] transition-colors text-left group"
+              className="w-full flex items-center justify-between py-4 px-0 text-left group transition-colors"
+              style={{ borderBottom: "1px solid rgba(28,25,23,0.08)" }}
               data-testid={`link-article-${index}`}
             >
-              <span className="text-base text-slate-300 group-hover:text-indigo-300 transition-colors pr-4">
+              <span
+                className="text-base pr-4 transition-colors group-hover:text-[#c8622a]"
+                style={{ color: "#1c1917" }}
+              >
                 {faq.question}
               </span>
-              <ChevronRight className="w-5 h-5 text-slate-600 group-hover:text-indigo-400 shrink-0 transition-colors" />
+              <ChevronRight
+                className="w-5 h-5 shrink-0 transition-colors group-hover:text-[#c8622a]"
+                style={{ color: "#6b6560" }}
+              />
             </button>
           ))}
         </div>
 
         <Dialog open={selectedFaq !== null} onOpenChange={() => setSelectedFaq(null)}>
-          <DialogContent className="max-w-lg rounded-xl bg-[#13131a] border border-white/[0.08]">
+          <DialogContent
+            className="max-w-lg rounded-xl"
+            style={{ background: "#ffffff", border: "1px solid rgba(28,25,23,0.1)" }}
+          >
             <DialogHeader>
-              <DialogTitle className="text-xl font-semibold text-slate-100 pr-8">
+              <DialogTitle className="text-xl font-semibold pr-8" style={{ color: "#1c1917" }}>
                 {selectedFaq !== null && faqData[selectedFaq].question}
               </DialogTitle>
             </DialogHeader>
-            <div className="text-slate-400 leading-relaxed mt-2 whitespace-pre-line">
+            <div className="leading-relaxed mt-2 whitespace-pre-line" style={{ color: "#6b6560" }}>
               {selectedFaq !== null && faqData[selectedFaq].answer}
             </div>
           </DialogContent>

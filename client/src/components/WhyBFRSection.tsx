@@ -12,46 +12,47 @@ export default function WhyBFRSection() {
       id: "direct-contact",
       image: directContactImage,
       title: "Надежный контакт",
-      description: "Резервная связь в случае проблем.",
+      description: "Вы не ищете — вас находят. Хозяева сами откликаются на вашу заявку.",
     },
     {
       id: "no-commission",
       image: savingsImage,
       title: "Без лишних затрат",
-      description: "Нет скрытых сборов — базовая экономия уже заложена в модель.",
+      description: "Никаких сервисных сборов. Вы платите напрямую хозяину.",
     },
     {
       id: "ai-automation",
       image: aiImage,
       title: "Умная автоматизация",
-      description: "Нейросети ускоряют процесс поиска и аренды квартир.",
+      description: "Бронник AI из всех откликов выбирает 5 самых подходящих под ваш запрос.",
     },
     {
       id: "community",
       image: communityImage,
       title: "Сообщество",
-      description: "Неформальное сообщество, ориентированное на рынок аренды жилья, основанное на группах в мессенджерах и социальных сетях.",
+      description: "За платформой стоят реальные хозяева из городов России, а не агрегаторы.",
     },
     {
       id: "security",
       image: securityImage,
       title: "Безопасность",
-      description: "Доверие формируется через открытые источники, личные контакты и рекомендации участников.",
+      description: "Прямой контакт с хозяином после выбора — общайтесь без посредников.",
     },
     {
       id: "speed",
       image: speedImage,
       title: "Прямая оплата",
-      description: "Деньги поступают напрямую хозяину без сервисов-посредников.",
+      description: "Всё общение в Telegram, WhatsApp или Макс — там, где вам удобно.",
     },
   ];
 
   return (
-    <section className="py-20 px-4 bg-[#1a1a24]">
+    <section className="py-20 px-4" style={{ background: "#f3ede3" }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <h2
-            className="text-3xl md:text-4xl font-bold text-slate-50 tracking-tight"
+            className="text-3xl md:text-4xl font-bold tracking-tight"
+            style={{ color: "#1c1917" }}
             data-testid="text-why-bfr-title"
           >
             Почему БФР?
@@ -62,21 +63,37 @@ export default function WhyBFRSection() {
           {advantages.map((item) => (
             <Card
               key={item.id}
-              className="group overflow-hidden border border-white/[0.07] bg-[#13131a] hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(99,102,241,0.12)]"
+              className="group overflow-hidden transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: "#ffffff",
+                border: "1px solid rgba(28,25,23,0.08)",
+                boxShadow: "0 2px 12px rgba(28,25,23,0.06)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 8px 28px rgba(200,98,42,0.12), 0 2px 8px rgba(28,25,23,0.06)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 2px 12px rgba(28,25,23,0.06)";
+              }}
               data-testid={`card-advantage-${item.id}`}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-[#0a0a0f]">
+              <div className="aspect-[4/3] overflow-hidden" style={{ background: "#f3ede3" }}>
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                 />
               </div>
               <div className="p-5">
-                <h3 className="text-base font-semibold text-slate-100 mb-2 group-hover:text-indigo-300 transition-colors">
+                <h3
+                  className="text-base font-semibold mb-2 transition-colors"
+                  style={{ color: "#1c1917" }}
+                >
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
                   {item.description}
                 </p>
               </div>

@@ -2,16 +2,19 @@ import { Handshake, Users, Briefcase, TrendingDown } from "lucide-react";
 
 export default function CooperationSection() {
   return (
-    <section id="cooperation" className="py-20 px-4 bg-[#0a0a0f]">
+    <section id="cooperation" className="py-20 px-4" style={{ background: "#faf7f2" }}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 rounded-xl mb-5">
-            <Handshake className="w-7 h-7 text-indigo-400" />
+          <div
+            className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-5"
+            style={{ background: "rgba(200,98,42,0.1)", border: "1px solid rgba(200,98,42,0.25)" }}
+          >
+            <Handshake className="w-7 h-7" style={{ color: "#c8622a" }} />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-50 mb-3 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 tracking-tight" style={{ color: "#1c1917" }}>
             Сотрудничество
           </h2>
-          <p className="text-slate-400 text-lg">
+          <p className="text-lg" style={{ color: "#6b6560" }}>
             Приглашаем к взаимовыгодному сотрудничеству
           </p>
         </div>
@@ -20,35 +23,54 @@ export default function CooperationSection() {
           {[
             {
               icon: Users,
-              iconColor: "text-violet-400",
-              bg: "bg-violet-500/10 border-violet-500/20",
+              iconColor: "#c8622a",
+              bg: "rgba(200,98,42,0.08)",
+              border: "rgba(200,98,42,0.2)",
               title: "Администраторы сообществ",
               desc: "Администраторов групп и сообществ владельцев квартир городов РФ",
             },
             {
               icon: Briefcase,
-              iconColor: "text-emerald-400",
-              bg: "bg-emerald-500/10 border-emerald-500/20",
+              iconColor: "#4a7c59",
+              bg: "rgba(74,124,89,0.08)",
+              border: "rgba(74,124,89,0.2)",
               title: "Предприниматели",
               desc: "Предпринимателей, оказывающих услуги гостям или хозяевам",
             },
             {
               icon: TrendingDown,
-              iconColor: "text-amber-400",
-              bg: "bg-amber-500/10 border-amber-500/20",
+              iconColor: "#e07540",
+              bg: "rgba(224,117,64,0.08)",
+              border: "rgba(224,117,64,0.2)",
               title: "Единомышленники",
               desc: "Всех, кого интересует развитие альтернативы интернет-площадкам бронирования",
             },
-          ].map(({ icon: Icon, iconColor, bg, title, desc }) => (
+          ].map(({ icon: Icon, iconColor, bg, border, title, desc }) => (
             <div
               key={title}
-              className="bg-[#13131a] border border-white/[0.07] rounded-xl p-6 hover:border-indigo-500/30 transition-all duration-300"
+              className="rounded-xl p-6 transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: "#ffffff",
+                border: "1px solid rgba(28,25,23,0.08)",
+                boxShadow: "0 2px 12px rgba(28,25,23,0.06)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 8px 28px rgba(200,98,42,0.10), 0 2px 8px rgba(28,25,23,0.06)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  "0 2px 12px rgba(28,25,23,0.06)";
+              }}
             >
-              <div className={`w-11 h-11 ${bg} border rounded-lg flex items-center justify-center mb-4`}>
-                <Icon className={`w-5 h-5 ${iconColor}`} />
+              <div
+                className="w-11 h-11 rounded-lg flex items-center justify-center mb-4"
+                style={{ background: bg, border: `1px solid ${border}` }}
+              >
+                <Icon className="w-5 h-5" style={{ color: iconColor }} />
               </div>
-              <h3 className="font-semibold text-slate-100 mb-2">{title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+              <h3 className="font-semibold mb-2" style={{ color: "#1c1917" }}>{title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>{desc}</p>
             </div>
           ))}
         </div>
@@ -58,7 +80,11 @@ export default function CooperationSection() {
             href="https://t.me/bfrreplit_bot"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-3 rounded-lg transition-colors shadow-[0_0_24px_rgba(99,102,241,0.3)]"
+            className="inline-flex items-center gap-2 font-medium px-6 py-3 rounded-xl transition-all text-white"
+            style={{
+              background: "#c8622a",
+              boxShadow: "0 4px 20px rgba(200,98,42,0.25)",
+            }}
             data-testid="button-cooperation-contact"
           >
             <Handshake className="w-5 h-5" />
