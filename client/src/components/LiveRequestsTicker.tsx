@@ -20,7 +20,7 @@ const staticRequests: MockRequest[] = [
 ];
 
 const statusConfig = {
-  new: { label: "новая заявка", color: "#c8622a", bg: "rgba(200,98,42,0.08)" },
+  new: { label: "новая заявка", color: "#0d7377", bg: "rgba(13,115,119,0.08)" },
   active: { label: "получает отклики", color: "#4a7c59", bg: "rgba(74,124,89,0.09)" },
 };
 
@@ -71,7 +71,7 @@ export default function LiveRequestsTicker() {
                     <Calendar className="w-3 h-3 shrink-0" /> {r.dates}
                   </span>
                 </div>
-                <div className="flex items-center gap-1 text-xs font-medium" style={{ color: "#c8622a" }}>
+                <div className="flex items-center gap-1 text-xs font-medium" style={{ color: "#0d7377" }}>
                   <Banknote className="w-3 h-3 shrink-0" /> {r.budget}
                 </div>
               </div>

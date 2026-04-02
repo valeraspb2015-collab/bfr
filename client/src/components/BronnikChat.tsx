@@ -139,8 +139,8 @@ export default function BronnikChat() {
             className="rounded-2xl flex items-center gap-3 px-4 py-3 transition-all hover:scale-105"
             style={{
               background: "#ffffff",
-              border: "1px solid rgba(200,98,42,0.25)",
-              boxShadow: "0 4px 20px rgba(200,98,42,0.12), 0 2px 8px rgba(28,25,23,0.08)",
+              border: "1px solid rgba(13,115,119,0.25)",
+              boxShadow: "0 4px 20px rgba(13,115,119,0.12), 0 2px 8px rgba(28,25,23,0.08)",
             }}
             data-testid="button-bronnik-open"
           >
@@ -148,10 +148,10 @@ export default function BronnikChat() {
               src={bronnikAvatar}
               alt="Бронник"
               className="w-12 h-12 rounded-full object-cover"
-              style={{ border: "2px solid rgba(200,98,42,0.4)" }}
+              style={{ border: "2px solid rgba(13,115,119,0.4)" }}
             />
             <div className="text-left">
-              <div className="font-semibold text-sm" style={{ color: "#c8622a" }}>Спросить Бронника AI</div>
+              <div className="font-semibold text-sm" style={{ color: "#0d7377" }}>Спросить Бронника AI</div>
               <div className="text-xs" style={{ color: "#6b6560" }}>Гид по городам России</div>
             </div>
           </button>
@@ -163,7 +163,7 @@ export default function BronnikChat() {
           className="fixed bottom-6 right-6 w-[360px] h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50"
           style={{
             background: "#ffffff",
-            border: "1px solid rgba(200,98,42,0.2)",
+            border: "1px solid rgba(13,115,119,0.2)",
             boxShadow: "0 20px 60px rgba(28,25,23,0.15)",
           }}
         >
@@ -179,7 +179,7 @@ export default function BronnikChat() {
                 src={bronnikAvatar}
                 alt="Бронник"
                 className="w-8 h-8 rounded-full object-cover"
-                style={{ border: "2px solid rgba(200,98,42,0.35)" }}
+                style={{ border: "2px solid rgba(13,115,119,0.35)" }}
               />
               <div>
                 <h3 className="font-semibold text-sm" style={{ color: "#1c1917" }}>Бронник AI</h3>
@@ -207,7 +207,7 @@ export default function BronnikChat() {
                   style={
                     msg.role === "user"
                       ? {
-                          background: "#c8622a",
+                          background: "#0d7377",
                           color: "#ffffff",
                           borderBottomRightRadius: "4px",
                         }
@@ -221,7 +221,7 @@ export default function BronnikChat() {
                   data-testid={`message-${msg.role}-${idx}`}
                 >
                   {msg.content || (isLoading && idx === messages.length - 1 ? (
-                    <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#c8622a" }} />
+                    <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#0d7377" }} />
                   ) : null)}
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function BronnikChat() {
                 disabled={!input.trim() || isLoading}
                 size="icon"
                 className="rounded-full text-white"
-                style={{ background: "#c8622a" }}
+                style={{ background: "#0d7377" }}
                 data-testid="button-bronnik-send"
               >
                 {isLoading ? (

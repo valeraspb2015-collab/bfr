@@ -41,7 +41,7 @@ export default function MoreInfoSection() {
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.boxShadow =
-                  "0 8px 28px rgba(200,98,42,0.12), 0 2px 8px rgba(28,25,23,0.06)";
+                  "0 8px 28px rgba(13,115,119,0.12), 0 2px 8px rgba(28,25,23,0.06)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.boxShadow =

@@ -74,7 +74,7 @@ export default function PopularQuestions() {
               >
                 <span
                   className="text-sm font-medium pr-4 leading-snug transition-colors"
-                  style={{ color: openIndex === i ? "#c8622a" : "#1c1917" }}
+                  style={{ color: openIndex === i ? "#0d7377" : "#1c1917" }}
                 >
                   {faq.question}
                 </span>

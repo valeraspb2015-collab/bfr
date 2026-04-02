@@ -8,8 +8,8 @@ interface GuidesSectionProps {
 const cards = [
   {
     icon: User,
-    color: "#c8622a",
-    bg: "rgba(200,98,42,0.09)",
+    color: "#0d7377",
+    bg: "rgba(13,115,119,0.09)",
     title: "Первые шаги гостя",
     description: "Как оставить заявку и получить предложения от хозяев за несколько минут",
     action: "guest",

@@ -41,7 +41,7 @@ export default function HowItWorksSection() {
         <div className="relative">
           <div
             className="hidden md:block absolute top-12 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px"
-            style={{ background: "rgba(200,98,42,0.12)" }}
+            style={{ background: "rgba(13,115,119,0.12)" }}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
             {steps.map((step, i) => {
@@ -51,13 +51,13 @@ export default function HowItWorksSection() {
                   <div className="relative mb-5">
                     <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: "rgba(200,98,42,0.09)" }}
+                      style={{ background: "rgba(13,115,119,0.09)" }}
                     >
-                      <Icon className="w-5 h-5" style={{ color: "#c8622a" }} />
+                      <Icon className="w-5 h-5" style={{ color: "#0d7377" }} />
                     </div>
                     <span
                       className="absolute -top-2 -right-2 font-bold"
-                      style={{ color: "#c8622a", fontSize: "11px" }}
+                      style={{ color: "#0d7377", fontSize: "11px" }}
                     >
                       {step.number}
                     </span>

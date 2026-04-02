@@ -30,9 +30,9 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
               <span
                 className="inline-block px-3.5 py-1 rounded-full text-xs font-medium border"
                 style={{
-                  color: "#c8622a",
-                  borderColor: "rgba(200,98,42,0.25)",
-                  background: "rgba(200,98,42,0.07)",
+                  color: "#0d7377",
+                  borderColor: "rgba(13,115,119,0.25)",
+                  background: "rgba(13,115,119,0.07)",
                 }}
                 data-testid="badge-slogan"
               >
@@ -50,7 +50,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
               data-testid="text-hero-title"
             >
               Опишите, что нужно —{" "}
-              <span style={{ color: "#c8622a" }}>
+              <span style={{ color: "#0d7377" }}>
                 хозяева сами предложат варианты
               </span>
             </h1>
@@ -70,8 +70,8 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                 onClick={onGuestClick}
                 className="rounded-xl text-white gap-2"
                 style={{
-                  background: "#c8622a",
-                  boxShadow: "0 4px 16px rgba(200,98,42,0.20)",
+                  background: "#0d7377",
+                  boxShadow: "0 4px 16px rgba(13,115,119,0.20)",
                 }}
                 data-testid="button-hero-action"
               >
@@ -115,7 +115,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                 <div className="flex items-center gap-1.5 mb-2.5">
                   <span
                     className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                    style={{ background: "rgba(200,98,42,0.09)", color: "#c8622a" }}
+                    style={{ background: "rgba(13,115,119,0.09)", color: "#0d7377" }}
                   >
                     01 Ваша заявка
                   </span>
@@ -157,7 +157,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                     >
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
-                        style={{ background: "rgba(200,98,42,0.12)", color: "#c8622a" }}
+                        style={{ background: "rgba(13,115,119,0.12)", color: "#0d7377" }}
                       >
                         {r.name[7]}
                       </div>
@@ -175,13 +175,13 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                 <div
                   className="rounded-xl p-3"
                   style={{
-                    background: "rgba(200,98,42,0.07)",
-                    border: "1px solid rgba(200,98,42,0.15)",
+                    background: "rgba(13,115,119,0.07)",
+                    border: "1px solid rgba(13,115,119,0.15)",
                   }}
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: "#c8622a" }} />
-                    <span className="text-xs font-semibold" style={{ color: "#c8622a" }}>
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: "#0d7377" }} />
+                    <span className="text-xs font-semibold" style={{ color: "#0d7377" }}>
                       03 Бронник AI выбирает топ-5
                     </span>
                   </div>

@@ -59,9 +59,9 @@ export default function WhyBFRSection() {
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center mb-4"
-                  style={{ background: "rgba(200,98,42,0.09)" }}
+                  style={{ background: "rgba(13,115,119,0.09)" }}
                 >
-                  <Icon className="w-4 h-4" style={{ color: "#c8622a" }} />
+                  <Icon className="w-4 h-4" style={{ color: "#0d7377" }} />
                 </div>
                 <h3 className="text-base font-bold mb-1.5" style={{ color: "#1c1917" }}>
                   {item.title}

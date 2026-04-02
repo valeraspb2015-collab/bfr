@@ -322,8 +322,8 @@ export default function RequestForm({ onBack, onSubmit }: RequestFormProps) {
               size="lg"
               className="w-full text-[18px] px-7 py-6 rounded-xl text-white"
               style={{
-                background: "#c8622a",
-                boxShadow: "0 4px 20px rgba(200,98,42,0.2)",
+                background: "#0d7377",
+                boxShadow: "0 4px 20px rgba(13,115,119,0.2)",
               }}
               data-testid="button-submit-form"
               disabled={!isFormValid}

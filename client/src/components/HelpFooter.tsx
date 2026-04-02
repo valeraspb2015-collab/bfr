@@ -32,19 +32,19 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
                 <a href="https://t.me/bfrreplit_bot" target="_blank" rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#e07540]" data-testid="link-footer-telegram">
+                  className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-telegram">
                   Telegram
                 </a>
               </li>
               <li>
                 <a href="https://wa.me/79899865887" target="_blank" rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#e07540]" data-testid="link-footer-whatsapp">
+                  className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-whatsapp">
                   WhatsApp
                 </a>
               </li>
               <li>
                 <a href="https://max.ru/call/+79213798941" target="_blank" rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#e07540]" data-testid="link-footer-max">
+                  className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-max">
                   Макс
                 </a>
               </li>
@@ -56,19 +56,19 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
                 <button onClick={onOwnerClick}
-                  className="transition-colors text-left hover:text-[#e07540]" data-testid="link-footer-become-host">
+                  className="transition-colors text-left hover:text-[#149ea3]" data-testid="link-footer-become-host">
                   Стать хозяином
                 </button>
               </li>
               <li>
                 <a href="https://t.me/bfrreplit_bot" target="_blank" rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#e07540]" data-testid="link-footer-host-materials">
+                  className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-host-materials">
                   Материалы для хозяев
                 </a>
               </li>
               <li>
                 <a href="https://t.me/bfr_community" target="_blank" rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#e07540]" data-testid="link-footer-community">
+                  className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-community">
                   Сообщество БФР
                 </a>
               </li>
@@ -79,22 +79,22 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             <h4 className="font-semibold mb-4 text-sm" style={{ color: "#faf7f2" }}>О БФР</h4>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
-                <a href="#faq" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-about">
+                <a href="#faq" className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-about">
                   Как это работает
                 </a>
               </li>
               <li>
-                <a href="#cooperation" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-cooperation">
+                <a href="#cooperation" className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-cooperation">
                   Сотрудничество
                 </a>
               </li>
               <li>
-                <Link href="/privacy" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-privacy">
+                <Link href="/privacy" className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-privacy">
                   Конфиденциальность
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-terms">
+                <Link href="/terms" className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-terms">
                   Условия использования
                 </Link>
               </li>
@@ -110,11 +110,11 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             © 2026 Сообщество хозяев квартир «БФР». Все права защищены.
           </p>
           <div className="flex items-center gap-4">
-            <button className="text-sm transition-colors hover:text-[#e07540]" style={{ color: "#a39e98" }} data-testid="button-lang-ru">
+            <button className="text-sm transition-colors hover:text-[#149ea3]" style={{ color: "#a39e98" }} data-testid="button-lang-ru">
               RU
             </button>
             <span style={{ color: "#6b6560" }}>|</span>
-            <button className="text-sm transition-colors hover:text-[#e07540]" style={{ color: "#a39e98" }} data-testid="button-lang-en">
+            <button className="text-sm transition-colors hover:text-[#149ea3]" style={{ color: "#a39e98" }} data-testid="button-lang-en">
               EN
             </button>
           </div>

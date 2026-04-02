@@ -31,9 +31,9 @@ export default function AudiencesSection({ onGuestClick, onOwnerClick }: Audienc
           >
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-              style={{ background: "rgba(200,98,42,0.10)" }}
+              style={{ background: "rgba(13,115,119,0.10)" }}
             >
-              <User className="w-5 h-5" style={{ color: "#c8622a" }} />
+              <User className="w-5 h-5" style={{ color: "#0d7377" }} />
             </div>
             <h3 className="text-xl font-bold mb-3" style={{ color: "#1c1917" }}>
               Я гость
@@ -49,7 +49,7 @@ export default function AudiencesSection({ onGuestClick, onOwnerClick }: Audienc
                 "Без комиссий и переплат",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "#6b6560" }}>
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#c8622a" }} />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#0d7377" }} />
                   {item}
                 </li>
               ))}
@@ -57,7 +57,7 @@ export default function AudiencesSection({ onGuestClick, onOwnerClick }: Audienc
             <Button
               onClick={onGuestClick}
               className="rounded-xl text-white gap-2"
-              style={{ background: "#c8622a", boxShadow: "0 4px 16px rgba(200,98,42,0.2)" }}
+              style={{ background: "#0d7377", boxShadow: "0 4px 16px rgba(13,115,119,0.2)" }}
               data-testid="button-audience-guest"
             >
               Оставить заявку

@@ -83,7 +83,7 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
               size="sm"
               onClick={handleRequestClick}
               className="hidden md:flex rounded-lg text-white text-sm"
-              style={{ background: "#c8622a" }}
+              style={{ background: "#0d7377" }}
               data-testid="button-header-request"
             >
               Оставить заявку
@@ -135,7 +135,7 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
             <Button
               onClick={handleRequestClick}
               className="w-full rounded-lg text-white"
-              style={{ background: "#c8622a" }}
+              style={{ background: "#0d7377" }}
               data-testid="button-mobile-request"
             >
               Оставить заявку
