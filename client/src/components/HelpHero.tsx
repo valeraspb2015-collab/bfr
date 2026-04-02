@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Calendar, Banknote, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, MessageCircle, Sparkles, Send } from "lucide-react";
 
 interface HelpHeroProps {
   onGuestClick: () => void;
@@ -10,36 +10,28 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
   const trustMarkers = [
     { label: "Без комиссий" },
     { label: "Прямой контакт" },
-    { label: "Топ-5 вариантов от AI" },
-  ];
-
-  const mockCards = [
-    { name: "Анна", city: "Сочи", rooms: "2-комн.", dates: "12–19 июля", budget: "4000–5500₽/ночь" },
-    { name: "Дмитрий", city: "Казань", rooms: "Студия", dates: "3–8 августа", budget: "до 3500₽/ночь" },
-    { name: "Мария", city: "СПб", rooms: "1-комн.", dates: "20–27 июня", budget: "3000–4500₽/ночь" },
+    { label: "Топ-5 от AI" },
   ];
 
   return (
     <section
       className="relative px-4 overflow-hidden"
       style={{
-        background:
-          "radial-gradient(ellipse 60% 50% at 90% 10%, rgba(200,98,42,0.10) 0%, transparent 65%), " +
-          "radial-gradient(ellipse 50% 45% at 5% 90%, rgba(74,124,89,0.09) 0%, transparent 60%), " +
-          "#faf7f2",
-        paddingTop: "4rem",
-        paddingBottom: "4rem",
+        background: "#faf7f2",
+        paddingTop: "4.5rem",
+        paddingBottom: "4.5rem",
       }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left */}
           <div>
             <div className="mb-5">
               <span
-                className="inline-block px-4 py-1.5 rounded-full text-sm font-medium border"
+                className="inline-block px-3.5 py-1 rounded-full text-xs font-medium border"
                 style={{
                   color: "#c8622a",
-                  borderColor: "rgba(200,98,42,0.3)",
+                  borderColor: "rgba(200,98,42,0.25)",
                   background: "rgba(200,98,42,0.07)",
                 }}
                 data-testid="badge-slogan"
@@ -52,31 +44,24 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
               className="font-extrabold leading-tight tracking-tight mb-5"
               style={{
                 color: "#1c1917",
-                fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
                 fontWeight: 800,
               }}
               data-testid="text-hero-title"
             >
               Опишите, что нужно —{" "}
-              <span
-                style={{
-                  background: "linear-gradient(135deg, #c8622a 0%, #e07540 60%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
+              <span style={{ color: "#c8622a" }}>
                 хозяева сами предложат варианты
               </span>
             </h1>
 
             <p
-              className="text-lg leading-relaxed mb-8"
-              style={{ color: "#6b6560", maxWidth: "480px" }}
+              className="text-base leading-relaxed mb-8"
+              style={{ color: "#6b6560", maxWidth: "430px" }}
               data-testid="text-hero-subtitle"
             >
-              Одна заявка — прямые отклики от хозяев, без комиссий и переплат.
-              Бронник AI отберёт лучшие предложения и вернёт вам топ-варианты в выбранный вами способ связи.
+              Одна заявка — прямые отклики от хозяев. Бронник AI выберет лучшие
+              и вернёт вам топ-5 в удобный мессенджер.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
@@ -86,7 +71,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                 className="rounded-xl text-white gap-2"
                 style={{
                   background: "#c8622a",
-                  boxShadow: "0 4px 20px rgba(200,98,42,0.22)",
+                  boxShadow: "0 4px 16px rgba(200,98,42,0.20)",
                 }}
                 data-testid="button-hero-action"
               >
@@ -98,14 +83,14 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                 variant="outline"
                 asChild
                 className="rounded-xl"
-                style={{ borderColor: "rgba(28,25,23,0.15)", color: "#1c1917" }}
+                style={{ borderColor: "rgba(28,25,23,0.14)", color: "#1c1917" }}
                 data-testid="button-hero-how"
               >
                 <a href="#how-it-works">Как это работает</a>
               </Button>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-5">
               {trustMarkers.map((m) => (
                 <div key={m.label} className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: "#4a7c59" }} />
@@ -115,78 +100,114 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
             </div>
           </div>
 
-          <div className="relative lg:flex lg:justify-end">
+          {/* Right — product mockup */}
+          <div className="flex justify-center lg:justify-end">
             <div
-              className="rounded-2xl p-5 max-w-sm w-full mx-auto lg:mx-0"
+              className="rounded-2xl p-5 w-full max-w-sm"
               style={{
                 background: "#ffffff",
                 border: "1px solid rgba(28,25,23,0.08)",
-                boxShadow: "0 8px 40px rgba(28,25,23,0.08)",
+                boxShadow: "0 8px 48px rgba(28,25,23,0.09)",
               }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
+              {/* Step 1: заявка */}
+              <div className="mb-4">
+                <div className="flex items-center gap-1.5 mb-2.5">
                   <span
-                    className="w-2 h-2 rounded-full animate-pulse"
-                    style={{ background: "#4a7c59" }}
-                  />
-                  <span className="text-sm font-medium" style={{ color: "#1c1917" }}>
-                    Сейчас ищут жильё
+                    className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                    style={{ background: "rgba(200,98,42,0.09)", color: "#c8622a" }}
+                  >
+                    01 Ваша заявка
                   </span>
                 </div>
-                <span
-                  className="text-xs px-2.5 py-1 rounded-full font-medium"
-                  style={{ background: "rgba(74,124,89,0.10)", color: "#4a7c59" }}
+                <div
+                  className="rounded-xl p-3.5"
+                  style={{ background: "#faf7f2", border: "1px solid rgba(28,25,23,0.07)" }}
                 >
-                  онлайн
-                </span>
+                  <p className="text-sm font-medium mb-1" style={{ color: "#1c1917" }}>
+                    Мария · Сочи
+                  </p>
+                  <p className="text-xs leading-relaxed" style={{ color: "#6b6560" }}>
+                    2-комн. · 12–19 июля · 4 000–5 500 ₽/ночь
+                  </p>
+                </div>
               </div>
 
-              <div className="space-y-3">
-                {mockCards.map((card, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl p-3.5"
-                    style={{
-                      background: "#faf7f2",
-                      border: "1px solid rgba(28,25,23,0.06)",
-                    }}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-semibold" style={{ color: "#1c1917" }}>
-                        {card.name}
-                      </span>
-                      <span
-                        className="text-xs px-2 py-0.5 rounded-full"
-                        style={{
-                          background: "rgba(200,98,42,0.09)",
-                          color: "#c8622a",
-                          fontSize: "11px",
-                        }}
+              {/* Step 2: отклики */}
+              <div className="mb-4">
+                <div className="flex items-center gap-1.5 mb-2.5">
+                  <MessageCircle className="w-3.5 h-3.5" style={{ color: "#4a7c59" }} />
+                  <span className="text-xs font-semibold" style={{ color: "#4a7c59" }}>
+                    02 Отклики от хозяев
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    { name: "Хозяин Алексей", note: "2-комн., центр, 4 800 ₽" },
+                    { name: "Хозяин Татьяна", note: "Студия с видом, 4 200 ₽" },
+                    { name: "Хозяин Андрей", note: "2-комн., у моря, 5 100 ₽" },
+                  ].map((r) => (
+                    <div
+                      key={r.name}
+                      className="flex items-center gap-3 rounded-xl px-3 py-2.5"
+                      style={{
+                        background: "#f3ede3",
+                        border: "1px solid rgba(28,25,23,0.06)",
+                      }}
+                    >
+                      <div
+                        className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
+                        style={{ background: "rgba(200,98,42,0.12)", color: "#c8622a" }}
                       >
-                        новая заявка
-                      </span>
+                        {r.name[7]}
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium" style={{ color: "#1c1917" }}>{r.name}</p>
+                        <p className="text-xs" style={{ color: "#6b6560" }}>{r.note}</p>
+                      </div>
                     </div>
-                    <div className="flex flex-wrap gap-x-3 gap-y-1">
-                      <span className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
-                        <MapPin className="w-3 h-3" /> {card.city}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
-                        <Calendar className="w-3 h-3" /> {card.dates}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs font-medium" style={{ color: "#c8622a" }}>
-                        <Banknote className="w-3 h-3" /> {card.budget}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
+              {/* Step 3: AI */}
+              <div className="mb-4">
+                <div
+                  className="rounded-xl p-3"
+                  style={{
+                    background: "rgba(200,98,42,0.07)",
+                    border: "1px solid rgba(200,98,42,0.15)",
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: "#c8622a" }} />
+                    <span className="text-xs font-semibold" style={{ color: "#c8622a" }}>
+                      03 Бронник AI выбирает топ-5
+                    </span>
+                  </div>
+                  <p className="text-xs leading-relaxed" style={{ color: "#6b6560" }}>
+                    Анализирует все отклики и отбирает наиболее подходящие под ваш запрос
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 4: отправлено */}
               <div
-                className="mt-4 pt-4 text-center text-xs"
-                style={{ borderTop: "1px solid rgba(28,25,23,0.06)", color: "#a39e98" }}
+                className="rounded-xl p-3 flex items-center gap-2.5"
+                style={{
+                  background: "rgba(74,124,89,0.08)",
+                  border: "1px solid rgba(74,124,89,0.16)",
+                }}
               >
-                Хозяева получают заявки и откликаются напрямую
+                <Send className="w-3.5 h-3.5 shrink-0" style={{ color: "#4a7c59" }} />
+                <div>
+                  <p className="text-xs font-semibold" style={{ color: "#4a7c59" }}>
+                    04 Отправлено вам
+                  </p>
+                  <p className="text-xs" style={{ color: "#6b6560" }}>
+                    Топ-5 вариантов — в Telegram, WhatsApp или Макс
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -4,22 +4,22 @@ const trustPoints = [
   {
     icon: Users,
     title: "Реальные хозяева",
-    description: "Не обезличенные агрегаторы — живые люди из сообщества с историей и отзывами.",
+    description: "Живые люди с историей и отзывами — не обезличенные агрегаторы.",
   },
   {
     icon: Banknote,
-    title: "Прозрачная механика",
-    description: "Никаких скрытых комиссий. Вы платите напрямую хозяину на согласованных условиях.",
+    title: "Без скрытых сборов",
+    description: "Платите только хозяину. Комиссий платформе нет.",
   },
   {
     icon: Shield,
-    title: "Правила и безопасность",
-    description: "Чёрный список ненадёжных участников, репутация, история переписки и поддержка в спорах.",
+    title: "Правила и репутация",
+    description: "Черный список, верификация объектов, поддержка в спорах.",
   },
   {
     icon: HeadphonesIcon,
-    title: "Поддержка",
-    description: "Служба поддержки доступна через Telegram, WhatsApp и Макс — всегда на связи.",
+    title: "Всегда на связи",
+    description: "Поддержка через Telegram, WhatsApp и Макс — вне зависимости от блокировок.",
   },
 ];
 
@@ -27,41 +27,40 @@ export default function TrustSection() {
   return (
     <section className="py-20 px-4" style={{ background: "#f3ede3" }}>
       <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
             <h2
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4"
-              style={{ color: "#1c1917" }}
+              className="font-bold tracking-tight mb-3"
+              style={{
+                color: "#1c1917",
+                fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
+                fontWeight: 800,
+              }}
               data-testid="text-trust-title"
             >
-              Почему вам можно доверять нам
+              Почему нам доверяют
             </h2>
-            <p className="text-base leading-relaxed mb-8" style={{ color: "#6b6560" }}>
-              В аренде главное — доверие. БФР строится на прямых отношениях между людьми,
-              прозрачных правилах и системе репутации внутри сообщества.
+            <p className="text-base leading-relaxed mb-8" style={{ color: "#6b6560", maxWidth: "380px" }}>
+              В аренде главное — доверие. БФР строится на прямом контакте, прозрачных правилах и репутации.
             </p>
 
-            <div className="space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {trustPoints.map((point) => {
                 const Icon = point.icon;
                 return (
-                  <div key={point.title} className="flex gap-4">
+                  <div key={point.title}>
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                      style={{
-                        background: "rgba(200,98,42,0.10)",
-                      }}
+                      className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
+                      style={{ background: "rgba(200,98,42,0.09)" }}
                     >
-                      <Icon className="w-4.5 h-4.5 w-[18px] h-[18px]" style={{ color: "#c8622a" }} />
+                      <Icon className="w-4 h-4" style={{ color: "#c8622a" }} />
                     </div>
-                    <div>
-                      <h3 className="text-sm font-semibold mb-0.5" style={{ color: "#1c1917" }}>
-                        {point.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
-                        {point.description}
-                      </p>
-                    </div>
+                    <h3 className="text-sm font-bold mb-1" style={{ color: "#1c1917" }}>
+                      {point.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
+                      {point.description}
+                    </p>
                   </div>
                 );
               })}
@@ -72,19 +71,19 @@ export default function TrustSection() {
             className="rounded-2xl p-7"
             style={{
               background: "#ffffff",
-              border: "1px solid rgba(28,25,23,0.08)",
+              border: "1px solid rgba(28,25,23,0.07)",
               boxShadow: "0 4px 24px rgba(28,25,23,0.06)",
             }}
           >
-            <h3 className="text-lg font-bold mb-5" style={{ color: "#1c1917" }}>
+            <h3 className="text-base font-bold mb-5" style={{ color: "#1c1917" }}>
               Как БФР защищает участников
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {[
-                "Верификация объектов — хозяева подтверждают жильё ссылкой на крупный сервис аренды",
-                "Система отзывов и репутации внутри сообщества после каждой аренды",
+                "Хозяева верифицируют объект ссылкой на крупный сервис аренды",
+                "Система отзывов после каждой аренды",
                 "Чёрный список — ненадёжные участники не получают доступ к заявкам",
-                "Администраторы помогают разобраться в спорных ситуациях",
+                "Администраторы участвуют в разборе спорных ситуаций",
                 "Все условия фиксируются в переписке до оплаты",
               ].map((item, i) => (
                 <div key={i} className="flex gap-3">
@@ -100,29 +99,29 @@ export default function TrustSection() {
             </div>
 
             <div
-              className="mt-6 pt-5 flex flex-col gap-2"
-              style={{ borderTop: "1px solid rgba(28,25,23,0.08)" }}
+              className="mt-6 pt-5"
+              style={{ borderTop: "1px solid rgba(28,25,23,0.07)" }}
             >
-              <p className="text-xs font-medium mb-1" style={{ color: "#a39e98" }}>
-                Связаться с поддержкой:
-              </p>
-              {[
-                { label: "Telegram", href: "https://t.me/bfrreplit_bot" },
-                { label: "WhatsApp", href: "https://wa.me/79899865887" },
-                { label: "Макс", href: "https://max.ru/call/+79213798941" },
-              ].map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm transition-colors"
-                  style={{ color: "#c8622a" }}
-                  data-testid={`link-trust-${link.label.toLowerCase()}`}
-                >
-                  → {link.label}
-                </a>
-              ))}
+              <p className="text-xs mb-3" style={{ color: "#a39e98" }}>Поддержка:</p>
+              <div className="flex gap-4">
+                {[
+                  { label: "Telegram", href: "https://t.me/bfrreplit_bot" },
+                  { label: "WhatsApp", href: "https://wa.me/79899865887" },
+                  { label: "Макс", href: "https://max.ru/call/+79213798941" },
+                ].map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium transition-colors"
+                    style={{ color: "#c8622a" }}
+                    data-testid={`link-trust-${link.label.toLowerCase()}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

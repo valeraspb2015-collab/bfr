@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { MapPin, Users, Calendar, Banknote } from "lucide-react";
+import { MapPin, Calendar, Banknote } from "lucide-react";
 
 interface MockRequest {
   id: number;
@@ -8,128 +7,76 @@ interface MockRequest {
   rooms: string;
   dates: string;
   budget: string;
+  status: "new" | "active";
 }
 
-const russianCities = [
-  "Санкт-Петербург", "Москва", "Казань", "Сочи", "Калининград",
-  "Нижний Новгород", "Екатеринбург", "Новосибирск", "Краснодар", "Ростов-на-Дону",
-  "Владивосток", "Самара", "Уфа", "Красноярск", "Воронеж"
+const staticRequests: MockRequest[] = [
+  { id: 1, name: "Анна", location: "Сочи", rooms: "2-комн.", dates: "12–19 июля", budget: "4 000–5 500 ₽/ночь", status: "new" },
+  { id: 2, name: "Дмитрий", location: "Казань", rooms: "Студия", dates: "3–8 августа", budget: "до 3 500 ₽/ночь", status: "active" },
+  { id: 3, name: "Мария", location: "Санкт-Петербург", rooms: "1-комн.", dates: "20–27 июня", budget: "3 000–4 500 ₽/ночь", status: "new" },
+  { id: 4, name: "Сергей", location: "Калининград", rooms: "2-комн.", dates: "5–12 июля", budget: "3 500–5 000 ₽/ночь", status: "active" },
+  { id: 5, name: "Наталья", location: "Краснодар", rooms: "1-комн.", dates: "15–20 мая", budget: "2 500–3 500 ₽/ночь", status: "new" },
+  { id: 6, name: "Иван", location: "Екатеринбург", rooms: "3-комн.", dates: "1–10 сентября", budget: "5 000–7 000 ₽/ночь", status: "active" },
 ];
 
-const russianNames = [
-  "Анна", "Мария", "Елена", "Ольга", "Наталья", "Ирина", "Татьяна", "Светлана",
-  "Александр", "Дмитрий", "Сергей", "Андрей", "Михаил", "Иван", "Алексей", "Николай"
-];
-
-const roomOptions = ["Студия", "1-комн.", "2-комн.", "3-комн."];
-
-const monthNamesGenitive = [
-  "января", "февраля", "марта", "апреля", "мая", "июня",
-  "июля", "августа", "сентября", "октября", "ноября", "декабря"
-];
-
-function generateRandomDate(): string {
-  const today = new Date();
-  const daysOffset = Math.floor(Math.random() * 240) + 1;
-  const start = new Date(today);
-  start.setDate(today.getDate() + daysOffset);
-
-  const duration = Math.floor(Math.random() * 7) + 2;
-  const end = new Date(start);
-  end.setDate(start.getDate() + duration);
-
-  const startDay = start.getDate();
-  const endDay = end.getDate();
-  const startMonth = start.getMonth();
-  const endMonth = end.getMonth();
-
-  if (startMonth === endMonth) {
-    return `${startDay}–${endDay} ${monthNamesGenitive[startMonth]}`;
-  }
-  return `${startDay} ${monthNamesGenitive[startMonth]} – ${endDay} ${monthNamesGenitive[endMonth]}`;
-}
-
-function generateMockRequest(id: number): MockRequest {
-  const name = russianNames[Math.floor(Math.random() * russianNames.length)];
-  const city = russianCities[Math.floor(Math.random() * russianCities.length)];
-  const rooms = roomOptions[Math.floor(Math.random() * roomOptions.length)];
-  const dates = generateRandomDate();
-  const budgets = ["2500-3500₽", "3000-4000₽", "4000-5000₽", "5000-7000₽", "до 6000₽"];
-  const budget = budgets[Math.floor(Math.random() * budgets.length)];
-  return { id, name, location: city, rooms, dates, budget };
-}
-
-function generateInitialRequests(): MockRequest[] {
-  return Array.from({ length: 8 }, (_, i) => generateMockRequest(i));
-}
+const statusConfig = {
+  new: { label: "новая заявка", color: "#c8622a", bg: "rgba(200,98,42,0.08)" },
+  active: { label: "получает отклики", color: "#4a7c59", bg: "rgba(74,124,89,0.09)" },
+};
 
 export default function LiveRequestsTicker() {
-  const [requests, setRequests] = useState<MockRequest[]>(generateInitialRequests);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRequests(prev => [...prev.slice(1), generateMockRequest(Date.now())]);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const TickerCard = ({ request }: { request: MockRequest }) => (
-    <div
-      className="flex-shrink-0 rounded-xl px-4 py-2 flex items-center gap-4"
-      style={{
-        background: "#fff",
-        border: "1px solid rgba(28,25,23,0.08)",
-        boxShadow: "0 1px 4px rgba(28,25,23,0.05)",
-      }}
-    >
-      <span className="font-medium text-sm" style={{ color: "#1c1917" }}>{request.name}</span>
-      <div className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
-        <MapPin className="w-3 h-3" />
-        {request.location}
-      </div>
-      <div className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
-        <Users className="w-3 h-3" />
-        {request.rooms}
-      </div>
-      <div className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
-        <Calendar className="w-3 h-3" />
-        {request.dates}
-      </div>
-      <div className="flex items-center gap-1 text-xs font-medium" style={{ color: "#c8622a" }}>
-        <Banknote className="w-3 h-3" />
-        {request.budget}
-      </div>
-    </div>
-  );
-
   return (
-    <section
-      className="py-3 overflow-hidden"
-      style={{
-        background: "#f3ede3",
-        borderTop: "1px solid rgba(28,25,23,0.08)",
-        borderBottom: "1px solid rgba(28,25,23,0.08)",
-      }}
-    >
-      <div className="flex items-center">
-        <div
-          className="px-4 py-1.5 rounded-r-full mr-4 flex-shrink-0"
-          style={{
-            background: "rgba(200,98,42,0.08)",
-            borderRight: "1px solid rgba(200,98,42,0.2)",
-          }}
-        >
-          <span className="text-sm font-medium flex items-center gap-2" style={{ color: "#c8622a" }}>
-            <span
-              className="w-2 h-2 rounded-full animate-pulse"
-              style={{ background: "#4a7c59" }}
-            ></span>
-            Новые заявки
-          </span>
+    <section className="py-14 px-4" style={{ background: "#f3ede3" }}>
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center gap-3 mb-8">
+          <span
+            className="w-2 h-2 rounded-full animate-pulse"
+            style={{ background: "#4a7c59" }}
+          />
+          <h2 className="text-lg font-semibold" style={{ color: "#1c1917" }}>
+            Сейчас ищут жильё
+          </h2>
+          <span className="text-sm" style={{ color: "#6b6560" }}>— актуальные заявки</span>
         </div>
-        <div className="flex animate-marquee gap-4">
-          {requests.map((r) => <TickerCard key={r.id} request={r} />)}
-          {requests.map((r) => <TickerCard key={`dup-${r.id}`} request={r} />)}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {staticRequests.map((r) => {
+            const s = statusConfig[r.status];
+            return (
+              <div
+                key={r.id}
+                className="rounded-xl px-4 py-3.5 flex flex-col gap-2"
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid rgba(28,25,23,0.07)",
+                }}
+                data-testid={`card-request-${r.id}`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold" style={{ color: "#1c1917" }}>
+                    {r.name}
+                  </span>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full"
+                    style={{ background: s.bg, color: s.color, fontSize: "11px" }}
+                  >
+                    {s.label}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-x-3 gap-y-1">
+                  <span className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
+                    <MapPin className="w-3 h-3 shrink-0" /> {r.location}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs" style={{ color: "#6b6560" }}>
+                    <Calendar className="w-3 h-3 shrink-0" /> {r.dates}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 text-xs font-medium" style={{ color: "#c8622a" }}>
+                  <Banknote className="w-3 h-3 shrink-0" /> {r.budget}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
