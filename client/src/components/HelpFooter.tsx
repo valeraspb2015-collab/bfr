@@ -14,59 +14,45 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-          <div>
+          <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img src={logoImage} alt="БФР" className="w-8 h-8 object-contain rounded" />
               <div>
                 <span className="font-bold" style={{ color: "#faf7f2" }}>БФР</span>
-                <p className="text-xs" style={{ color: "#a39e98" }}>Best flat rent · Лучшая аренда квартир</p>
+                <p className="text-xs" style={{ color: "#a39e98" }}>Best flat rent</p>
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: "#a39e98" }}>
-              Заполни заявку — получи предложения напрямую от хозяев.
+              Сообщество хозяев квартир. Прямой контакт. Без комиссий. AI-подбор.
             </p>
-            <div className="flex flex-wrap gap-3 text-xs">
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#c8622a" }}></div>
-                <span style={{ color: "#a39e98" }}>Прямой контакт</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#4a7c59" }}></div>
-                <span style={{ color: "#a39e98" }}>Без комиссий</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#e07540" }}></div>
-                <span style={{ color: "#a39e98" }}>Нейросети</span>
-              </div>
-            </div>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4" style={{ color: "#faf7f2" }}>Поддержка</h4>
+            <h4 className="font-semibold mb-4 text-sm" style={{ color: "#faf7f2" }}>Поддержка</h4>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
                 <a href="https://t.me/bfrreplit_bot" target="_blank" rel="noopener noreferrer"
                   className="transition-colors hover:text-[#e07540]" data-testid="link-footer-telegram">
-                  Написать в Telegram
+                  Telegram
                 </a>
               </li>
               <li>
                 <a href="https://wa.me/79899865887" target="_blank" rel="noopener noreferrer"
                   className="transition-colors hover:text-[#e07540]" data-testid="link-footer-whatsapp">
-                  Написать в WhatsApp
+                  WhatsApp
                 </a>
               </li>
               <li>
                 <a href="https://max.ru/call/+79213798941" target="_blank" rel="noopener noreferrer"
                   className="transition-colors hover:text-[#e07540]" data-testid="link-footer-max">
-                  Написать в Макс
+                  Макс
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4" style={{ color: "#faf7f2" }}>Для хозяев</h4>
+            <h4 className="font-semibold mb-4 text-sm" style={{ color: "#faf7f2" }}>Для хозяев</h4>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
                 <button onClick={onOwnerClick}
@@ -90,21 +76,21 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4" style={{ color: "#faf7f2" }}>О БФР</h4>
+            <h4 className="font-semibold mb-4 text-sm" style={{ color: "#faf7f2" }}>О БФР</h4>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
-                <Link href="/#faq" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-about">
-                  Что такое БФР?
-                </Link>
+                <a href="#faq" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-about">
+                  Как это работает
+                </a>
               </li>
               <li>
-                <Link href="/#cooperation" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-cooperation">
+                <a href="#cooperation" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-cooperation">
                   Сотрудничество
-                </Link>
+                </a>
               </li>
               <li>
                 <Link href="/privacy" className="transition-colors hover:text-[#e07540]" data-testid="link-footer-privacy">
-                  Политика конфиденциальности
+                  Конфиденциальность
                 </Link>
               </li>
               <li>
@@ -131,8 +117,6 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             <button className="text-sm transition-colors hover:text-[#e07540]" style={{ color: "#a39e98" }} data-testid="button-lang-en">
               EN
             </button>
-            <span style={{ color: "#6b6560" }}>|</span>
-            <span className="text-sm" style={{ color: "#a39e98" }}>₽ RUB</span>
           </div>
         </div>
       </div>

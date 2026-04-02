@@ -1,99 +1,101 @@
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ChevronDown } from "lucide-react";
 
 const faqData = [
   {
     question: "Что такое БФР?",
-    answer: "Это он-лайн представительство Сообщества владельцев квартир, через которое заявки на аренду напрямую попадают хозяевам жилья. Вы пользуетесь привычными мессенджерами для общения, а рутинную работу берут на себя ИИ-ассистенты и админы платформы."
+    answer:
+      "БФР — это сообщество хозяев квартир, где гость оставляет одну заявку, а хозяева сами предлагают варианты. Бронник AI отбирает лучшие предложения и возвращает вам топ-5. Никаких посредников и сервисных сборов.",
   },
   {
-    question: "Что даёт БФР гостям?",
-    answer: "• Экономию в стоимости аренды за счёт прямых контактов с хозяевами без посредников\n• Безопасность за счёт контактов с проверенными хозяевами\n• Дополнительные услуги (экскурсии, билеты, питание и др.) со скидкой от партнёров БФР\n• Помощь и сопровождение\n• Новые знакомства и впечатления"
+    question: "Сколько стоят услуги?",
+    answer:
+      "Для гостей размещение заявки бесплатно. Вы платите напрямую хозяину на согласованных условиях — без комиссий платформе.",
   },
   {
-    question: "Что даёт БФР хозяевам?",
-    answer: "• Дополнительный канал заявок\n• Профессиональные контакты и обмен опытом\n• Помощь со стороны коллег и Сообщества\n• Новые знакомства и общение"
+    question: "Как работает подбор вариантов?",
+    answer:
+      "После получения вашей заявки хозяева из сообщества присылают предложения. Бронник AI анализирует все отклики и выбирает 5 наиболее подходящих под ваш запрос. Вы получаете их в выбранный способ связи — Telegram, WhatsApp или Макс.",
   },
   {
-    question: "Сколько стоят ваши услуги?",
-    answer: "Для гостей размещение заявки в профильных группах мессенджеров бесплатно. Хозяева участвуют в Сообществе в соответствии с правилами."
+    question: "Какие есть меры безопасности?",
+    answer:
+      "В БФР есть система верификации объектов, репутация и отзывы, чёрный список ненадёжных участников. Все условия фиксируются в переписке до оплаты. Администраторы помогают в спорных ситуациях.",
   },
   {
-    question: "Какие гарантии и защита в БФР?",
-    answer: "БФР — это сообщество, а не платформа-гарант, поэтому ответственность лежит на её участниках: гостях и хозяевах. Условия вы обсуждаете сами. Но это не означает, что вы остались без защиты. В БФР есть чёрный список ненадёжных участников, система репутации и отзывов, поддержка администраторов в спорах."
+    question: "Что получает хозяин?",
+    answer:
+      "Хозяин получает заявки от гостей прямо в мессенджер, сам выбирает кому отвечать, общается без посредников и не платит комиссий платформе. Также хозяин становится частью профессионального сообщества.",
   },
-  {
-    question: "Что делать, если гость отменил бронь?",
-    answer: "До оплаты никакие штрафы не взимаются. Если была предоплата, условия возврата определяются соглашением между хозяином и гостем. Платформа передаёт информацию, но не регулирует расчёты."
-  },
-  {
-    question: "Есть ли страховка?",
-    answer: "Страховые услуги пока не предоставляются платформой. Гости и хозяева могут использовать сторонние услуги страхования и гарантий самостоятельно."
-  },
-  {
-    question: "Кто решает спорные вопросы?",
-    answer: "Все спорные моменты решаются непосредственно между гостем и хозяином. Платформа сохраняет историю коммуникаций, помогая информированию. При необходимости стороны могут использовать действующее законодательство."
-  }
 ];
 
 export default function PopularQuestions() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (i: number) => {
+    setOpenIndex(openIndex === i ? null : i);
+  };
 
   return (
-    <section id="faq" className="py-16 px-4" style={{ background: "#f3ede3" }}>
-      <div className="max-w-4xl mx-auto">
-        <h2
-          className="text-3xl md:text-4xl font-bold mb-12 tracking-tight"
-          style={{ color: "#1c1917" }}
-          data-testid="text-faq-title"
-        >
-          Популярные вопросы
-        </h2>
-
-        <div className="space-y-0">
-          {faqData.map((faq, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedFaq(index)}
-              className="w-full flex items-center justify-between py-4 px-0 text-left group transition-colors"
-              style={{ borderBottom: "1px solid rgba(28,25,23,0.08)" }}
-              data-testid={`link-article-${index}`}
-            >
-              <span
-                className="text-base pr-4 transition-colors group-hover:text-[#c8622a]"
-                style={{ color: "#1c1917" }}
-              >
-                {faq.question}
-              </span>
-              <ChevronRight
-                className="w-5 h-5 shrink-0 transition-colors group-hover:text-[#c8622a]"
-                style={{ color: "#6b6560" }}
-              />
-            </button>
-          ))}
+    <section id="faq" className="py-20 px-4" style={{ background: "#faf7f2" }}>
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h2
+            className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
+            style={{ color: "#1c1917" }}
+            data-testid="text-faq-title"
+          >
+            Частые вопросы
+          </h2>
+          <p className="text-base" style={{ color: "#6b6560" }}>
+            Всё, что нужно знать перед началом
+          </p>
         </div>
 
-        <Dialog open={selectedFaq !== null} onOpenChange={() => setSelectedFaq(null)}>
-          <DialogContent
-            className="max-w-lg rounded-xl"
-            style={{ background: "#ffffff", border: "1px solid rgba(28,25,23,0.1)" }}
-          >
-            <DialogHeader>
-              <DialogTitle className="text-xl font-semibold pr-8" style={{ color: "#1c1917" }}>
-                {selectedFaq !== null && faqData[selectedFaq].question}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="leading-relaxed mt-2 whitespace-pre-line" style={{ color: "#6b6560" }}>
-              {selectedFaq !== null && faqData[selectedFaq].answer}
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{
+            border: "1px solid rgba(28,25,23,0.08)",
+            background: "#ffffff",
+          }}
+        >
+          {faqData.map((faq, i) => (
+            <div
+              key={i}
+              style={{
+                borderBottom:
+                  i < faqData.length - 1 ? "1px solid rgba(28,25,23,0.07)" : "none",
+              }}
+            >
+              <button
+                onClick={() => toggle(i)}
+                className="w-full flex items-center justify-between px-6 py-5 text-left group"
+                data-testid={`button-faq-${i}`}
+              >
+                <span
+                  className="text-sm font-medium pr-4 leading-snug transition-colors"
+                  style={{ color: openIndex === i ? "#c8622a" : "#1c1917" }}
+                >
+                  {faq.question}
+                </span>
+                <ChevronDown
+                  className="w-4 h-4 shrink-0 transition-transform duration-200"
+                  style={{
+                    color: "#6b6560",
+                    transform: openIndex === i ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
+                />
+              </button>
+              {openIndex === i && (
+                <div className="px-6 pb-5">
+                  <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
+                    {faq.answer}
+                  </p>
+                </div>
+              )}
             </div>
-          </DialogContent>
-        </Dialog>
+          ))}
+        </div>
       </div>
     </section>
   );
