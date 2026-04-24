@@ -40,11 +40,24 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
-          <Link href="/" className="flex items-center gap-2.5 shrink-0" data-testid="link-logo">
-            <img src={logoImage} alt="БФР" className="w-9 h-9 object-contain rounded-lg" />
-            <div className="flex flex-col leading-tight">
-              <span className="text-sm font-bold tracking-tight" style={{ color: "#1c1917" }}>БФР</span>
-              <span className="text-[10px]" style={{ color: "#6b6560" }}>Best flat rent</span>
+          <Link href="/" className="flex items-center gap-3 shrink-0" data-testid="link-logo">
+            <img src={logoImage} alt="БФР" className="w-10 h-10 object-contain rounded-lg" />
+            <div className="flex flex-col leading-none gap-0.5">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-bold tracking-tight" style={{ color: "#1c1917" }}>БФР</span>
+                <span className="text-[11px] font-medium tracking-wide" style={{ color: "#6b6560" }}>Best Flat Rent</span>
+              </div>
+              <span
+                className="text-[9px] font-semibold tracking-[0.18em] uppercase"
+                style={{
+                  color: "#0d7377",
+                  letterSpacing: "0.18em",
+                  fontVariant: "small-caps",
+                }}
+                data-testid="text-header-tagline"
+              >
+                Лучшая аренда квартир
+              </span>
             </div>
           </Link>
 
