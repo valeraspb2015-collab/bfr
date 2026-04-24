@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
 
@@ -72,6 +72,16 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
 
             {/* Desktop nav — right-aligned */}
             <nav className="hidden md:flex items-center gap-0.5 ml-auto">
+              <Link
+                href="/community"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm rounded-lg transition-colors whitespace-nowrap font-medium"
+                style={{ color: "#0d7377" }}
+                data-testid="link-nav-community"
+              >
+                <Users className="w-3.5 h-3.5" />
+                Чат хозяев
+              </Link>
+              <div className="w-px h-4 mx-1 rounded-full" style={{ background: "rgba(28,25,23,0.15)" }} />
               {navLinks.map((link) =>
                 link.external ? (
                   <a

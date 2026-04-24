@@ -1,0 +1,24 @@
+{
+  "name": "БФР — Сообщество хозяев",
+  "short_name": "БФР Чат",
+  "description": "Закрытый чат хозяев квартир Best Flat Rent",
+  "start_url": "/community",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#0d7377",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/og-image.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["social", "communication"],
+  "lang": "ru"
+}

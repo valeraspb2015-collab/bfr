@@ -10,6 +10,7 @@ import Owner from "@/pages/owner";
 import Admin from "@/pages/admin";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
+import Community from "@/pages/community";
 import NotFound from "@/pages/not-found";
 import BronnikChat from "@/components/BronnikChat";
 
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/community" component={Community} />
       <Route component={NotFound} />
     </Switch>
   );
