@@ -16,6 +16,16 @@ app.use(express.json({
 }));
 app.use(express.urlencoded({ extended: false }));
 
+// Disable browser caching for HTML pages so refreshing always loads fresh JS
+app.use((req, res, next) => {
+  if (!req.path.startsWith("/api") && !req.path.startsWith("/ws") && !req.path.match(/\.(js|css|png|jpg|svg|ico|woff|woff2|json)$/)) {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+  }
+  next();
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
