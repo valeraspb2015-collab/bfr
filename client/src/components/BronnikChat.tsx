@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { X, Send, Loader2, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiTelegram, SiWhatsapp } from "react-icons/si";
+import { useLocation } from "wouter";
 import bronnikAvatar from "@/assets/bronnik-avatar.png";
 
 interface Message {
@@ -10,11 +11,15 @@ interface Message {
 }
 
 export default function BronnikChat() {
+  const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Скрываем на странице сообщества — там своя кнопка
+  if (location === "/community") return null;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -151,8 +156,8 @@ export default function BronnikChat() {
               style={{ border: "2px solid rgba(13,115,119,0.4)" }}
             />
             <div className="text-left">
-              <div className="font-semibold text-sm" style={{ color: "#0d7377" }}>Спросить Бронника AI</div>
-              <div className="text-xs" style={{ color: "#6b6560" }}>Гид по городам России</div>
+              <div className="font-semibold text-sm" style={{ color: "#0d7377" }}>Бронник помоги</div>
+              <div className="text-xs" style={{ color: "#6b6560" }}>Помощь админов</div>
             </div>
           </button>
         </div>
@@ -182,8 +187,8 @@ export default function BronnikChat() {
                 style={{ border: "2px solid rgba(13,115,119,0.35)" }}
               />
               <div>
-                <h3 className="font-semibold text-sm" style={{ color: "#1c1917" }}>Бронник AI</h3>
-                <p className="text-xs" style={{ color: "#6b6560" }}>Гид по городам России</p>
+                <h3 className="font-semibold text-sm" style={{ color: "#1c1917" }}>Бронник</h3>
+                <p className="text-xs" style={{ color: "#6b6560" }}>Помощь админов</p>
               </div>
             </div>
             <button

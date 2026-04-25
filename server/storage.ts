@@ -41,11 +41,12 @@ export interface IStorage {
 }
 
 const DEFAULT_ROOMS: ChatRoom[] = [
-  { id: "room-general", slug: "general", name: "Общий чат", description: "Общение всех хозяев", icon: "MessageSquare", sortOrder: 0, createdAt: new Date() },
-  { id: "room-legal", slug: "legal", name: "Юридические вопросы", description: "Договоры, налоги, законы", icon: "Scale", sortOrder: 1, createdAt: new Date() },
-  { id: "room-pricing", slug: "pricing", name: "Цены и сезон", description: "Ставки, скидки, сезонность", icon: "TrendingUp", sortOrder: 2, createdAt: new Date() },
-  { id: "room-setup", slug: "setup", name: "Обустройство", description: "Ремонт, мебель, оснащение", icon: "Sofa", sortOrder: 3, createdAt: new Date() },
-  { id: "room-news", slug: "news", name: "Новости BFR", description: "Обновления платформы", icon: "Bell", sortOrder: 4, createdAt: new Date() },
+  { id: "room-requests", slug: "requests", name: "Заявки любые", description: "Заявки и предложения от хозяев", icon: "ClipboardList", sortOrder: 0, createdAt: new Date() },
+  { id: "room-chat", slug: "chat", name: "Болталка", description: "Свободное общение", icon: "Coffee", sortOrder: 1, createdAt: new Date() },
+  { id: "room-staff", slug: "staff", name: "Горничные и мастера", description: "Поиск персонала и мастеров", icon: "Wrench", sortOrder: 2, createdAt: new Date() },
+  { id: "room-blacklist", slug: "blacklist", name: "Черный список", description: "Проблемные гости и ситуации", icon: "UserX", sortOrder: 3, createdAt: new Date() },
+  { id: "room-useful", slug: "useful", name: "Полезное", description: "Советы, лайфхаки, ресурсы", icon: "Bookmark", sortOrder: 4, createdAt: new Date() },
+  { id: "room-news", slug: "news", name: "Новости BFR", description: "Обновления платформы", icon: "Newspaper", sortOrder: 5, createdAt: new Date() },
 ];
 
 export class MemStorage implements IStorage {
