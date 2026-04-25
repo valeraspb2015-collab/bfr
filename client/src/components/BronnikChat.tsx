@@ -18,9 +18,6 @@ export default function BronnikChat() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Скрываем на странице сообщества — там своя кнопка
-  if (location === "/community") return null;
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -105,6 +102,9 @@ export default function BronnikChat() {
       sendMessage();
     }
   };
+
+  // Скрываем на странице сообщества — там своя кнопка Бронника
+  if (location === "/community") return null;
 
   return (
     <>
