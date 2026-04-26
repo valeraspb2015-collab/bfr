@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Users } from "lucide-react";
+import { Menu, X, Users, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
 
@@ -158,6 +158,18 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
             >
               <Users className="w-4 h-4" />
               Чат хозяев
+            </Link>
+
+            {/* Установить приложение */}
+            <Link
+              href="/install"
+              className="flex items-center gap-2 px-3 py-2.5 text-sm rounded-lg"
+              style={{ color: "#6b6560" }}
+              onClick={() => setMobileOpen(false)}
+              data-testid="link-mobile-install"
+            >
+              <Smartphone className="w-4 h-4" />
+              Установить приложение
             </Link>
 
             {navLinks.map((link) =>

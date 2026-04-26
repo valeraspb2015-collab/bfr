@@ -11,6 +11,7 @@ import Admin from "@/pages/admin";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import Community from "@/pages/community";
+import Install from "@/pages/install";
 import NotFound from "@/pages/not-found";
 import BronnikChat from "@/components/BronnikChat";
 
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route path="/community" component={Community} />
+      <Route path="/install" component={Install} />
       <Route component={NotFound} />
     </Switch>
   );

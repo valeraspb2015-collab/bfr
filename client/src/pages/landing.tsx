@@ -7,6 +7,7 @@ import WhyBFRSection from "@/components/WhyBFRSection";
 import TrustSection from "@/components/TrustSection";
 import AudiencesSection from "@/components/AudiencesSection";
 import GuidesSection from "@/components/GuidesSection";
+import InstallSection from "@/components/InstallSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import CooperationSection from "@/components/CooperationSection";
 import HelpFooter from "@/components/HelpFooter";
@@ -36,6 +37,7 @@ export default function Landing() {
         onGuestClick={handleGetStarted}
         onOwnerClick={handleOwnerApplication}
       />
+      <InstallSection />
       <PopularQuestions />
       <CooperationSection />
       <HelpFooter

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Smartphone } from "lucide-react";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
 
 interface HelpFooterProps {
@@ -87,6 +88,12 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
                 <a href="#cooperation" className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-cooperation">
                   Сотрудничество
                 </a>
+              </li>
+              <li>
+                <Link href="/install" className="inline-flex items-center gap-1.5 transition-colors hover:text-[#149ea3]" data-testid="link-footer-install">
+                  <Smartphone className="w-3.5 h-3.5" />
+                  Установить приложение
+                </Link>
               </li>
               <li>
                 <Link href="/privacy" className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-privacy">
