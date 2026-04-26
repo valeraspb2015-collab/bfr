@@ -6,7 +6,7 @@
 
 - **Frontend**: React + TypeScript + Vite + Wouter (роутинг)
 - **Backend**: Express + TypeScript
-- **Хранилище**: In-memory storage (MemStorage)
+- **Хранилище**: PostgreSQL (DbStorage через пакет `pg`) — данные сохраняются постоянно
 - **UI**: Shadcn/ui + Tailwind CSS (с дизайн-токенами)
 - **Мессенджеры**: Telegram (@bfrreplit_bot) + WhatsApp
 

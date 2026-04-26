@@ -8,6 +8,8 @@ import {
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { createHash } from "crypto";
+import pg from "pg";
+const { Pool } = pg;
 
 function hashPassword(password: string): string {
   return createHash("sha256").update(password + "bfr_salt_2024").digest("hex");
@@ -40,145 +42,201 @@ export interface IStorage {
   banChatUser(userId: string): Promise<void>;
 }
 
-const DEFAULT_ROOMS: ChatRoom[] = [
-  { id: "room-requests", slug: "requests", name: "Заявки любые", description: "Заявки и предложения от хозяев", icon: "ClipboardList", sortOrder: 0, createdAt: new Date() },
-  { id: "room-chat", slug: "chat", name: "Болталка", description: "Свободное общение", icon: "Coffee", sortOrder: 1, createdAt: new Date() },
-  { id: "room-staff", slug: "staff", name: "Горничные и мастера", description: "Поиск персонала и мастеров", icon: "Wrench", sortOrder: 2, createdAt: new Date() },
-  { id: "room-blacklist", slug: "blacklist", name: "Черный список", description: "Проблемные гости и ситуации", icon: "UserX", sortOrder: 3, createdAt: new Date() },
-  { id: "room-useful", slug: "useful", name: "Полезное", description: "Советы, лайфхаки, ресурсы", icon: "Bookmark", sortOrder: 4, createdAt: new Date() },
-  { id: "room-news", slug: "news", name: "Новости BFR", description: "Обновления платформы", icon: "Newspaper", sortOrder: 5, createdAt: new Date() },
-];
+// ── PostgreSQL Storage ────────────────────────────────────────────────────────
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User> = new Map();
-  private apartmentRequests: Map<string, ApartmentRequest> = new Map();
-  private ownerApplications: Map<string, OwnerApplication> = new Map();
-  private chatUsers: Map<string, ChatUser> = new Map();
-  private chatRooms: Map<string, ChatRoom> = new Map();
-  private chatMessages: Map<string, ChatMessage> = new Map();
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-  constructor() {
-    DEFAULT_ROOMS.forEach(r => this.chatRooms.set(r.id, r));
+function rowToChatUser(row: any): ChatUser {
+  return {
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    city: row.city,
+    passwordHash: row.password_hash,
+    isAdmin: row.is_admin,
+    isApproved: row.is_approved,
+    createdAt: new Date(row.created_at),
+  };
+}
 
-    // seed admin user
-    const adminId = randomUUID();
-    this.chatUsers.set(adminId, {
-      id: adminId,
-      name: "Администратор BFR",
-      email: "admin@bfr.su",
-      phone: "+70000000000",
-      city: "Москва",
-      passwordHash: hashPassword("admin123"),
-      isAdmin: true,
-      isApproved: true,
-      createdAt: new Date(),
-    });
+function rowToChatRoom(row: any): ChatRoom {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    description: row.description ?? null,
+    icon: row.icon,
+    sortOrder: row.sort_order,
+    createdAt: new Date(row.created_at),
+  };
+}
+
+function rowToChatMessage(row: any): ChatMessage & { user: Pick<ChatUser, "id" | "name" | "city"> } {
+  return {
+    id: row.id,
+    roomId: row.room_id,
+    userId: row.user_id,
+    text: row.text,
+    deletedAt: row.deleted_at ? new Date(row.deleted_at) : null,
+    createdAt: new Date(row.created_at),
+    user: {
+      id: row.user_id,
+      name: row.user_name ?? "Удалённый",
+      city: row.user_city ?? "",
+    },
+  };
+}
+
+export class DbStorage implements IStorage {
+
+  // ── Generic users (legacy, not used by chat) ──────────────────────
+  async getUser(id: string): Promise<User | undefined> {
+    const res = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    return res.rows[0];
   }
 
-  async getUser(id: string) { return this.users.get(id); }
-  async getUserByUsername(username: string) {
-    return Array.from(this.users.values()).find(u => u.username === username);
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const res = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+    return res.rows[0];
   }
+
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const res = await pool.query(
+      "INSERT INTO users (id, username, password) VALUES ($1, $2, $3) RETURNING *",
+      [randomUUID(), insertUser.username, insertUser.password]
+    );
+    return res.rows[0];
   }
 
-  async createApartmentRequest(insertRequest: InsertApartmentRequest): Promise<ApartmentRequest> {
-    const id = randomUUID();
-    const request: ApartmentRequest = {
-      ...insertRequest,
-      id, status: "new", createdAt: new Date(),
-      additionalInfo: insertRequest.additionalInfo ?? null,
+  // ── Apartment requests ────────────────────────────────────────────
+  async createApartmentRequest(r: InsertApartmentRequest): Promise<ApartmentRequest> {
+    const res = await pool.query(
+      `INSERT INTO apartment_requests
+        (id, name, phone, location, budget, rooms, move_in_date, move_out_date, additional_info, messenger_type, messenger_contact, status, created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'new',NOW()) RETURNING *`,
+      [randomUUID(), r.name, r.phone, r.location, r.budget, r.rooms,
+       r.moveInDate, r.moveOutDate, r.additionalInfo ?? null,
+       r.messengerType, r.messengerContact]
+    );
+    const row = res.rows[0];
+    return {
+      id: row.id, name: row.name, phone: row.phone, location: row.location,
+      budget: row.budget, rooms: row.rooms, moveInDate: row.move_in_date,
+      moveOutDate: row.move_out_date, additionalInfo: row.additional_info,
+      messengerType: row.messenger_type, messengerContact: row.messenger_contact,
+      status: row.status, createdAt: new Date(row.created_at),
     };
-    this.apartmentRequests.set(id, request);
-    return request;
   }
+
   async getApartmentRequests(): Promise<ApartmentRequest[]> {
-    return Array.from(this.apartmentRequests.values()).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    const res = await pool.query("SELECT * FROM apartment_requests ORDER BY created_at DESC");
+    return res.rows.map(row => ({
+      id: row.id, name: row.name, phone: row.phone, location: row.location,
+      budget: row.budget, rooms: row.rooms, moveInDate: row.move_in_date,
+      moveOutDate: row.move_out_date, additionalInfo: row.additional_info,
+      messengerType: row.messenger_type, messengerContact: row.messenger_contact,
+      status: row.status, createdAt: new Date(row.created_at),
+    }));
   }
 
-  async createOwnerApplication(insertApplication: InsertOwnerApplication): Promise<OwnerApplication> {
-    const id = randomUUID();
-    const application: OwnerApplication = {
-      ...insertApplication,
-      id, status: "new", createdAt: new Date(),
-      question: insertApplication.question ?? null,
+  // ── Owner applications ────────────────────────────────────────────
+  async createOwnerApplication(a: InsertOwnerApplication): Promise<OwnerApplication> {
+    const res = await pool.query(
+      `INSERT INTO owner_applications (id, city, name, phone, listing_url, question, status, created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,'new',NOW()) RETURNING *`,
+      [randomUUID(), a.city, a.name, a.phone, a.listingUrl, a.question ?? null]
+    );
+    const row = res.rows[0];
+    return {
+      id: row.id, city: row.city, name: row.name, phone: row.phone,
+      listingUrl: row.listing_url, question: row.question,
+      status: row.status, createdAt: new Date(row.created_at),
     };
-    this.ownerApplications.set(id, application);
-    return application;
-  }
-  async getOwnerApplications(): Promise<OwnerApplication[]> {
-    return Array.from(this.ownerApplications.values()).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
-  // ── Chat ─────────────────────────────────────────────────────────
-  async getChatUserByEmail(email: string) {
-    return Array.from(this.chatUsers.values()).find(u => u.email === email.toLowerCase());
+  async getOwnerApplications(): Promise<OwnerApplication[]> {
+    const res = await pool.query("SELECT * FROM owner_applications ORDER BY created_at DESC");
+    return res.rows.map(row => ({
+      id: row.id, city: row.city, name: row.name, phone: row.phone,
+      listingUrl: row.listing_url, question: row.question,
+      status: row.status, createdAt: new Date(row.created_at),
+    }));
   }
-  async getChatUserById(id: string) { return this.chatUsers.get(id); }
+
+  // ── Chat users ────────────────────────────────────────────────────
+  async getChatUserByEmail(email: string): Promise<ChatUser | undefined> {
+    const res = await pool.query("SELECT * FROM chat_users WHERE email = $1", [email.toLowerCase()]);
+    return res.rows[0] ? rowToChatUser(res.rows[0]) : undefined;
+  }
+
+  async getChatUserById(id: string): Promise<ChatUser | undefined> {
+    const res = await pool.query("SELECT * FROM chat_users WHERE id = $1", [id]);
+    return res.rows[0] ? rowToChatUser(res.rows[0]) : undefined;
+  }
 
   async createChatUser(data: InsertChatUser): Promise<ChatUser> {
     const existing = await this.getChatUserByEmail(data.email);
     if (existing) throw new Error("Пользователь с таким email уже зарегистрирован");
-    const id = randomUUID();
-    const user: ChatUser = {
-      id,
-      name: data.name,
-      email: data.email.toLowerCase(),
-      phone: data.phone,
-      city: data.city ?? "",
-      passwordHash: hashPassword(data.password),
-      isAdmin: false,
-      isApproved: true,
-      createdAt: new Date(),
-    };
-    this.chatUsers.set(id, user);
-    return user;
+    const res = await pool.query(
+      `INSERT INTO chat_users (id, name, email, phone, city, password_hash, is_admin, is_approved, created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,false,true,NOW()) RETURNING *`,
+      [randomUUID(), data.name, data.email.toLowerCase(), data.phone,
+       data.city ?? "", hashPassword(data.password)]
+    );
+    return rowToChatUser(res.rows[0]);
   }
 
+  async getChatUsers(): Promise<Pick<ChatUser, "id" | "name" | "email" | "city" | "isAdmin" | "createdAt">[]> {
+    const res = await pool.query("SELECT id, name, email, city, is_admin, created_at FROM chat_users ORDER BY created_at DESC");
+    return res.rows.map(row => ({
+      id: row.id, name: row.name, email: row.email, city: row.city,
+      isAdmin: row.is_admin, createdAt: new Date(row.created_at),
+    }));
+  }
+
+  async banChatUser(userId: string): Promise<void> {
+    await pool.query("UPDATE chat_users SET is_approved = false WHERE id = $1", [userId]);
+  }
+
+  // ── Chat rooms ────────────────────────────────────────────────────
   async getChatRooms(): Promise<ChatRoom[]> {
-    return Array.from(this.chatRooms.values()).sort((a, b) => a.sortOrder - b.sortOrder);
+    const res = await pool.query("SELECT * FROM chat_rooms ORDER BY sort_order ASC");
+    return res.rows.map(rowToChatRoom);
   }
 
-  private enrichMessage(msg: ChatMessage) {
-    const user = this.chatUsers.get(msg.userId);
+  // ── Chat messages ─────────────────────────────────────────────────
+  async getChatMessages(roomId: string, limit = 80): Promise<(ChatMessage & { user: Pick<ChatUser, "id" | "name" | "city"> })[]> {
+    const res = await pool.query(
+      `SELECT m.*, u.name AS user_name, u.city AS user_city
+       FROM chat_messages m
+       LEFT JOIN chat_users u ON u.id = m.user_id
+       WHERE m.room_id = $1 AND m.deleted_at IS NULL
+       ORDER BY m.created_at ASC
+       LIMIT $2`,
+      [roomId, limit]
+    );
+    return res.rows.map(rowToChatMessage);
+  }
+
+  async createChatMessage(data: InsertChatMessage): Promise<ChatMessage & { user: Pick<ChatUser, "id" | "name" | "city"> }> {
+    const res = await pool.query(
+      `INSERT INTO chat_messages (id, room_id, user_id, text, created_at)
+       VALUES ($1,$2,$3,$4,NOW()) RETURNING *`,
+      [randomUUID(), data.roomId, data.userId, data.text]
+    );
+    const row = res.rows[0];
+    const user = await this.getChatUserById(data.userId);
     return {
-      ...msg,
-      user: { id: msg.userId, name: user?.name ?? "Удалённый", city: user?.city ?? "" },
+      id: row.id, roomId: row.room_id, userId: row.user_id, text: row.text,
+      deletedAt: null, createdAt: new Date(row.created_at),
+      user: { id: data.userId, name: user?.name ?? "Удалённый", city: user?.city ?? "" },
     };
   }
 
-  async getChatMessages(roomId: string, limit = 80) {
-    return Array.from(this.chatMessages.values())
-      .filter(m => m.roomId === roomId && !m.deletedAt)
-      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-      .slice(-limit)
-      .map(m => this.enrichMessage(m));
-  }
-
-  async createChatMessage(data: InsertChatMessage) {
-    const id = randomUUID();
-    const msg: ChatMessage = { ...data, id, deletedAt: null, createdAt: new Date() };
-    this.chatMessages.set(id, msg);
-    return this.enrichMessage(msg);
-  }
-
-  async deleteChatMessage(messageId: string) {
-    const msg = this.chatMessages.get(messageId);
-    if (msg) this.chatMessages.set(messageId, { ...msg, deletedAt: new Date() });
-  }
-
-  async getChatUsers() {
-    return Array.from(this.chatUsers.values()).map(({ id, name, email, city, isAdmin, createdAt }) => ({ id, name, email, city, isAdmin, createdAt }));
-  }
-
-  async banChatUser(userId: string) {
-    const user = this.chatUsers.get(userId);
-    if (user) this.chatUsers.set(userId, { ...user, isApproved: false });
+  async deleteChatMessage(messageId: string): Promise<void> {
+    await pool.query("UPDATE chat_messages SET deleted_at = NOW() WHERE id = $1", [messageId]);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DbStorage();
