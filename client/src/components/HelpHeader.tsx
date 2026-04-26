@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Users, Smartphone } from "lucide-react";
+import { Menu, X, Users, Smartphone, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/IMG_1708_1762164822589.jpg";
 
@@ -109,6 +109,16 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
                   </a>
                 )
               )}
+
+              <Link
+                href="/install"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm rounded-lg transition-colors whitespace-nowrap"
+                style={{ color: "#6b6560" }}
+                data-testid="link-nav-install"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Установить
+              </Link>
 
               <div className="w-px h-4 mx-2 rounded-full" style={{ background: "rgba(28,25,23,0.15)" }} />
 
