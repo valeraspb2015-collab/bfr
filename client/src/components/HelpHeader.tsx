@@ -33,18 +33,15 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
 
       {/* ── Top announcement bar ── */}
       <div
-        className="hidden md:flex items-center justify-center h-8 px-4"
+        className="flex items-center justify-center h-7 px-4"
         style={{ background: "#0d7377" }}
         data-testid="bar-topline"
       >
         <p
-          className="text-[10px] font-semibold tracking-[0.22em] uppercase text-white/90 select-none"
+          className="text-[9px] font-semibold tracking-[0.18em] uppercase text-white/90 select-none"
           data-testid="text-tagline"
         >
-          Лучшая&nbsp;аренда&nbsp;квартир
-          <span className="mx-3 opacity-40">·</span>
-          Best&nbsp;Flat&nbsp;Rent
-          <span className="mx-3 opacity-40">·</span>
+          <span className="hidden sm:inline">Лучшая&nbsp;аренда&nbsp;квартир<span className="mx-3 opacity-40">·</span>Best&nbsp;Flat&nbsp;Rent<span className="mx-3 opacity-40">·</span></span>
           bfr.su
         </p>
       </div>
@@ -148,8 +145,21 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
               className="text-[10px] font-semibold tracking-[0.18em] uppercase pt-3 pb-1"
               style={{ color: "#0d7377" }}
             >
-              Лучшая аренда квартир
+              Лучшая аренда квартир · BFR.SU
             </p>
+
+            {/* Чат хозяев — первым в мобильном меню */}
+            <Link
+              href="/community"
+              className="flex items-center gap-2 px-3 py-2.5 text-sm rounded-lg font-medium"
+              style={{ color: "#0d7377" }}
+              onClick={() => setMobileOpen(false)}
+              data-testid="link-mobile-community"
+            >
+              <Users className="w-4 h-4" />
+              Чат хозяев
+            </Link>
+
             {navLinks.map((link) =>
               link.external ? (
                 <a
