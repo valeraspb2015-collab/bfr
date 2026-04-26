@@ -1,8 +1,8 @@
 {
-  "name": "БФР — Сообщество хозяев",
-  "short_name": "БФР Чат",
-  "description": "Закрытый чат хозяев квартир Best Flat Rent",
-  "start_url": "/community",
+  "name": "БФР — Best Flat Rent",
+  "short_name": "БФР",
+  "description": "Лучшая аренда квартир. Прямой контакт с хозяевами без комиссий.",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#faf7f2",
   "theme_color": "#0d7377",
@@ -19,6 +19,6 @@
       "type": "image/png"
     }
   ],
-  "categories": ["social", "communication"],
+  "categories": ["lifestyle", "business"],
   "lang": "ru"
 }
