@@ -41,6 +41,7 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
           className="text-[9px] font-semibold tracking-[0.18em] uppercase text-white/90 select-none"
           data-testid="text-tagline"
         >
+          <span className="sm:hidden">Лучшая&nbsp;аренда&nbsp;квартир<span className="mx-2 opacity-40">·</span></span>
           <span className="hidden sm:inline">Лучшая&nbsp;аренда&nbsp;квартир<span className="mx-3 opacity-40">·</span>Best&nbsp;Flat&nbsp;Rent<span className="mx-3 opacity-40">·</span></span>
           bfr.su
         </p>
