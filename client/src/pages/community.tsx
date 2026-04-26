@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "wouter";
 import {
   Send, LogOut, ArrowLeft, MessageSquare, Wrench, UserX, Bookmark, Newspaper,
-  Coffee, ClipboardList, Menu, X, Search, Users, Mic, MicOff, Loader2, ChevronDown
+  Coffee, ClipboardList, Menu, X, Search, Users
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,175 +43,94 @@ const ROOM_COLORS: Record<string, string> = {
   news: "#2980b9",
 };
 
-// ── Speech recognition types ──────────────────────────────────────────────────
-interface SREvent extends Event { results: SpeechRecognitionResultList; resultIndex: number; }
-declare const SpeechRecognition: { new(): SpeechRecognitionInst } | undefined;
-declare const webkitSpeechRecognition: { new(): SpeechRecognitionInst } | undefined;
-interface SpeechRecognitionInst extends EventTarget {
-  lang: string; continuous: boolean; interimResults: boolean;
-  start(): void; stop(): void;
-  onresult: ((e: SREvent) => void) | null;
-  onerror: (() => void) | null;
-  onend: (() => void) | null;
-}
+// ── Admin contact panel for community (direct links, no AI) ───────────────────
 
-// ── Бронник panel (AI request collector + voice) ──────────────────────────────
+const ADMIN_CHANNELS = [
+  {
+    id: "telegram",
+    label: "Telegram",
+    sublabel: "Написать администратору",
+    href: "https://t.me/bfrreplit_bot",
+    color: "#0088cc",
+    bg: "rgba(0,136,204,0.08)",
+    border: "rgba(0,136,204,0.15)",
+  },
+  {
+    id: "whatsapp",
+    label: "WhatsApp",
+    sublabel: "Голос или текст",
+    href: "https://wa.me/79899865887",
+    color: "#25D366",
+    bg: "rgba(37,211,102,0.08)",
+    border: "rgba(37,211,102,0.15)",
+  },
+  {
+    id: "max",
+    label: "Макс",
+    sublabel: "VK-мессенджер",
+    href: "https://max.ru/u/f9LHodD0cOJGqIR7nRudfc6Wx4fiZADACwanqE4IJkMfLa6mgbmdQ0Ei69A",
+    color: "#7B68EE",
+    bg: "rgba(123,104,238,0.08)",
+    border: "rgba(123,104,238,0.15)",
+  },
+];
+
 function BronnikPanel({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([
-    { role: "assistant", content: "Здравствуйте! Я Бронник — помощник БФР. Опишите ваш вопрос или заявку — я передам её команде." }
-  ]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [listening, setListening] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
-  const recRef = useRef<SpeechRecognitionInst | null>(null);
-
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
-
-  const toggleMic = useCallback(() => {
-    if (listening) {
-      recRef.current?.stop();
-      setListening(false);
-      return;
-    }
-    const SR = (typeof SpeechRecognition !== "undefined" && SpeechRecognition)
-      || (typeof webkitSpeechRecognition !== "undefined" && webkitSpeechRecognition);
-    if (!SR) { alert("Голосовой ввод недоступен. Попробуйте Chrome или Safari."); return; }
-    const r = new SR();
-    r.lang = "ru-RU"; r.continuous = false; r.interimResults = true;
-    recRef.current = r;
-    r.onresult = (e: SREvent) => {
-      let final = ""; let interim = "";
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        const t = e.results[i][0].transcript;
-        if (e.results[i].isFinal) final += t; else interim += t;
-      }
-      setInput(final || interim);
-    };
-    r.onerror = () => setListening(false);
-    r.onend = () => setListening(false);
-    r.start();
-    setListening(true);
-  }, [listening]);
-
-  const send = async () => {
-    const text = input.trim();
-    if (!text || loading) return;
-    setInput("");
-    setMessages(prev => [...prev, { role: "user", content: text }]);
-    setLoading(true);
-    try {
-      const res = await fetch("/api/bronnik/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: messages.map(m => ({ role: m.role, content: m.content })) }),
-      });
-      const reader = res.body?.getReader();
-      const decoder = new TextDecoder();
-      let reply = "";
-      setMessages(prev => [...prev, { role: "assistant", content: "" }]);
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          for (const line of decoder.decode(value, { stream: true }).split("\n")) {
-            if (!line.startsWith("data: ")) continue;
-            try {
-              const d = JSON.parse(line.slice(6));
-              if (d.content) {
-                reply += d.content;
-                setMessages(prev => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: reply }; return u; });
-              }
-            } catch {}
-          }
-        }
-      }
-    } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Ошибка. Попробуйте позже." }]);
-    } finally { setLoading(false); }
-  };
-
   return (
-    <div className="absolute top-0 right-0 bottom-0 w-72 flex flex-col z-20 shadow-2xl"
+    <div
+      className="absolute top-0 right-0 bottom-0 w-64 flex flex-col z-20 shadow-2xl"
       style={{ background: "#fff", borderLeft: "1px solid rgba(28,25,23,0.1)" }}
-      data-testid="panel-bronnik-community"
+      data-testid="panel-admin-contact"
     >
       {/* Header */}
       <div className="px-3 py-3 flex items-center gap-2 shrink-0" style={{ background: "#0d7377" }}>
         <div className="relative">
-          <img src={bronnikAvatar} alt="Бронник" className="w-8 h-8 rounded-full object-cover border-2 border-white/30" />
+          <img src={bronnikAvatar} alt="Админ" className="w-8 h-8 rounded-full object-cover border-2 border-white/30" />
           <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-green-400 border border-white" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-white leading-none">Бронник AI</p>
-          <p className="text-[11px] text-white/70 mt-0.5">Принимаем заявки 24/7</p>
+          <p className="text-sm font-semibold text-white leading-none">Связаться с админом</p>
+          <p className="text-[11px] text-white/70 mt-0.5">Выберите мессенджер</p>
         </div>
-        <button onClick={onClose}
-          className="p-1 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white"
-          data-testid="button-bronnik-close"
-        >
-          <ChevronDown className="w-4 h-4" />
-        </button>
-      </div>
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2" style={{ background: "#f5f2ee" }}>
-        {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            {m.role === "assistant" && (
-              <img src={bronnikAvatar} alt="" className="w-5 h-5 rounded-full object-cover mr-1 mt-1 shrink-0 self-end" />
-            )}
-            <div className="max-w-[85%] px-3 py-1.5 text-sm leading-snug shadow-sm"
-              style={{
-                background: m.role === "user" ? "#d9fdd3" : "#fff",
-                color: "#1c1917",
-                borderRadius: m.role === "user" ? "12px 12px 3px 12px" : "12px 12px 12px 3px",
-              }}>
-              {m.content || (loading && i === messages.length - 1
-                ? <Loader2 className="w-3.5 h-3.5 animate-spin text-gray-400" />
-                : null
-              )}
-            </div>
-          </div>
-        ))}
-        <div ref={endRef} />
-      </div>
-
-      {/* Input */}
-      <div className="flex items-center gap-1.5 p-2 shrink-0"
-        style={{ background: "#f0f0f0", borderTop: "1px solid rgba(0,0,0,0.1)" }}>
         <button
-          onClick={toggleMic}
-          title={listening ? "Остановить" : "Голосовой ввод"}
-          className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-colors"
-          style={{
-            background: listening ? "rgba(220,38,38,0.1)" : "rgba(13,115,119,0.1)",
-            border: `1px solid ${listening ? "rgba(220,38,38,0.25)" : "rgba(13,115,119,0.2)"}`,
-          }}
-          data-testid="button-bronnik-mic"
+          onClick={onClose}
+          className="p-1 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white"
+          data-testid="button-admin-contact-close"
         >
-          {listening
-            ? <MicOff className="w-3 h-3" style={{ color: "#dc2626" }} />
-            : <Mic className="w-3 h-3" style={{ color: "#0d7377" }} />
-          }
+          <X className="w-4 h-4" />
         </button>
-        <input
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-          placeholder={listening ? "Говорите…" : "Напишите заявку…"}
-          className="flex-1 px-3 py-1.5 text-sm rounded-full focus:outline-none bg-white"
-          style={{ border: "1px solid rgba(0,0,0,0.1)" }}
-          data-testid="input-bronnik"
-        />
-        <button onClick={send} disabled={!input.trim() || loading}
-          className="w-7 h-7 rounded-full flex items-center justify-center text-white disabled:opacity-40 shrink-0"
-          style={{ background: "#0d7377" }} data-testid="button-bronnik-send">
-          {loading
-            ? <Loader2 className="w-3 h-3 animate-spin" />
-            : <Send className="w-3 h-3" />
-          }
-        </button>
+      </div>
+
+      {/* Channels */}
+      <div className="flex-1 p-3 space-y-2" style={{ background: "#faf9f7" }}>
+        <p className="text-xs px-1 pb-1" style={{ color: "#6b6560" }}>
+          Напишите администратору напрямую — ответим в ближайшее время.
+        </p>
+        {ADMIN_CHANNELS.map((ch) => (
+          <a
+            key={ch.id}
+            href={ch.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-opacity hover:opacity-80"
+            style={{
+              background: ch.bg,
+              border: `1px solid ${ch.border}`,
+            }}
+            data-testid={`link-admin-${ch.id}`}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: ch.color }}
+            >
+              <MessageSquare className="w-4 h-4 text-white" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold leading-none" style={{ color: "#1c1917" }}>{ch.label}</p>
+              <p className="text-xs mt-0.5" style={{ color: "#6b6560" }}>{ch.sublabel}</p>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   );
