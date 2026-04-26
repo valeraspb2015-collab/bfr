@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "wouter";
 import {
   Send, LogOut, ArrowLeft, MessageSquare, Wrench, UserX, Bookmark, Newspaper,
-  Coffee, ClipboardList, Menu, X, Search, Loader2, Users
+  Coffee, ClipboardList, Menu, X, Search, Users, ChevronRight, Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,90 +43,132 @@ const ROOM_COLORS: Record<string, string> = {
   news: "#2980b9",
 };
 
-// ── Mini Бронник panel ────────────────────────────────────────────────────────
+// ── Куратор panel (contact channels, no AI) ───────────────────────────────────
+
+const CURATOR_CHANNELS = [
+  {
+    id: "telegram",
+    label: "Telegram",
+    sublabel: "Быстрый ответ",
+    href: "https://t.me/bfrreplit_bot",
+    color: "#0088cc",
+    bg: "rgba(0,136,204,0.08)",
+    border: "rgba(0,136,204,0.18)",
+    icon: (props: { className?: string }) => (
+      <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.26 13.6l-2.948-.924c-.642-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.876.959z" />
+      </svg>
+    ),
+  },
+  {
+    id: "whatsapp",
+    label: "WhatsApp",
+    sublabel: "Голос + текст",
+    href: "https://wa.me/79899865887",
+    color: "#25D366",
+    bg: "rgba(37,211,102,0.08)",
+    border: "rgba(37,211,102,0.18)",
+    icon: (props: { className?: string }) => (
+      <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+    ),
+  },
+  {
+    id: "max",
+    label: "Макс",
+    sublabel: "VK-мессенджер",
+    href: "https://max.ru/u/f9LHodD0cOJGqIR7nRudfc6Wx4fiZADACwanqE4IJkMfLa6mgbmdQ0Ei69A",
+    color: "#7B68EE",
+    bg: "rgba(123,104,238,0.08)",
+    border: "rgba(123,104,238,0.18)",
+    icon: (props: { className?: string }) => (
+      <MessageSquare {...props} />
+    ),
+  },
+];
 
 function BronnikPanel({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([
-    { role: "assistant", content: "Привет! Я Бронник. Если нужна помощь — напишите, передам администраторам." }
-  ]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
-
-  const send = async () => {
-    const text = input.trim();
-    if (!text || loading) return;
-    setInput("");
-    setMessages(prev => [...prev, { role: "user", content: text }]);
-    setLoading(true);
-    try {
-      const res = await fetch("/api/bronnik/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: messages.map(m => ({ role: m.role, content: m.content })) }),
-      });
-      const reader = res.body?.getReader();
-      const decoder = new TextDecoder();
-      let reply = "";
-      setMessages(prev => [...prev, { role: "assistant", content: "" }]);
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          for (const line of decoder.decode(value, { stream: true }).split("\n")) {
-            if (!line.startsWith("data: ")) continue;
-            try { const d = JSON.parse(line.slice(6)); if (d.content) { reply += d.content; setMessages(prev => { const u = [...prev]; u[u.length - 1] = { role: "assistant", content: reply }; return u; }); } } catch {}
-          }
-        }
-      }
-    } catch { setMessages(prev => [...prev, { role: "assistant", content: "Ошибка. Попробуйте позже." }]); }
-    finally { setLoading(false); }
-  };
-
   return (
-    <div className="absolute top-0 right-0 bottom-0 w-72 flex flex-col z-20 shadow-2xl"
-      style={{ background: "#fff", borderLeft: "1px solid rgba(28,25,23,0.1)" }}>
-      <div className="flex items-center gap-2 px-3 py-3 shrink-0" style={{ background: "#0d7377" }}>
-        <img src={bronnikAvatar} alt="Бронник" className="w-8 h-8 rounded-full object-cover border-2 border-white/30" />
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-white leading-none">Бронник помоги</p>
-          <p className="text-[11px] text-white/70 mt-0.5">Помощь админов</p>
-        </div>
-        <button onClick={onClose} className="p-1 rounded-full hover:bg-white/10 transition-colors text-white" data-testid="button-bronnik-close">
+    <div
+      className="absolute top-0 right-0 bottom-0 w-72 flex flex-col z-20 shadow-2xl"
+      style={{ background: "#fff", borderLeft: "1px solid rgba(28,25,23,0.1)" }}
+      data-testid="panel-curator"
+    >
+      {/* Header */}
+      <div
+        className="px-4 py-4 shrink-0 relative"
+        style={{ background: "#0d7377" }}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 p-1 rounded-full text-white/60 hover:text-white transition-colors"
+          data-testid="button-curator-close"
+        >
           <X className="w-4 h-4" />
         </button>
-      </div>
-      <div className="flex-1 overflow-y-auto p-3 space-y-2" style={{ background: "#e5ddd5" }}>
-        {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            <div className="max-w-[85%] px-3 py-1.5 rounded-2xl text-sm leading-snug shadow-sm"
-              style={{
-                background: m.role === "user" ? "#d9fdd3" : "#fff",
-                color: "#1c1917",
-                borderRadius: m.role === "user" ? "12px 12px 3px 12px" : "12px 12px 12px 3px",
-              }}>
-              {m.content || (loading && i === messages.length - 1 ? <Loader2 className="w-3.5 h-3.5 animate-spin text-gray-400" /> : null)}
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <img
+              src={bronnikAvatar}
+              alt="Куратор"
+              className="w-11 h-11 rounded-full object-cover"
+              style={{ border: "2px solid rgba(255,255,255,0.35)" }}
+            />
+            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-400 border-2 border-white" />
           </div>
-        ))}
-        <div ref={endRef} />
+          <div>
+            <p className="text-sm font-semibold text-white leading-none">Кураторы БФР</p>
+            <p className="text-[11px] text-white/70 mt-1">Сейчас онлайн</p>
+          </div>
+        </div>
+        <p className="text-white/85 text-sm mt-3 leading-relaxed">
+          Выберите удобный мессенджер — куратор ответит в ближайшее время.
+        </p>
       </div>
-      <div className="flex gap-2 p-2 shrink-0" style={{ background: "#f0f0f0", borderTop: "1px solid rgba(0,0,0,0.1)" }}>
-        <input
-          value={input} onChange={e => setInput(e.target.value)}
-          onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-          placeholder="Написать Броннику…"
-          className="flex-1 px-3 py-1.5 text-sm rounded-full focus:outline-none bg-white"
-          style={{ border: "1px solid rgba(0,0,0,0.1)" }}
-          data-testid="input-bronnik"
-        />
-        <button onClick={send} disabled={!input.trim() || loading}
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white disabled:opacity-40"
-          style={{ background: "#0d7377" }} data-testid="button-bronnik-send">
-          <Send className="w-3.5 h-3.5" />
-        </button>
+
+      {/* Channels */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-2" style={{ background: "#faf9f7" }}>
+        {CURATOR_CHANNELS.map((ch) => {
+          const Icon = ch.icon;
+          return (
+            <a
+              key={ch.id}
+              href={ch.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-3 py-3 rounded-xl transition-colors"
+              style={{
+                background: ch.bg,
+                border: `1px solid ${ch.border}`,
+              }}
+              data-testid={`link-curator-${ch.id}`}
+            >
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                style={{ background: ch.color }}
+              >
+                <Icon className="w-[18px] h-[18px] text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold" style={{ color: "#1c1917" }}>{ch.label}</p>
+                <p className="text-xs" style={{ color: "#6b6560" }}>{ch.sublabel}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 shrink-0" style={{ color: "#a39e98" }} />
+            </a>
+          );
+        })}
+      </div>
+
+      {/* Footer */}
+      <div
+        className="px-4 py-3 flex items-center gap-2 shrink-0"
+        style={{ borderTop: "1px solid rgba(28,25,23,0.07)" }}
+      >
+        <Clock className="w-3.5 h-3.5 shrink-0" style={{ color: "#a39e98" }} />
+        <p className="text-xs" style={{ color: "#a39e98" }}>
+          Обычно отвечаем в течение нескольких минут
+        </p>
       </div>
     </div>
   );
@@ -366,14 +408,17 @@ function Chat({ user, onLogout }: { user: ChatUserSession; onLogout: () => void 
             </p>
           </div>
 
-          {/* Бронник помоги */}
+          {/* Кураторы */}
           <button onClick={() => setBronnikOpen(v => !v)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors shrink-0"
             style={{ background: bronnikOpen ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.12)" }}
-            data-testid="button-bronnik-toggle"
+            data-testid="button-curator-toggle"
           >
-            <img src={bronnikAvatar} alt="Бронник" className="w-5 h-5 rounded-full object-cover border border-white/40" />
-            <span className="text-xs font-medium text-white hidden sm:inline">Бронник помоги</span>
+            <div className="relative">
+              <img src={bronnikAvatar} alt="Куратор" className="w-5 h-5 rounded-full object-cover border border-white/40" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-400 border border-white" />
+            </div>
+            <span className="text-xs font-medium text-white hidden sm:inline">Куратор</span>
           </button>
         </header>
 
