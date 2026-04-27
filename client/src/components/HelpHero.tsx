@@ -8,9 +8,9 @@ interface HelpHeroProps {
 
 export default function HelpHero({ onGuestClick }: HelpHeroProps) {
   const trustMarkers = [
-    { label: "Без комиссий платформе" },
+    { label: "Без сервисных сборов платформе" },
     { label: "Прямой контакт с хозяином" },
-    { label: "Топ-5 — в ваш мессенджер" },
+    { label: "Топ-5 вариантов — в мессенджер" },
   ];
 
   return (
@@ -36,7 +36,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
                 }}
                 data-testid="badge-slogan"
               >
-                Аренда напрямую от хозяев · без посредников
+                Аренда напрямую от хозяев · без сервисных сборов платформе
               </span>
             </div>
 
@@ -49,9 +49,9 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
               }}
               data-testid="text-hero-title"
             >
-              Одна заявка — и снять жильё{" "}
+              Одна заявка — и хозяева сами предложат варианты{" "}
               <span style={{ color: "#0d7377" }}>
-                напрямую без переплат
+                Напрямую, без лишнего поиска и переплат
               </span>
             </h1>
 
@@ -60,8 +60,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
               style={{ color: "#6b6560", maxWidth: "430px" }}
               data-testid="text-hero-subtitle"
             >
-              Хозяева откликнутся сами. Бронник AI отберёт лучшие варианты
-              и отправит топ-5 в ваш мессенджер.
+              Опишите, что вам нужно. Хозяева откликнутся сами, а Бронник AI отберёт лучшие варианты и пришлёт топ-5 в ваш мессенджер.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
