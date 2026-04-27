@@ -7,6 +7,7 @@ import Landing from "@/pages/landing";
 import Request from "@/pages/request";
 import OwnerApplication from "@/pages/owner-application";
 import Owner from "@/pages/owner";
+import ForOwners from "@/pages/for-owners";
 import Admin from "@/pages/admin";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/request" component={Request} />
       <Route path="/owner-application" component={OwnerApplication} />
       <Route path="/owner" component={Owner} />
+      <Route path="/for-owners" component={ForOwners} />
       <Route path="/admin" component={Admin} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
