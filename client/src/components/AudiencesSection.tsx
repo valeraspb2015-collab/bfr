@@ -89,7 +89,7 @@ export default function AudiencesSection({ onGuestClick, onOwnerClick }: Audienc
               {[
                 "Прямые заявки от гостей без посредников",
                 "Сами выбираете, кому отвечать",
-                "Чат хозяев в BFR — дополнительный канал связи внутри сообщества",
+                "Чат хозяев внутри BFR и возможность строить повторные отношения с гостями",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "#6b6560" }}>
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#4a7c59" }} />

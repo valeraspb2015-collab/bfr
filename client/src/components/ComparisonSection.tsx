@@ -29,7 +29,7 @@ export default function ComparisonSection() {
             style={{ color: "#1c1917" }}
             data-testid="text-comparison-title"
           >
-            Почему BFR удобнее прямой аренды через агрегаторный сценарий
+            Почему BFR удобнее, чем искать жильё через площадки
           </h2>
           <p
             className="text-sm leading-relaxed mx-auto"
