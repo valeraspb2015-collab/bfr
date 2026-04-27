@@ -11,6 +11,7 @@ import GuidesSection from "@/components/GuidesSection";
 import InstallSection from "@/components/InstallSection";
 import PopularQuestions from "@/components/PopularQuestions";
 import CooperationSection from "@/components/CooperationSection";
+import CtaSection from "@/components/CtaSection";
 import HelpFooter from "@/components/HelpFooter";
 
 export default function Landing() {
@@ -42,6 +43,7 @@ export default function Landing() {
       <InstallSection />
       <PopularQuestions />
       <CooperationSection />
+      <CtaSection onApplyClick={handleGetStarted} />
       <HelpFooter
         onGuestClick={handleGetStarted}
         onOwnerClick={handleOwnerApplication}

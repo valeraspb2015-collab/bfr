@@ -63,7 +63,7 @@ export default function PopularQuestions() {
             Частые вопросы
           </h2>
           <p className="text-base" style={{ color: "#6b6560" }}>
-            Всё, что нужно знать перед началом
+            Ответы на главные вопросы гостей и хозяев
           </p>
         </div>
 
@@ -102,7 +102,7 @@ export default function PopularQuestions() {
                 />
               </button>
               {openIndex === i && (
-                <div className="px-6 pb-5">
+                <div className="px-6 pb-6">
                   <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>
                     {faq.answer}
                   </p>
