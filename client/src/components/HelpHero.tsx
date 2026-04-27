@@ -10,7 +10,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
   const trustMarkers = [
     { label: "Без сервисных сборов платформе" },
     { label: "Прямой контакт с хозяином" },
-    { label: "Топ-5 вариантов — в мессенджер" },
+    { label: "Топ-5 — в мессенджер за минуты" },
   ];
 
   return (
