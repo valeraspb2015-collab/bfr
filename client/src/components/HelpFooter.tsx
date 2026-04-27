@@ -24,14 +24,14 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: "#a39e98" }}>
-              Сервис прямой посуточной аренды. Хозяева и гости находят друг друга без посредников и сервисных сборов.
+              Сервис прямой посуточной аренды. Гости и хозяева находят друг друга напрямую, а BFR помогает с заявками, связью и дополнительными сервисами.
             </p>
           </div>
 
           <div>
             <h4 className="font-semibold mb-2 text-sm" style={{ color: "#faf7f2" }}>Поддержка и связь</h4>
             <p className="text-xs mb-4 leading-relaxed" style={{ color: "#6b6560" }}>
-              Вы можете связаться с нами в мессенджерах или использовать чат хозяев внутри BFR.
+              Вы можете связаться с нами в мессенджерах или использовать чат хозяев внутри BFR как дополнительный рабочий канал сообщества.
             </p>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>

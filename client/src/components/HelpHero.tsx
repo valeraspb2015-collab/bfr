@@ -10,7 +10,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
   const trustMarkers = [
     { label: "Без сервисных сборов платформе" },
     { label: "Прямой контакт с хозяином" },
-    { label: "Топ-5 — в мессенджер за минуты" },
+    { label: "Топ-5 вариантов — в мессенджер" },
   ];
 
   return (
@@ -60,7 +60,7 @@ export default function HelpHero({ onGuestClick }: HelpHeroProps) {
               style={{ color: "#6b6560", maxWidth: "430px" }}
               data-testid="text-hero-subtitle"
             >
-              Опишите, что нужно. Хозяева откликнутся сами, а Бронник AI пришлёт топ-5 в ваш мессенджер.
+              Опишите, что нужно. Хозяева откликнутся сами, а Бронник AI пришлёт топ-5 подходящих вариантов в ваш мессенджер.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
