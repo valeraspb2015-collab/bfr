@@ -29,8 +29,17 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm" style={{ color: "#faf7f2" }}>Поддержка</h4>
+            <h4 className="font-semibold mb-2 text-sm" style={{ color: "#faf7f2" }}>Поддержка и связь</h4>
+            <p className="text-xs mb-4 leading-relaxed" style={{ color: "#6b6560" }}>
+              Свяжитесь с нами или зайдите в чат хозяев прямо на сайте.
+            </p>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
+              <li>
+                <a href="/community"
+                  className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-chat">
+                  Чат хозяев
+                </a>
+              </li>
               <li>
                 <a href="https://t.me/bfrreplit_bot" target="_blank" rel="noopener noreferrer"
                   className="transition-colors hover:text-[#149ea3]" data-testid="link-footer-telegram">
