@@ -35,14 +35,14 @@ export default function ForOwners() {
             style={{ color: "#1c1917", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 800, lineHeight: 1.15 }}
             data-testid="text-owner-hero-title"
           >
-            Получайте прямые заявки и развивайте свою работу внутри BFR
+            BFR для хозяев: прямые заявки, больше контроля и рост без лишних посредников
           </h1>
           <p
             className="text-base leading-relaxed mb-6"
             style={{ color: "#6b6560", maxWidth: "560px", margin: "0 auto 1.5rem" }}
             data-testid="text-owner-hero-subtitle"
           >
-            BFR помогает хозяевам получать прямых гостей, выстраивать повторные отношения, работать внутри сообщества и использовать дополнительные инструменты для роста.
+            Подключайтесь к BFR, чтобы получать прямые заявки, выстраивать повторные отношения с гостями, работать внутри сообщества и использовать дополнительные инструменты для развития.
           </p>
           <Button
             onClick={handleApply}
@@ -54,12 +54,44 @@ export default function ForOwners() {
             <ArrowRight className="w-4 h-4" />
           </Button>
           <p className="text-xs" style={{ color: "#a39e98" }}>
-            Прямые заявки · чат хозяев · поддержка · дополнительные сервисы
+            Прямые заявки · чат хозяев · поддержка · сервисы для роста
           </p>
         </div>
       </section>
 
-      {/* 2. ЧТО ПОЛУЧАЕТ ХОЗЯИН */}
+      {/* 2. BFR — НЕ ПРОСТО ЕЩЁ ОДНА ПЛОЩАДКА */}
+      <section className="py-14 px-4" style={{ background: "#faf7f2" }} data-testid="section-owner-not-platform">
+        <div className="max-w-3xl mx-auto">
+          <h2
+            className="text-2xl font-bold tracking-tight mb-4"
+            style={{ color: "#1c1917" }}
+            data-testid="text-owner-not-platform-title"
+          >
+            BFR — не просто ещё одна площадка
+          </h2>
+          <p
+            className="text-base leading-relaxed mb-8"
+            style={{ color: "#6b6560" }}
+            data-testid="text-owner-not-platform-text"
+          >
+            Мы не строим модель, где хозяин теряет контакт с гостем и полностью зависит от чужой воронки. BFR помогает получать прямые заявки, укреплять репутацию, выстраивать повторные отношения и работать внутри профессионального сообщества.
+          </p>
+          <div className="space-y-3">
+            {[
+              "Прямой контакт вместо обезличенного потока",
+              "Сообщество хозяев вместо одиночной работы",
+              "Основа для подписки и сервисов, которые реально помогают в работе",
+            ].map((point, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#0d7377" }} />
+                <p className="text-base leading-relaxed" style={{ color: "#1c1917" }}>{point}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. ЧТО ПОЛУЧАЕТ ХОЗЯИН */}
       <section className="py-14 px-4" style={{ background: "#f3ede3" }} data-testid="section-owner-benefits">
         <div className="max-w-5xl mx-auto">
           <h2
@@ -74,22 +106,22 @@ export default function ForOwners() {
               {
                 icon: Inbox,
                 title: "Прямые заявки от гостей",
-                text: "Гости оставляют заявку, а вы сами решаете, подходит ли она вам. Без лишних посредников между вами и гостем.",
+                text: "Гости приходят с готовым запросом, а вы сами решаете, откликаться ли на него и как вести дальнейшее общение.",
               },
               {
                 icon: SlidersHorizontal,
                 title: "Больше контроля",
-                text: "Вы сами выбираете, кому отвечать, на каких условиях работать и как выстраивать общение с гостем.",
+                text: "Вы не теряете контакт с гостем и сами определяете условия общения, договорённостей и повторного взаимодействия.",
               },
               {
                 icon: RefreshCw,
                 title: "Повторные гости и репутация",
-                text: "BFR помогает не только получить первую заявку, но и выстраивать прямые отношения с гостями на будущее.",
+                text: "Работа через BFR помогает не только закрывать отдельные даты, но и постепенно нарабатывать доверие, репутацию и свою базу гостей.",
               },
               {
                 icon: MessageSquare,
                 title: "Чат хозяев внутри BFR",
-                text: "Внутри сайта есть чат хозяев — дополнительный рабочий канал связи, обмена опытом и координации внутри сообщества.",
+                text: "Внутренний чат помогает оставаться на связи, обмениваться опытом и иметь дополнительный рабочий канал внутри сообщества.",
               },
             ].map((card) => {
               const Icon = card.icon;
@@ -115,7 +147,7 @@ export default function ForOwners() {
         </div>
       </section>
 
-      {/* 3. ПОЧЕМУ ЭТО ВЫГОДНО */}
+      {/* 4. ПОЧЕМУ ЭТО МОЖЕТ ОКУПАТЬСЯ */}
       <section className="py-14 px-4" style={{ background: "#faf7f2" }} data-testid="section-owner-why">
         <div className="max-w-3xl mx-auto">
           <h2
@@ -123,13 +155,13 @@ export default function ForOwners() {
             style={{ color: "#1c1917" }}
             data-testid="text-owner-why-title"
           >
-            Почему участие в BFR может быть выгоднее
+            Почему участие в BFR может окупаться
           </h2>
           <div className="space-y-4">
             {[
-              "Вы работаете не только на одну сделку, а на прямые отношения с гостями",
-              "Подписка может быть понятнее и прозрачнее, чем зависимость от внешних правил и чужой воронки",
-              "Вокруг BFR можно получать не только заявки, но и полезные сервисы для вашей работы",
+              "Вы работаете на прямые отношения с гостями, а не только на одну бронь",
+              "Подписка может быть понятнее и прозрачнее, чем зависимость от чужих правил и комиссионных сценариев",
+              "Дополнительные сервисы BFR могут помогать в реальной работе хозяина, а не просто давать размещение",
             ].map((point, i) => (
               <div key={i} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "#0d7377" }} />
@@ -140,7 +172,7 @@ export default function ForOwners() {
         </div>
       </section>
 
-      {/* 4. ЧТО BFR РАЗВИВАЕТ ДЛЯ ХОЗЯЕВ */}
+      {/* 5. ЧТО BFR РАЗВИВАЕТ ДЛЯ ХОЗЯЕВ */}
       <section className="py-14 px-4" style={{ background: "#f3ede3" }} data-testid="section-owner-develops">
         <div className="max-w-3xl mx-auto">
           <h2
@@ -170,7 +202,7 @@ export default function ForOwners() {
         </div>
       </section>
 
-      {/* 5. КОМУ ПОДОЙДЁТ BFR */}
+      {/* 6. КОМУ ПОДОЙДЁТ BFR */}
       <section className="py-14 px-4" style={{ background: "#faf7f2" }} data-testid="section-owner-audience">
         <div className="max-w-3xl mx-auto">
           <h2
@@ -200,7 +232,7 @@ export default function ForOwners() {
         </div>
       </section>
 
-      {/* 6. ФИНАЛЬНЫЙ CTA */}
+      {/* 7. ФИНАЛЬНЫЙ CTA */}
       <section className="py-16 px-4" style={{ background: "#0d7377" }} data-testid="section-owner-cta">
         <div className="max-w-2xl mx-auto text-center">
           <h2
@@ -208,14 +240,14 @@ export default function ForOwners() {
             style={{ color: "#ffffff" }}
             data-testid="text-owner-cta-title"
           >
-            Хотите стать хозяином BFR?
+            Хотите подключиться к BFR как хозяин?
           </h2>
           <p
             className="text-base leading-relaxed mb-8"
             style={{ color: "rgba(255,255,255,0.8)" }}
             data-testid="text-owner-cta-subtitle"
           >
-            Оставьте заявку и расскажите о своём объекте. Мы свяжемся с вами и покажем, как участие в BFR может работать именно для вас.
+            Оставьте заявку, расскажите о своём объекте и формате работы. Мы покажем, как BFR может помочь именно вам: через прямые заявки, сообщество, чат хозяев и будущие сервисы для роста.
           </p>
           <Button
             onClick={handleApply}
