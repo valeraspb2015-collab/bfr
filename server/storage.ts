@@ -205,6 +205,26 @@ export class DbStorage implements IStorage {
     return res.rows.map(rowToChatRoom);
   }
 
+  async seedChatRooms(): Promise<void> {
+    const existing = await pool.query("SELECT COUNT(*) FROM chat_rooms");
+    if (parseInt(existing.rows[0].count) > 0) return;
+    const rooms = [
+      { id: "room-requests", slug: "requests", name: "Заявки любые", description: "Заявки и предложения от хозяев", icon: "ClipboardList", sortOrder: 0 },
+      { id: "room-chat",     slug: "chat",     name: "Болталка",             description: "Свободное общение",                icon: "Coffee",         sortOrder: 1 },
+      { id: "room-staff",    slug: "staff",    name: "Горничные и мастера",  description: "Поиск персонала и мастеров",        icon: "Wrench",         sortOrder: 2 },
+      { id: "room-blacklist",slug: "blacklist",name: "Черный список",        description: "Проблемные гости и ситуации",       icon: "UserX",          sortOrder: 3 },
+      { id: "room-useful",   slug: "useful",   name: "Полезное",             description: "Советы, лайфхаки, ресурсы",        icon: "Bookmark",       sortOrder: 4 },
+      { id: "room-news",     slug: "news",     name: "Новости BFR",          description: "Обновления платформы",              icon: "Newspaper",      sortOrder: 5 },
+    ];
+    for (const r of rooms) {
+      await pool.query(
+        `INSERT INTO chat_rooms (id, slug, name, description, icon, sort_order, created_at)
+         VALUES ($1,$2,$3,$4,$5,$6,NOW()) ON CONFLICT (id) DO NOTHING`,
+        [r.id, r.slug, r.name, r.description, r.icon, r.sortOrder]
+      );
+    }
+  }
+
   // ── Chat messages ─────────────────────────────────────────────────
   async getChatMessages(roomId: string, limit = 80): Promise<(ChatMessage & { user: Pick<ChatUser, "id" | "name" | "city"> })[]> {
     const res = await pool.query(

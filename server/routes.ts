@@ -25,6 +25,7 @@ async function sendTelegramMessage(text: string): Promise<void> {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  await storage.seedChatRooms();
   registerBronnikRoutes(app);
 
   // ── Apartment requests ───────────────────────────────────────────
