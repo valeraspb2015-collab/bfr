@@ -23,7 +23,17 @@ export default function ForOwners() {
             <ArrowLeft className="w-4 h-4" />
             На главную
           </button>
-          <span className="font-bold text-sm" style={{ color: "#0d7377" }}>БФР</span>
+          <div className="flex items-center gap-5">
+            <a
+              href="/community"
+              className="text-sm transition-colors"
+              style={{ color: "#0d7377" }}
+              data-testid="link-owner-chat"
+            >
+              Чат хозяев
+            </a>
+            <span className="font-bold text-sm" style={{ color: "#0d7377" }}>БФР</span>
+          </div>
         </div>
       </div>
 
@@ -172,23 +182,26 @@ export default function ForOwners() {
         </div>
       </section>
 
-      {/* 5. ЧТО BFR РАЗВИВАЕТ ДЛЯ ХОЗЯЕВ */}
-      <section className="py-14 px-4" style={{ background: "#f3ede3" }} data-testid="section-owner-develops">
+      {/* 5. ДЛЯ КОГО BFR И ЧТО МЫ РАЗВИВАЕМ */}
+      <section className="py-14 px-4" style={{ background: "#f3ede3" }} data-testid="section-owner-combined">
         <div className="max-w-3xl mx-auto">
           <h2
-            className="text-2xl font-bold tracking-tight mb-8"
+            className="text-2xl font-bold tracking-tight mb-4"
             style={{ color: "#1c1917" }}
-            data-testid="text-owner-develops-title"
+            data-testid="text-owner-combined-title"
           >
-            Что BFR развивает для хозяев
+            Для кого BFR и что мы развиваем
           </h2>
+          <p className="text-base leading-relaxed mb-6" style={{ color: "#6b6560" }}>
+            BFR подходит хозяевам квартир посуточно, тем, кто хочет меньше зависеть от площадок, и тем, кто хочет развивать собственную базу гостей. Внутри BFR мы развиваем:
+          </p>
           <div className="space-y-3">
             {[
-              "Поток прямых заявок",
-              "Внутреннее сообщество и чат хозяев",
-              "Инструменты для работы с гостями",
-              "Дополнительные сервисы и поддержка",
-              "Развитие личной репутации и повторных заездов",
+              "Поток прямых заявок от гостей",
+              "Сообщество и чат хозяев внутри сайта",
+              "Инструменты для работы с гостями и репутацией",
+              "Дополнительные сервисы и поддержку",
+              "Личную репутацию и повторные заезды",
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3">
                 <span
@@ -202,37 +215,7 @@ export default function ForOwners() {
         </div>
       </section>
 
-      {/* 6. КОМУ ПОДОЙДЁТ BFR */}
-      <section className="py-14 px-4" style={{ background: "#faf7f2" }} data-testid="section-owner-audience">
-        <div className="max-w-3xl mx-auto">
-          <h2
-            className="text-2xl font-bold tracking-tight mb-8"
-            style={{ color: "#1c1917" }}
-            data-testid="text-owner-audience-title"
-          >
-            Кому особенно подойдёт участие в BFR
-          </h2>
-          <div className="space-y-3">
-            {[
-              "Хозяевам квартир и апартаментов посуточно",
-              "Тем, кто хочет меньше зависеть от площадок",
-              "Тем, кто хочет развивать собственную базу гостей",
-              "Администраторам и мини-сетям объектов",
-              "Тем, кому важна внутренняя профессиональная среда",
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <span
-                  className="w-1.5 h-1.5 rounded-full shrink-0 mt-2"
-                  style={{ background: "#4a7c59" }}
-                />
-                <p className="text-sm leading-relaxed" style={{ color: "#6b6560" }}>{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. ФИНАЛЬНЫЙ CTA */}
+      {/* 6. ФИНАЛЬНЫЙ CTA */}
       <section className="py-16 px-4" style={{ background: "#0d7377" }} data-testid="section-owner-cta">
         <div className="max-w-2xl mx-auto text-center">
           <h2
@@ -240,14 +223,14 @@ export default function ForOwners() {
             style={{ color: "#ffffff" }}
             data-testid="text-owner-cta-title"
           >
-            Хотите подключиться к BFR как хозяин?
+            Хотите попробовать BFR как хозяин?
           </h2>
           <p
             className="text-base leading-relaxed mb-8"
             style={{ color: "rgba(255,255,255,0.8)" }}
             data-testid="text-owner-cta-subtitle"
           >
-            Оставьте заявку, расскажите о своём объекте и формате работы. Мы покажем, как BFR может помочь именно вам: через прямые заявки, сообщество, чат хозяев и будущие сервисы для роста.
+            Оставьте заявку — мы свяжемся с вами и покажем, как BFR работает именно для вашего объекта.
           </p>
           <Button
             onClick={handleApply}
@@ -255,9 +238,12 @@ export default function ForOwners() {
             className="rounded-xl gap-2 bg-white/10 border-white/30 text-white"
             data-testid="button-owner-cta-apply"
           >
-            Стать хозяином БФР
+            Подать заявку хозяина
             <ArrowRight className="w-4 h-4" />
           </Button>
+          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+            После одобрения вы получите доступ к чату хозяев внутри BFR.
+          </p>
         </div>
       </section>
 
