@@ -169,17 +169,22 @@ function AuthScreen({ onAuth }: { onAuth: (u: ChatUserSession) => void }) {
         <span className="text-sm text-gray-500 group-hover:text-gray-800 transition-colors">На главную</span>
       </Link>
       <div className="w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-xl">
-        {/* WA-style header */}
+        {/* Header */}
         <div className="px-6 py-5 flex flex-col items-center" style={{ background: "#0d7377" }}>
           <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center mb-2">
             <MessageSquare className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-lg font-bold text-white">Сообщество BFR</h1>
-          <p className="text-xs text-white/70 mt-0.5">Закрытый чат хозяев квартир</p>
+          <h1 className="text-lg font-bold text-white text-center" data-testid="text-community-title">Вход для хозяев BFR</h1>
+          <p className="text-xs text-white/70 mt-1 text-center leading-relaxed" data-testid="text-community-subtitle">
+            Закрытая рабочая среда для хозяев квартир: чат, общение, поддержка и знакомый формат работы внутри BFR.
+          </p>
+          <p className="text-[11px] text-white/50 mt-2 text-center" data-testid="text-community-benefits">
+            Чат хозяев · общение по рабочим вопросам · поддержка сообщества
+          </p>
         </div>
 
         <div className="p-5">
-          <div className="flex rounded-xl overflow-hidden border mb-4" style={{ borderColor: "rgba(0,0,0,0.1)" }}>
+          <div className="flex rounded-xl overflow-hidden border mb-3" style={{ borderColor: "rgba(0,0,0,0.1)" }}>
             {(["login", "register"] as const).map(m => (
               <button key={m} onClick={() => setMode(m)}
                 className="flex-1 py-2 text-sm font-medium transition-colors"
@@ -189,6 +194,12 @@ function AuthScreen({ onAuth }: { onAuth: (u: ChatUserSession) => void }) {
               </button>
             ))}
           </div>
+
+          <p className="text-xs text-gray-500 mb-3 leading-relaxed" data-testid="text-auth-mode-hint">
+            {mode === "login"
+              ? "Если у вас уже есть аккаунт хозяина BFR, войдите и продолжайте общение внутри сообщества."
+              : "Если вы ещё не зарегистрированы, создайте аккаунт хозяина и получите доступ к чату BFR."}
+          </p>
 
           <form onSubmit={submit} className="space-y-2.5">
             {mode === "register" && <>
@@ -200,10 +211,13 @@ function AuthScreen({ onAuth }: { onAuth: (u: ChatUserSession) => void }) {
             <Input placeholder="Пароль" type="password" value={form.password} onChange={e => upd("password", e.target.value)} required data-testid="input-password" />
             {error && <p className="text-sm text-red-600 text-center" data-testid="text-auth-error">{error}</p>}
             <Button type="submit" className="w-full text-white mt-1" style={{ background: "#0d7377" }} disabled={loading} data-testid="button-auth-submit">
-              {loading ? "Подождите…" : mode === "login" ? "Войти в чат" : "Создать аккаунт"}
+              {loading ? "Подождите…" : mode === "login" ? "Войти в чат хозяев" : "Получить доступ к чату"}
             </Button>
           </form>
-          <p className="text-xs text-center mt-4 text-gray-400">Только для хозяев, зарегистрированных в BFR</p>
+          <p className="text-xs text-center mt-3 text-gray-400">Только для хозяев, зарегистрированных в BFR</p>
+          <p className="text-xs text-center mt-2 leading-relaxed" style={{ color: "#a39e98" }}>
+            Сначала вы попадаете в знакомую рабочую среду, а затем сможете использовать и другие возможности BFR.
+          </p>
         </div>
       </div>
     </div>
