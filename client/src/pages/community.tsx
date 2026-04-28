@@ -139,7 +139,9 @@ function BronnikPanel({ onClose }: { onClose: () => void }) {
 // ── Auth Screen ───────────────────────────────────────────────────────────────
 
 function AuthScreen({ onAuth }: { onAuth: (u: ChatUserSession) => void }) {
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [mode, setMode] = useState<"login" | "register">(() =>
+    new URLSearchParams(window.location.search).get("tab") === "register" ? "register" : "login"
+  );
   const [form, setForm] = useState({ name: "", email: "", phone: "", city: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -155,7 +157,7 @@ function AuthScreen({ onAuth }: { onAuth: (u: ChatUserSession) => void }) {
       if (!data.success) throw new Error(data.message);
       localStorage.setItem("chat_user", JSON.stringify(data.user));
       onAuth(data.user);
-      toast({ title: mode === "login" ? "Добро пожаловать!" : "Аккаунт создан!", description: `Привет, ${data.user.name}` });
+      toast({ title: mode === "login" ? "Добро пожаловать!" : "Аккаунт создан. Добро пожаловать в чат хозяев.", description: `Привет, ${data.user.name}` });
     } catch (err: any) { setError(err.message ?? "Ошибка"); }
     finally { setLoading(false); }
   };

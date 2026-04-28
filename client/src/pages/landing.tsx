@@ -18,7 +18,7 @@ export default function Landing() {
   const [, setLocation] = useLocation();
 
   const handleGetStarted = () => setLocation("/request");
-  const handleOwnerApplication = () => setLocation("/owner-application");
+  const handleOwnerApplication = () => setLocation("/community?tab=register");
 
   return (
     <div className="min-h-screen relative" style={{ background: "#faf7f2" }}>
