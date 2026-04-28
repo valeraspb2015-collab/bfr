@@ -1,0 +1,24 @@
+{
+  "name": "Чат хозяев БФР",
+  "short_name": "Чат БФР",
+  "description": "Закрытая рабочая среда для хозяев квартир — чат, общение и поддержка сообщества BFR.",
+  "start_url": "/community",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d7377",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/og-image.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business"],
+  "lang": "ru"
+}

@@ -512,6 +512,22 @@ export default function CommunityPage() {
   const [user, setUser] = useState<ChatUserSession | null>(() => {
     try { return JSON.parse(localStorage.getItem("chat_user") ?? "null"); } catch { return null; }
   });
+
+  useEffect(() => {
+    const manifestLink = document.querySelector<HTMLLinkElement>("link[rel='manifest']");
+    const originalHref = manifestLink?.href ?? "";
+    const originalTitle = document.querySelector<HTMLMetaElement>("meta[name='apple-mobile-web-app-title']")?.content ?? "";
+
+    if (manifestLink) manifestLink.href = "/manifest-chat.json";
+    const appleTitle = document.querySelector<HTMLMetaElement>("meta[name='apple-mobile-web-app-title']");
+    if (appleTitle) appleTitle.content = "Чат БФР";
+
+    return () => {
+      if (manifestLink) manifestLink.href = originalHref;
+      if (appleTitle) appleTitle.content = originalTitle;
+    };
+  }, []);
+
   if (!user) return <AuthScreen onAuth={u => { setUser(u); }} />;
   return <Chat user={user} onLogout={() => { localStorage.removeItem("chat_user"); setUser(null); }} />;
 }
