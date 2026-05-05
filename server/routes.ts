@@ -25,7 +25,7 @@ async function sendTelegramMessage(text: string): Promise<void> {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  await storage.seedChatRooms();
+  try { await storage.seedChatRooms(); } catch (e) { console.warn("⚠️ seedChatRooms skipped:", e); }
   registerBronnikRoutes(app);
 
   // ── Apartment requests ───────────────────────────────────────────
