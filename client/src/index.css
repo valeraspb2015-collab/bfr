@@ -298,3 +298,8 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+/* Hero scene progress bar */
+@keyframes heroProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}

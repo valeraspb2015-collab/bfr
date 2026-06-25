@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import {
   Send, Loader2, Mic, MicOff, Home, Camera, Utensils,
   Building2, HeadphonesIcon, ChevronDown, MapPin, X,
@@ -8,7 +8,7 @@ import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import bronnikAvatar from "@/assets/bronnik-avatar.png";
 
-/* ─── Config — easy to extend ─────────────────────────────── */
+/* ─── Config ──────────────────────────────────────────────── */
 export const CITIES = [
   { id: "spb", label: "Санкт-Петербург" },
   { id: "kslv", label: "Кисловодск" },
@@ -28,23 +28,33 @@ const MESSENGER_LINKS = [
   { id: "max", href: "https://max.ru/u/f9LHodD0cOJGqIR7nRudfc6Wx4fiZADACwanqE4IJkMfLa6mgbmdQ0Ei69A", color: "#7B68EE", Icon: MessageSquare, label: "Макс" },
 ];
 
-const EXAMPLES = [
-  "Нужна 2-кк в Санкт-Петербурге, заезд 10 августа, выезд 14 августа. 2 взрослых, бюджет 4 000 ₽/сутки. Есть кошка.",
-  "Ищу 1-кк в Кисловодске на 5 ночей с 20 июля. 2 взрослых + ребёнок 5 лет. Нужна парковка, бюджет до 3 500 ₽.",
-  "Нужна студия в центре Петербурга с 1 по 3 сентября. 1 человек, бюджет до 3 000 ₽/сутки, поздний заезд около 23:00.",
-  "Ищем 3-кк на Крестовском острове с 28 июня по 5 июля. 4 взрослых, дети 8 и 12 лет, желательно рядом с набережной.",
-  "Нужна квартира в Кисловодске на июль, 2 взрослых. Рядом с парком или санаторием, бюджет 2 500–4 000 ₽/сутки.",
-  "Ищу 2-кк в Петербурге с 15 по 20 августа. 2 взрослых + собака. Есть авто — важна парковка. Бюджет 5 000–7 000 ₽.",
-  "Нужна студия или 1-кк на Васильевском острове с 5 по 8 сентября. 2 взрослых, бюджет до 4 500 ₽, можно с животными.",
-  "Ищем квартиру для двух семей на 4 ночи с 1 августа. 4 взрослых и 3 детей, нужна 3-кк или две 1-кк рядом.",
-  "Нужна 1-кк в Кисловодске с 10 по 17 июля для пожилой мамы. Первый или второй этаж, без лестниц, бюджет до 2 500 ₽.",
-  "Ищу квартиру в Петербурге с ранним заездом — прилетаем в 7 утра 22 июля. 2 взрослых, 1-кк, бюджет 4 000–5 000 ₽.",
-  "Нужна 2-кк рядом с Мариинским театром на 3 ночи с 30 июня. 2 взрослых, курящие, бюджет 5 000–8 000 ₽/сутки.",
-  "Ищем жильё в Кисловодске на 10 дней с 15 августа. 2 взрослых + подросток 16 лет. Рядом с нарзанными ваннами, бюджет до 4 000 ₽.",
-  "Какие места порекомендуешь посмотреть в Петербурге за 3 дня?",
-  "Как вступить в сообщество хозяев BFR?",
-  "Хочу связаться с администратором.",
-];
+/* ─── Scene-specific typewriter examples ─────────────────── */
+const SCENE_EXAMPLES: Record<number, string[]> = {
+  0: [
+    "Нужна 2-кк в Санкт-Петербурге, заезд 10 августа, выезд 14 августа. 2 взрослых, бюджет 4 000 ₽/сутки. Есть кошка.",
+    "Ищу 1-кк в Кисловодске на 5 ночей с 20 июля. 2 взрослых + ребёнок 5 лет. Нужна парковка, бюджет до 3 500 ₽.",
+    "Нужна студия в центре Петербурга с 1 по 3 сентября. 1 человек, бюджет до 3 000 ₽/сутки, поздний заезд около 23:00.",
+    "Ищем 3-кк на Крестовском острове с 28 июня по 5 июля. 4 взрослых, дети 8 и 12 лет.",
+    "Нужна квартира в Кисловодске на июль, 2 взрослых. Рядом с парком, бюджет 2 500–4 000 ₽/сутки.",
+    "Ищу 2-кк в Петербурге с 15 по 20 августа. 2 взрослых + собака. Есть авто — важна парковка.",
+  ],
+  1: [
+    "Хочу вступить в сообщество хозяев BFR",
+    "Как получать прямые заявки от гостей без посредников?",
+    "Сколько стоит участие и какие условия для хозяев?",
+    "Как добавить своё жильё в базу BFR?",
+    "Что такое чат хозяев BFR и как в него попасть?",
+    "Расскажи об условиях для хозяев подробнее",
+  ],
+  2: [
+    "Что посмотреть в Кисловодске за 3 дня?",
+    "Где вкусно поесть в Кисловодске рядом с парком?",
+    "Какие необычные экскурсии есть в Петербурге?",
+    "Куда сходить с детьми в Санкт-Петербурге за выходные?",
+    "Посоветуй маршрут на 2 дня в Кисловодске",
+    "Что обязательно попробовать из еды в Петербурге?",
+  ],
+};
 
 /* ─── Web Speech API types ─────────────────────────────────── */
 interface SpeechRecognitionEvent extends Event {
@@ -68,6 +78,12 @@ declare const webkitSpeechRecognition: { new(): SpeechRecognitionInstance } | un
 interface Message {
   role: "user" | "assistant";
   content: string;
+}
+
+interface BronnikEntryProps {
+  embedded?: boolean;
+  sceneIndex?: number;
+  onChatStart?: () => void;
 }
 
 /* ─── Typewriter hook ──────────────────────────────────────── */
@@ -115,7 +131,7 @@ function useTypewriter(texts: string[], active: boolean): string {
 }
 
 /* ─── Main component ───────────────────────────────────────── */
-export default function BronnikEntry() {
+export default function BronnikEntry({ embedded, sceneIndex, onChatStart }: BronnikEntryProps = {}) {
   const [view, setView] = useState<"entry" | "chat">("entry");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -131,7 +147,12 @@ export default function BronnikEntry() {
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const historyRef = useRef<Message[]>([]);
 
-  const animPlaceholder = useTypewriter(EXAMPLES, !isFocused && input.length === 0 && view === "entry");
+  const examples = useMemo(
+    () => embedded ? (SCENE_EXAMPLES[sceneIndex ?? 0] ?? SCENE_EXAMPLES[0]) : SCENE_EXAMPLES[0],
+    [embedded, sceneIndex]
+  );
+
+  const animPlaceholder = useTypewriter(examples, !isFocused && input.length === 0 && view === "entry");
 
   useEffect(() => { historyRef.current = messages; }, [messages]);
 
@@ -187,6 +208,8 @@ export default function BronnikEntry() {
     if (!rawText || isLoading) return;
     const prefix = buildContextPrefix();
     const userText = prefix ? `${prefix}${rawText}` : rawText;
+
+    if (messages.length === 0) onChatStart?.();
 
     setInput("");
     const userMsg: Message = { role: "user", content: rawText };
@@ -318,7 +341,7 @@ export default function BronnikEntry() {
     </div>
   );
 
-  /* ── Input row (shared between states) ── */
+  /* ── Input row ── */
   const InputRow = ({ compact = false }: { compact?: boolean }) => (
     <div
       className="relative rounded-2xl"
@@ -348,7 +371,6 @@ export default function BronnikEntry() {
         }}
         data-testid="input-bronnik-entry"
       />
-      {/* Mic + Send overlay */}
       <div className="absolute right-3 flex items-center gap-1.5" style={{ bottom: compact ? "10px" : "12px" }}>
         <button
           onClick={toggleMic}
@@ -377,7 +399,6 @@ export default function BronnikEntry() {
             : <Send className="w-4 h-4" />}
         </Button>
       </div>
-      {/* Char hint when typing */}
       {input.length > 0 && !compact && (
         <p className="absolute left-4 bottom-3 text-[10px]" style={{ color: "#a39e98" }}>
           Shift+Enter для переноса строки · Enter для отправки
@@ -386,7 +407,128 @@ export default function BronnikEntry() {
     </div>
   );
 
-  /* ── ENTRY VIEW ── */
+  /* ── Messenger links row ── */
+  const MessengerRow = ({ testPrefix }: { testPrefix: string }) => (
+    <div className="flex items-center justify-center gap-5 pt-4" style={{ borderTop: "1px solid rgba(28,25,23,0.07)" }}>
+      <span className="text-xs" style={{ color: "#a39e98" }}>Или напрямую:</span>
+      {MESSENGER_LINKS.map(({ id, href, color, Icon, label }) => (
+        <a
+          key={id}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={label}
+          className="flex items-center gap-1.5 text-xs font-medium"
+          style={{ color }}
+          data-testid={`link-${testPrefix}-${id}`}
+        >
+          <Icon className="w-4 h-4" />
+          {label}
+        </a>
+      ))}
+    </div>
+  );
+
+  /* ═══════════════════════════════════════
+     EMBEDDED MODE (inside hero)
+  ═══════════════════════════════════════ */
+  if (embedded) {
+    return (
+      <div
+        id="bronnik"
+        className="rounded-2xl w-full"
+        style={{
+          background: "#ffffff",
+          border: "1px solid rgba(28,25,23,0.09)",
+          boxShadow: "0 8px 32px rgba(28,25,23,0.08)",
+          padding: "20px",
+        }}
+        data-testid="section-bronnik-embedded"
+      >
+        {/* Chat messages — only when conversation is active */}
+        {view === "chat" && (
+          <div className="mb-4">
+            <div
+              className="flex items-center gap-2 mb-3 pb-3"
+              style={{ borderBottom: "1px solid rgba(28,25,23,0.07)" }}
+            >
+              <div className="relative shrink-0">
+                <img
+                  src={bronnikAvatar}
+                  alt="Помощник"
+                  className="w-7 h-7 rounded-full object-cover"
+                  style={{ border: "2px solid rgba(13,115,119,0.2)" }}
+                />
+                <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-400" style={{ border: "2px solid #fff" }} />
+              </div>
+              <p className="text-xs font-medium flex-1" style={{ color: "#6b6560" }}>
+                Помощник BFR
+              </p>
+              <button
+                onClick={handleReset}
+                className="p-1 rounded-full"
+                style={{ background: "rgba(28,25,23,0.05)", color: "#a39e98" }}
+                title="Начать заново"
+                data-testid="button-bronnik-reset"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="space-y-2.5 mb-3" style={{ maxHeight: "240px", overflowY: "auto" }}>
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                  {msg.role === "assistant" && (
+                    <img
+                      src={bronnikAvatar}
+                      alt=""
+                      className="w-6 h-6 rounded-full object-cover shrink-0 self-end"
+                    />
+                  )}
+                  <div
+                    className="max-w-[85%] px-3 py-2 text-xs leading-snug"
+                    style={{
+                      background: msg.role === "user" ? "#d9fdd3" : "#f5f2ee",
+                      color: "#1c1917",
+                      borderRadius: msg.role === "user" ? "12px 12px 3px 12px" : "12px 12px 12px 3px",
+                    }}
+                    data-testid={`msg-bronnik-entry-${idx}`}
+                  >
+                    {msg.content || (isLoading && idx === messages.length - 1
+                      ? <Loader2 className="w-3 h-3 animate-spin" style={{ color: "#0d7377" }} />
+                      : ""
+                    )}
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+        )}
+
+        {/* Input */}
+        <div className="mb-3">
+          <InputRow compact={view === "chat"} />
+        </div>
+
+        {/* City chips */}
+        <div className="mb-3">
+          <CityChips />
+        </div>
+
+        {/* Topic chips */}
+        <div className="mb-4">
+          <TopicChips />
+        </div>
+
+        {/* Messenger alternatives */}
+        <MessengerRow testPrefix="bronnik-embedded" />
+      </div>
+    );
+  }
+
+  /* ═══════════════════════════════════════
+     STANDALONE — ENTRY VIEW
+  ═══════════════════════════════════════ */
   if (view === "entry") {
     return (
       <section
@@ -395,7 +537,6 @@ export default function BronnikEntry() {
         style={{ background: "#ffffff", borderTop: "1px solid rgba(28,25,23,0.07)" }}
       >
         <div className="max-w-2xl mx-auto">
-          {/* Avatar + name */}
           <div className="flex flex-col items-center mb-8">
             <div className="relative mb-4">
               <img
@@ -420,46 +561,27 @@ export default function BronnikEntry() {
             </p>
           </div>
 
-          {/* Main input */}
           <div className="mb-5">
             <InputRow />
           </div>
 
-          {/* City chips */}
           <div className="mb-4">
             <CityChips />
           </div>
 
-          {/* Topic chips */}
           <div className="mb-8">
             <TopicChips />
           </div>
 
-          {/* Messenger alternatives */}
-          <div className="flex items-center justify-center gap-6 pt-4" style={{ borderTop: "1px solid rgba(28,25,23,0.07)" }}>
-            <span className="text-xs" style={{ color: "#a39e98" }}>Или написать напрямую:</span>
-            {MESSENGER_LINKS.map(({ id, href, color, Icon, label }) => (
-              <a
-                key={id}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={label}
-                className="flex items-center gap-1.5 text-xs font-medium"
-                style={{ color }}
-                data-testid={`link-bronnik-${id}`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </a>
-            ))}
-          </div>
+          <MessengerRow testPrefix="bronnik-entry" />
         </div>
       </section>
     );
   }
 
-  /* ── CHAT VIEW ── */
+  /* ═══════════════════════════════════════
+     STANDALONE — CHAT VIEW
+  ═══════════════════════════════════════ */
   return (
     <section
       id="bronnik"
@@ -467,7 +589,6 @@ export default function BronnikEntry() {
       style={{ background: "#ffffff", borderTop: "1px solid rgba(28,25,23,0.07)" }}
     >
       <div className="max-w-2xl mx-auto">
-        {/* Compact header */}
         <div className="flex items-center gap-3 mb-5 pb-4" style={{ borderBottom: "1px solid rgba(28,25,23,0.07)" }}>
           <div className="relative shrink-0">
             <img
@@ -493,7 +614,6 @@ export default function BronnikEntry() {
           </button>
         </div>
 
-        {/* Messages */}
         <div className="space-y-3 mb-5" style={{ maxHeight: "380px", overflowY: "auto" }}>
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -523,40 +643,19 @@ export default function BronnikEntry() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Context chips (compact) */}
         <div className="flex flex-wrap gap-3 mb-4 text-xs">
           <CityChips />
         </div>
 
-        {/* Compact input */}
         <div className="mb-5">
           <InputRow compact />
         </div>
 
-        {/* Topic chips below input */}
         <div className="mb-5">
           <TopicChips />
         </div>
 
-        {/* Messenger alternatives */}
-        <div className="flex items-center justify-center gap-6 pt-4" style={{ borderTop: "1px solid rgba(28,25,23,0.07)" }}>
-          <span className="text-xs" style={{ color: "#a39e98" }}>Или написать напрямую:</span>
-          {MESSENGER_LINKS.map(({ id, href, color, Icon, label }) => (
-            <a
-              key={id}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={label}
-              className="flex items-center gap-1.5 text-xs font-medium"
-              style={{ color }}
-              data-testid={`link-bronnik-chat-${id}`}
-            >
-              <Icon className="w-4 h-4" />
-              {label}
-            </a>
-          ))}
-        </div>
+        <MessengerRow testPrefix="bronnik-chat" />
       </div>
     </section>
   );

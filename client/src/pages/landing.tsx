@@ -1,7 +1,6 @@
 import { useLocation } from "wouter";
 import HelpHeader from "@/components/HelpHeader";
 import LandingHero from "@/components/LandingHero";
-import BronnikEntry from "@/components/BronnikEntry";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import TrustStrip from "@/components/TrustStrip";
 import PopularQuestions from "@/components/PopularQuestions";
@@ -13,21 +12,15 @@ export default function Landing() {
 
   const handleGetStarted = () => setLocation("/request");
   const handleOwnerApplication = () => setLocation("/community?tab=register");
-  const handleScrollToBronnik = () =>
-    document.getElementById("bronnik")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div className="min-h-screen" style={{ background: "#faf7f2" }}>
       <HelpHeader onRequestClick={handleGetStarted} />
 
-      {/* Hero slider — 3 scenes */}
+      {/* Hero + Bronnik input — единый первый экран */}
       <LandingHero
-        onGuestClick={handleScrollToBronnik}
         onOwnerClick={handleOwnerApplication}
       />
-
-      {/* Бронник — главный вход в диалог */}
-      <BronnikEntry />
 
       {/* Compact trust facts */}
       <TrustStrip />
