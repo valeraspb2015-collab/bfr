@@ -5,6 +5,9 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  Home,
+  Building2,
+  Map,
 } from "lucide-react";
 import BronnikEntry from "@/components/BronnikEntry";
 
@@ -21,13 +24,14 @@ const SCENE_DURATION = 7000;
 function SceneGuestText() {
   return (
     <div>
-      <div className="mb-5">
+      <div className="mb-6">
         <span
-          className="inline-block px-3.5 py-1 rounded-full text-xs font-medium border"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border"
           style={{ color: "#0d7377", borderColor: "rgba(13,115,119,0.25)", background: "rgba(13,115,119,0.07)" }}
           data-testid="badge-scene-guest"
         >
-          Аренда напрямую от хозяев · без сервисных сборов платформе
+          <Home className="w-3.5 h-3.5" />
+          Аренда напрямую от хозяев · без сервисных сборов
         </span>
       </div>
       <h1
@@ -67,12 +71,13 @@ function SceneGuestText() {
 function SceneOwnerText({ onOwnerClick }: { onOwnerClick: () => void }) {
   return (
     <div>
-      <div className="mb-5">
+      <div className="mb-6">
         <span
-          className="inline-block px-3.5 py-1 rounded-full text-xs font-medium border"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border"
           style={{ color: "#4a7c59", borderColor: "rgba(74,124,89,0.25)", background: "rgba(74,124,89,0.07)" }}
           data-testid="badge-scene-owner"
         >
+          <Building2 className="w-3.5 h-3.5" />
           Для хозяев · сообщество BFR
         </span>
       </div>
@@ -123,12 +128,13 @@ function SceneOwnerText({ onOwnerClick }: { onOwnerClick: () => void }) {
 function SceneServicesText() {
   return (
     <div>
-      <div className="mb-5">
+      <div className="mb-6">
         <span
-          className="inline-block px-3.5 py-1 rounded-full text-xs font-medium border"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border"
           style={{ color: "#0d7377", borderColor: "rgba(13,115,119,0.25)", background: "rgba(13,115,119,0.07)" }}
           data-testid="badge-scene-services"
         >
+          <Map className="w-3.5 h-3.5" />
           Сервисы и полезное
         </span>
       </div>
@@ -218,7 +224,7 @@ export default function LandingHero({ onOwnerClick }: LandingHeroProps) {
     <section
       id="audiences"
       className="relative overflow-hidden"
-      style={{ background: "#faf7f2", paddingTop: "2.5rem", paddingBottom: "2.5rem" }}
+      style={{ background: "#faf7f2", paddingTop: "4rem", paddingBottom: "4rem" }}
       onMouseEnter={() => !paused && setPaused(true) /* pause only for scene nav */}
       onMouseLeave={() => setPaused(false)}
     >
@@ -232,7 +238,7 @@ export default function LandingHero({ onOwnerClick }: LandingHeroProps) {
               opacity: fading ? 0 : 1,
               transform: fading ? "translateY(10px)" : "translateY(0)",
               transition: "opacity 0.26s ease, transform 0.26s ease",
-              minHeight: "300px",
+              minHeight: "360px",
               display: "flex",
               alignItems: "center",
             }}

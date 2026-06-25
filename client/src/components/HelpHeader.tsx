@@ -122,15 +122,18 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
 
               <div className="w-px h-4 mx-2 rounded-full" style={{ background: "rgba(28,25,23,0.15)" }} />
 
-              <Button
-                size="sm"
-                onClick={handleRequestClick}
-                className="rounded-lg text-white text-sm"
-                style={{ background: "#0d7377" }}
+              <a
+                href="#bronnik"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("bronnik")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-3 py-1.5 text-sm rounded-lg font-medium whitespace-nowrap transition-colors"
+                style={{ color: "#0d7377", border: "1px solid rgba(13,115,119,0.3)" }}
                 data-testid="button-header-request"
               >
-                Оставить заявку
-              </Button>
+                Написать запрос
+              </a>
             </nav>
 
             {/* Mobile burger */}
@@ -209,14 +212,19 @@ export default function HelpHeader({ onRequestClick }: HelpHeaderProps) {
               )
             )}
             <div className="pt-2">
-              <Button
-                onClick={handleRequestClick}
-                className="w-full rounded-lg text-white"
-                style={{ background: "#0d7377" }}
+              <a
+                href="#bronnik"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("bronnik")?.scrollIntoView({ behavior: "smooth" });
+                  setMobileOpen(false);
+                }}
+                className="block w-full text-center py-2.5 text-sm font-medium rounded-lg"
+                style={{ color: "#0d7377", border: "1px solid rgba(13,115,119,0.3)" }}
                 data-testid="button-mobile-request"
               >
-                Оставить заявку
-              </Button>
+                Написать запрос
+              </a>
             </div>
           </div>
         )}
