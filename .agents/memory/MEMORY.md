@@ -1,0 +1,3 @@
+- [Bronnik AI design](bronnik-design.md) — always Yandex RE-style entry block, NOT a small floating widget as primary UX
+- [Hero slider pattern](hero-slider.md) — user wants true кадры/scenes slider (NOT tabs), each scene has unique right-side visual schema
+- [Admin config pattern](admin-config.md) — phone/Telegram IDs in env vars, never hardcoded; ADMIN_PHONE, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID

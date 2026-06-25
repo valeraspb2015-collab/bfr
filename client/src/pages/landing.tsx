@@ -1,6 +1,7 @@
 import { useLocation } from "wouter";
 import HelpHeader from "@/components/HelpHeader";
 import LandingHero from "@/components/LandingHero";
+import BronnikEntry from "@/components/BronnikEntry";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import TrustStrip from "@/components/TrustStrip";
 import PopularQuestions from "@/components/PopularQuestions";
@@ -22,6 +23,9 @@ export default function Landing() {
         onGuestClick={handleGetStarted}
         onOwnerClick={handleOwnerApplication}
       />
+
+      {/* Бронник — главный вход в диалог */}
+      <BronnikEntry />
 
       {/* Compact trust facts */}
       <TrustStrip />
