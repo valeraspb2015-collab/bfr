@@ -104,11 +104,11 @@ const SCENE_CHIPS: Record<number, SceneChip[]> = {
 /* ─── Typewriter examples per scene ────────────────────────── */
 const SCENE_EXAMPLES: Record<number, string[]> = {
   0: [
-    "Нужна 2-кк в центре Петербурга на 3 ночи. 2 взрослых, бюджет 4 000 ₽/сутки.",
-    "Кисловодск, 5 ночей с 20 июля. 2 взрослых + ребёнок, нужна парковка.",
-    "Студия в Петербурге с 1 по 3 сентября. Поздний заезд около 23:00.",
-    "3-кк на Крестовском острове, 28 июня – 5 июля. 4 взрослых + дети.",
-    "Нужна квартира с поздним заездом и домашними животными.",
+    "Нужна 2-кк в центре Петербурга на 3 ночи",
+    "2 взрослых и ребёнок, нужна парковка",
+    "Можно с собакой и поздним заездом?",
+    "Ищу студию в Кисловодске на выходные",
+    "Нужна квартира рядом с парком",
   ],
   1: [
     "Хочу вступить в сообщество хозяев BFR",
@@ -456,22 +456,22 @@ export default function BronnikEntry({ embedded, sceneIndex, onChatStart }: Bron
         {/* ── Ghost preview (entry) / Real messages (chat) ── */}
         {view === "entry" ? (
           <div
-            className="px-4 pt-4 pb-2"
+            className="px-4 pt-4 pb-3"
             style={{
-              opacity: previewVisible ? 0.28 : 0,
-              transition: "opacity 0.3s ease",
+              opacity: previewVisible ? 0.42 : 0,
+              transition: "opacity 0.35s ease",
               pointerEvents: "none",
               userSelect: "none",
             }}
           >
             {/* User ghost bubble */}
-            <div className="flex justify-end mb-2.5">
+            <div className="flex justify-end mb-3">
               <div
-                className="max-w-[82%] px-3 py-2 text-[11px] leading-snug"
+                className="max-w-[84%] px-3.5 py-2 text-xs leading-snug font-medium"
                 style={{
                   background: "#d9fdd3",
                   color: "#1c1917",
-                  borderRadius: "12px 12px 3px 12px",
+                  borderRadius: "14px 14px 3px 14px",
                 }}
               >
                 {preview.user}
@@ -479,13 +479,13 @@ export default function BronnikEntry({ embedded, sceneIndex, onChatStart }: Bron
             </div>
             {/* Bot ghost bubble */}
             <div className="flex items-end gap-2">
-              <img src={bronnikAvatar} alt="" className="w-5 h-5 rounded-full object-cover shrink-0" />
+              <img src={bronnikAvatar} alt="" className="w-6 h-6 rounded-full object-cover shrink-0" />
               <div
-                className="max-w-[82%] px-3 py-2 text-[11px] leading-snug"
+                className="max-w-[84%] px-3.5 py-2 text-xs leading-snug"
                 style={{
                   background: "#f0ece6",
                   color: "#1c1917",
-                  borderRadius: "12px 12px 12px 3px",
+                  borderRadius: "14px 14px 14px 3px",
                 }}
               >
                 {preview.bot}
@@ -519,16 +519,34 @@ export default function BronnikEntry({ embedded, sceneIndex, onChatStart }: Bron
         )}
 
         {/* ── Input area ── */}
-        <div className="px-4 pt-3 pb-2">
+        <div className="px-4 pt-2 pb-3">
           <div
             className="relative rounded-xl"
             style={{
               background: isFocused ? "#fff" : "#faf7f2",
-              border: `1.5px solid ${isFocused ? sceneMeta.accent + "88" : "rgba(28,25,23,0.12)"}`,
-              boxShadow: isFocused ? `0 0 0 3px ${sceneMeta.accentLight}` : "none",
+              border: `1.5px solid ${isFocused ? sceneMeta.accent + "99" : "rgba(28,25,23,0.11)"}`,
+              boxShadow: isFocused
+                ? `0 0 0 3px ${sceneMeta.accentLight}, 0 2px 8px rgba(28,25,23,0.06)`
+                : "0 1px 3px rgba(28,25,23,0.04)",
               transition: "all 0.2s ease",
             }}
           >
+            {/* Mic — top right corner */}
+            <button
+              onClick={toggleMic}
+              title={isListening ? "Стоп" : "Голосовой ввод"}
+              className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full flex items-center justify-center transition-all"
+              style={{
+                background: isListening ? "rgba(220,38,38,0.08)" : "transparent",
+                border: `1px solid ${isListening ? "rgba(220,38,38,0.2)" : "rgba(28,25,23,0.1)"}`,
+              }}
+              data-testid="button-bronnik-entry-mic"
+            >
+              {isListening
+                ? <MicOff className="w-3 h-3" style={{ color: "#dc2626" }} />
+                : <Mic className="w-3 h-3" style={{ color: "#a39e98" }} />}
+            </button>
+
             <textarea
               ref={textareaRef}
               value={input}
@@ -536,42 +554,52 @@ export default function BronnikEntry({ embedded, sceneIndex, onChatStart }: Bron
               onKeyDown={handleKey}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              placeholder={isFocused ? "Напишите запрос..." : (animPlaceholder || "Напишите, что нужно...")}
+              placeholder={isFocused ? "" : (animPlaceholder || "Напишите, что нужно...")}
               disabled={isLoading}
-              rows={view === "chat" ? 2 : 3}
-              className="w-full resize-none text-sm leading-relaxed focus:outline-none"
+              rows={view === "chat" ? 2 : 4}
+              className="w-full resize-none leading-relaxed focus:outline-none"
               style={{
-                padding: view === "chat" ? "10px 90px 10px 14px" : "14px 90px 40px 14px",
+                padding: view === "chat" ? "10px 44px 10px 14px" : "14px 44px 12px 14px",
                 background: "transparent",
                 color: "#1c1917",
                 fontFamily: "inherit",
+                fontSize: "0.9375rem",
               }}
               data-testid="input-bronnik-entry"
             />
-            <div className="absolute right-2.5 bottom-2.5 flex items-center gap-1.5">
-              <button onClick={toggleMic} title={isListening ? "Стоп" : "Голос"}
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-all"
-                style={{
-                  background: isListening ? "rgba(220,38,38,0.1)" : sceneMeta.accentLight,
-                  border: `1px solid ${isListening ? "rgba(220,38,38,0.25)" : sceneMeta.accent + "30"}`,
-                }}
-                data-testid="button-bronnik-entry-mic">
-                {isListening
-                  ? <MicOff className="w-3.5 h-3.5" style={{ color: "#dc2626" }} />
-                  : <Mic className="w-3.5 h-3.5" style={{ color: sceneMeta.accent }} />}
-              </button>
-              <Button onClick={() => sendMessage()} disabled={!input.trim() || isLoading}
-                size="icon" className="w-8 h-8 rounded-full text-white"
-                style={{ background: sceneMeta.accent, minWidth: 0 }}
-                data-testid="button-bronnik-entry-send">
-                {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-              </Button>
-            </div>
-            {view === "entry" && !isFocused && (
-              <p className="absolute left-3.5 bottom-2.5 text-[10px]" style={{ color: "#b8b3ae" }}>
-                Enter для отправки · Shift+Enter для переноса
+
+            {/* Focused empty state placeholder */}
+            {isFocused && !input && (
+              <p
+                className="absolute pointer-events-none text-sm leading-relaxed"
+                style={{ top: "14px", left: "14px", color: "#c4bfba" }}
+              >
+                Напишите, что нужно...
               </p>
             )}
+
+            {/* Send button — full-width bar at bottom of container */}
+            <div
+              className="mx-2 mb-2 mt-1 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-all select-none"
+              onClick={() => sendMessage()}
+              data-testid="button-bronnik-entry-send"
+              style={{
+                padding: "7px 12px",
+                background: input.trim()
+                  ? sceneMeta.accent
+                  : "rgba(28,25,23,0.05)",
+                color: input.trim() ? "#ffffff" : "#a39e98",
+                cursor: input.trim() && !isLoading ? "pointer" : "default",
+                transition: "background 0.2s ease, color 0.2s ease",
+              }}
+            >
+              {isLoading
+                ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                : <Send className="w-3.5 h-3.5" />}
+              <span className="text-xs font-semibold tracking-wide">
+                {isLoading ? "Отправляю..." : "Отправить запрос"}
+              </span>
+            </div>
           </div>
         </div>
 

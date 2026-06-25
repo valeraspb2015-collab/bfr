@@ -28,40 +28,64 @@ const SCENE_COLORS = ["#0d7377", "#4a7c59", "#0d7377"];
 function SceneGuestText() {
   return (
     <div>
-      <div className="mb-6">
+      {/* Badge */}
+      <div className="mb-5">
         <span
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border"
           style={{ color: "#0d7377", borderColor: "rgba(13,115,119,0.25)", background: "rgba(13,115,119,0.08)" }}
           data-testid="badge-scene-guest"
         >
           <Home className="w-3.5 h-3.5" />
-          Аренда напрямую от хозяев · без сервисных сборов
+          Прямая аренда без посредников
         </span>
       </div>
+
+      {/* Headline */}
       <h1
-        className="font-extrabold leading-tight tracking-tight mb-5"
-        style={{ color: "#1c1917", fontSize: "clamp(1.85rem, 4vw, 2.9rem)", fontWeight: 800 }}
+        className="font-extrabold leading-tight tracking-tight mb-4"
+        style={{ color: "#1c1917", fontSize: "clamp(2rem, 4.5vw, 3.1rem)", fontWeight: 800 }}
         data-testid="text-scene-guest-title"
       >
-        Одна заявка — и хозяева сами предложат варианты{" "}
-        <span style={{ color: "#0d7377" }}>напрямую, без лишнего поиска и переплат</span>
+        Одна заявка —{" "}
+        <span style={{ color: "#0d7377" }}>и хозяева сами предлагают варианты</span>
       </h1>
+
+      {/* Sub */}
       <p
-        className="text-base leading-relaxed mb-8"
-        style={{ color: "#6b6560", maxWidth: "400px" }}
+        className="text-[1.05rem] leading-relaxed mb-7"
+        style={{ color: "#6b6560", maxWidth: "420px" }}
         data-testid="text-scene-guest-sub"
       >
-        Опишите, что нужно. Хозяева откликнутся сами, а помощник пришлёт топ‑5 подходящих вариантов в ваш мессенджер.
+        Напишите, что нужно. Без долгих форм и бесконечного поиска — хозяева откликнутся сами, помощник пришлёт топ‑5 вариантов в Telegram.
       </p>
-      <div className="flex flex-col gap-2.5">
+
+      {/* Checkmarks */}
+      <div className="flex flex-col gap-2.5 mb-8">
         {[
-          "Без сервисных сборов платформе",
-          "Прямой контакт с хозяином",
-          "Топ-5 вариантов — в мессенджер",
-        ].map((label) => (
-          <div key={label} className="flex items-center gap-2">
+          { text: "Без сервисных сборов платформе", strong: true },
+          { text: "Прямой контакт с хозяином" },
+          { text: "Результат — в вашем мессенджере" },
+        ].map(({ text, strong }) => (
+          <div key={text} className="flex items-center gap-2.5">
             <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: "#4a7c59" }} />
-            <span className="text-sm" style={{ color: "#44403c" }}>{label}</span>
+            <span className={strong ? "text-sm font-semibold" : "text-sm"} style={{ color: "#44403c" }}>{text}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Trust strip */}
+      <div
+        className="flex flex-wrap gap-4 pt-5"
+        style={{ borderTop: "1px solid rgba(28,25,23,0.08)" }}
+      >
+        {[
+          { value: "500+", label: "хозяев в базе" },
+          { value: "1 заявка", label: "вместо долгого поиска" },
+          { value: "0 ₽", label: "сервисных сборов" },
+        ].map(({ value, label }) => (
+          <div key={label} className="flex flex-col">
+            <span className="text-base font-bold" style={{ color: "#0d7377" }}>{value}</span>
+            <span className="text-xs" style={{ color: "#78736e" }}>{label}</span>
           </div>
         ))}
       </div>
