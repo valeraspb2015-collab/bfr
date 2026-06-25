@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -473,20 +473,25 @@ export default function LandingHero({ onGuestClick, onOwnerClick }: LandingHeroP
   const [progressKey, setProgressKey] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  /* Use a ref for fading so goTo closure never captures a stale value */
+  const fadingRef = useRef(false);
+
   const goTo = useCallback(
     (next: number) => {
-      if (next === scene || fading) return;
+      if (next === scene || fadingRef.current) return;
+      fadingRef.current = true;
       setFading(true);
       setTimeout(() => {
         setScene(next);
+        fadingRef.current = false;
         setFading(false);
         setProgressKey((k) => k + 1);
       }, 260);
     },
-    [scene, fading]
+    [scene]   /* fading removed — read via ref, so goTo only changes on scene change */
   );
 
-  /* auto-advance */
+  /* auto-advance: only re-runs when scene or paused changes, not on fading */
   useEffect(() => {
     if (paused) return;
     const t = setTimeout(() => goTo((scene + 1) % 3), SCENE_DURATION);
@@ -585,8 +590,11 @@ export default function LandingHero({ onGuestClick, onOwnerClick }: LandingHeroP
             className="h-full rounded-full"
             style={{
               background: SCENE_COLORS[scene],
+              animationName: "bfrHeroProgress",
+              animationDuration: `${SCENE_DURATION}ms`,
+              animationTimingFunction: "linear",
+              animationFillMode: "forwards",
               animationPlayState: paused ? "paused" : "running",
-              animation: `bfrHeroProgress ${SCENE_DURATION}ms linear forwards`,
             }}
           />
         </div>
