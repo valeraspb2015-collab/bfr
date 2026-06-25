@@ -214,11 +214,7 @@ export default function LandingHero({ onOwnerClick }: LandingHeroProps) {
     return () => clearTimeout(t);
   }, [scene, paused, goTo]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash === "#audiences") {
-      setScene(1);
-    }
-  }, []);
+  /* Scene 0 (Гостям) is always the default start — no hash override */
 
   const accentColor = SCENE_COLORS[scene];
   const heroBg = SCENE_BG[scene];
@@ -226,7 +222,7 @@ export default function LandingHero({ onOwnerClick }: LandingHeroProps) {
 
   return (
     <section
-      id="audiences"
+      id="hero"
       className="relative overflow-hidden"
       style={{
         background: heroBg,
