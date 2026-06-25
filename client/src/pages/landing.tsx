@@ -13,6 +13,8 @@ export default function Landing() {
 
   const handleGetStarted = () => setLocation("/request");
   const handleOwnerApplication = () => setLocation("/community?tab=register");
+  const handleScrollToBronnik = () =>
+    document.getElementById("bronnik")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div className="min-h-screen" style={{ background: "#faf7f2" }}>
@@ -20,7 +22,7 @@ export default function Landing() {
 
       {/* Hero slider — 3 scenes */}
       <LandingHero
-        onGuestClick={handleGetStarted}
+        onGuestClick={handleScrollToBronnik}
         onOwnerClick={handleOwnerApplication}
       />
 
@@ -38,7 +40,7 @@ export default function Landing() {
 
       {/* Final CTA — also serves as #cooperation anchor for footer nav */}
       <div id="cooperation">
-        <CtaSection onApplyClick={handleGetStarted} />
+        <CtaSection />
       </div>
 
       <HelpFooter

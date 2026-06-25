@@ -296,7 +296,7 @@ function SceneGuest({ onGuestClick }: { onGuestClick: () => void }) {
             style={{ background: "#0d7377", boxShadow: "0 4px 16px rgba(13,115,119,0.22)" }}
             data-testid="button-scene-guest-cta"
           >
-            Оставить заявку
+            Написать Броннику
             <ArrowRight className="w-4 h-4" />
           </Button>
           <Button
@@ -396,7 +396,7 @@ function SceneOwner({ onOwnerClick }: { onOwnerClick: () => void }) {
 /* ─────────────────────────────────────────
    SCENE 3 — СЕРВИСЫ И ПОЛЕЗНОЕ
 ───────────────────────────────────────── */
-function SceneServices() {
+function SceneServices({ onScrollToBronnik }: { onScrollToBronnik: () => void }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
       <div>
@@ -443,15 +443,13 @@ function SceneServices() {
         </div>
         <Button
           size="lg"
-          asChild
+          onClick={onScrollToBronnik}
           className="rounded-xl text-white gap-2"
           style={{ background: "#0d7377", boxShadow: "0 4px 16px rgba(13,115,119,0.22)" }}
           data-testid="button-scene-services-cta"
         >
-          <a href="https://t.me/bfrreplit_bot" target="_blank" rel="noopener noreferrer">
-            Написать нам
-            <ArrowRight className="w-4 h-4" />
-          </a>
+          Спросить Бронника
+          <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
       <div className="flex justify-center lg:justify-end">
@@ -525,7 +523,8 @@ export default function LandingHero({ onGuestClick, onOwnerClick }: LandingHeroP
         >
           {scene === 0 && <SceneGuest onGuestClick={onGuestClick} />}
           {scene === 1 && <SceneOwner onOwnerClick={onOwnerClick} />}
-          {scene === 2 && <SceneServices />}
+
+          {scene === 2 && <SceneServices onScrollToBronnik={onGuestClick} />}
         </div>
 
         {/* ── Navigation ── */}
