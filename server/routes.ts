@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage, verifyPassword, hashPassword } from "./storage";
 import { insertApartmentRequestSchema, insertOwnerApplicationSchema, insertChatMessageSchema } from "@shared/schema";
 import { insertChatUserSchema } from "@shared/schema";
+import { ZodError } from "zod";
 import { registerBronnikRoutes } from "./bronnik";
 import { setupChatWebSocket } from "./chat";
 
@@ -68,6 +69,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const user = await storage.createChatUser(data);
       res.json({ success: true, user: { id: user.id, name: user.name, email: user.email, city: user.city, isAdmin: user.isAdmin } });
     } catch (error) {
+      if (error instanceof ZodError) {
+        const msg = error.errors[0]?.message ?? "Проверьте введённые данные";
+        return res.status(400).json({ success: false, message: msg });
+      }
       res.status(400).json({ success: false, message: error instanceof Error ? error.message : "Ошибка регистрации" });
     }
   });

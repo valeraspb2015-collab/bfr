@@ -38,6 +38,24 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function() {
+        var supported = true;
+        try { eval('(0??0)'); } catch(e) { supported = false; }
+        if (!supported) {
+          document.addEventListener('DOMContentLoaded', function() {
+            var r = document.getElementById('root');
+            if (r) {
+              r.style.cssText = 'font-family:sans-serif;text-align:center;padding:60px 20px;max-width:380px;margin:0 auto';
+              r.innerHTML = '<div style="width:64px;height:64px;border-radius:16px;background:#0d7377;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><svg width="32" height="32" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>'
+                + '<h2 style="color:#1c1917;margin:0 0 12px;font-size:20px">Обновите iOS</h2>'
+                + '<p style="color:#6b6560;margin:0 0 8px;line-height:1.6">Сайт БФР требует iOS 13.4 или новее.</p>'
+                + '<p style="color:#6b6560;font-size:14px;line-height:1.6">Перейдите в Настройки &rarr; Основные &rarr; Обновление ПО</p>';
+            }
+          });
+        }
+      })();
+    </script>
     <noscript>
       <div style="font-family:sans-serif;max-width:800px;margin:40px auto;padding:0 20px">
         <h1>БФР — Best Flat Rent</h1>

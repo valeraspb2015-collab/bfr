@@ -16,6 +16,14 @@ app.use(express.json({
 }));
 app.use(express.urlencoded({ extended: false }));
 
+// CORS headers for static assets — required for iOS Safari with crossorigin module scripts
+app.use((req, res, next) => {
+  if (req.path.startsWith("/assets/") || req.path.match(/\.(js|css|woff|woff2|ttf|otf)$/)) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  }
+  next();
+});
+
 // Disable browser caching for HTML pages so refreshing always loads fresh JS
 app.use((req, res, next) => {
   if (!req.path.startsWith("/api") && !req.path.startsWith("/ws") && !req.path.match(/\.(js|css|png|jpg|svg|ico|woff|woff2|json)$/)) {

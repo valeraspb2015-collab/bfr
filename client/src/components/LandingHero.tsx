@@ -206,6 +206,9 @@ function SceneServicesText() {
 ───────────────────────────────────────── */
 const SCENE_LABELS = ["Гостям", "Хозяевам", "Сервисы"];
 
+/* Host-intent hashes deep-link straight into the "Хозяевам" scene */
+const OWNER_HASHES = ["#audiences", "#owner", "#hosts", "#become-host", "#for-hosts"];
+
 /* ─────────────────────────────────────────
    MAIN COMPONENT
 ───────────────────────────────────────── */
@@ -238,7 +241,27 @@ export default function LandingHero({ onOwnerClick }: LandingHeroProps) {
     return () => clearTimeout(t);
   }, [scene, paused, goTo]);
 
-  /* Scene 0 (Гостям) is always the default start — no hash override */
+  const goToRef = useRef(goTo);
+  goToRef.current = goTo;
+
+  /* Host-intent hashes open the "Хозяевам" scene — on load and on hashchange */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const syncSceneFromHash = (fromEvent: boolean) => {
+      if (!OWNER_HASHES.includes(window.location.hash)) return;
+      setPaused(true);
+      goToRef.current(1);
+      if (fromEvent) {
+        document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    syncSceneFromHash(false);
+    const onHashChange = () => syncSceneFromHash(true);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   const accentColor = SCENE_COLORS[scene];
   const heroBg = SCENE_BG[scene];

@@ -65,10 +65,10 @@ export default function HelpFooter({ onGuestClick, onOwnerClick }: HelpFooterPro
             <h4 className="font-semibold mb-4 text-sm" style={{ color: "#faf7f2" }}>Для хозяев</h4>
             <ul className="space-y-3 text-sm" style={{ color: "#a39e98" }}>
               <li>
-                <button onClick={onOwnerClick}
+                <a href="#audiences"
                   className="transition-colors text-left hover:text-[#149ea3]" data-testid="link-footer-become-host">
                   Стать хозяином
-                </button>
+                </a>
               </li>
               <li>
                 <a href="https://t.me/bfrreplit_bot" target="_blank" rel="noopener noreferrer"

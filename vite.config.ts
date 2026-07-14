@@ -27,7 +27,13 @@ export default defineConfig({
     },
   },
   root: path.resolve(import.meta.dirname, "client"),
+  esbuild: {
+    supported: {
+      bigint: true,
+    },
+  },
   build: {
+    target: ["es2015"],
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },

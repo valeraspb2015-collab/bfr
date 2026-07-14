@@ -197,8 +197,9 @@ export default function BronnikChat() {
       {/* ── Chat panel ── */}
       {isOpen && (
         <div
-          className="w-[340px] rounded-2xl flex flex-col overflow-hidden"
+          className="rounded-2xl flex flex-col overflow-hidden"
           style={{
+            width: "min(340px, calc(100vw - 48px))",
             height: "460px",
             background: "#ffffff",
             border: "1px solid rgba(13,115,119,0.18)",
