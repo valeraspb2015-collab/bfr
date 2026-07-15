@@ -118,6 +118,15 @@ async function notifyAdmin(text: string): Promise<void> {
 /* ─── DB logging (best-effort, non-blocking) ────────────── */
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
+// Prevent unhandled 'error' EventEmitter event from crashing the process.
+// pg.Pool emits 'error' at the socket level when the DB endpoint is
+// unreachable (e.g. Neon endpoint disabled in production). Without this
+// listener Node.js would throw an uncaught exception and exit with code 1,
+// even if all Promise-level .catch() handlers are in place.
+pool.on("error", (err) => {
+  console.warn("⚠️ bronnik pool error (non-fatal):", err.message);
+});
+
 async function ensureLogsTable(): Promise<void> {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS bronnik_logs (
@@ -132,8 +141,14 @@ async function ensureLogsTable(): Promise<void> {
   `);
 }
 
-// Run once on startup
-ensureLogsTable().catch(e => console.warn("⚠️ bronnik_logs table init:", e));
+// Run once on startup — best-effort, server must start even if DB is down
+(async () => {
+  try {
+    await ensureLogsTable();
+  } catch (e) {
+    console.warn("⚠️ bronnik_logs table init:", e);
+  }
+})();
 
 async function logMessage(sessionId: string, role: string, content: string, topic?: string, city?: string): Promise<void> {
   try {

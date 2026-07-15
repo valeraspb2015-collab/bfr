@@ -56,6 +56,57 @@
         }
       })();
     </script>
+    <script>
+      // Error overlay — shows visible message if React fails to mount before
+      // its own ErrorBoundary can take over (blank white screen on iOS Safari).
+      // Uses a 4-second grace period so that transient dev-mode errors (e.g.
+      // Vite HMR WebSocket) don't trigger the overlay when React mounts fine.
+      (function() {
+        var pendingMsg = null;
+        var shown = false;
+
+        function showOverlay(msg) {
+          if (shown) return;
+          // Don't show if React already mounted (#root has children)
+          var root = document.getElementById('root');
+          if (root && root.children.length > 0) return;
+          shown = true;
+          var d = document.createElement('div');
+          d.id = 'bfr-error-overlay';
+          d.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;font-family:sans-serif;padding:24px';
+          d.innerHTML = '<div style="max-width:400px;text-align:center">'
+            + '<div style="width:56px;height:56px;border-radius:12px;background:#0d7377;margin:0 auto 16px;display:flex;align-items:center;justify-content:center">'
+            + '<svg width="28" height="28" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>'
+            + '<h2 style="color:#1c1917;margin:0 0 8px;font-size:18px">БФР временно недоступен</h2>'
+            + '<p style="color:#6b6560;margin:0 0 16px;font-size:14px;line-height:1.6">Попробуйте обновить страницу. Если не помогает — зайдите через минуту.</p>'
+            + '<button onclick="location.reload()" style="background:#0d7377;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:15px;cursor:pointer">Обновить</button>'
+            + (msg ? '<p style="color:#9ca3af;font-size:11px;margin:12px 0 0;word-break:break-all">' + msg.substring(0, 120) + '</p>' : '')
+            + '</div>';
+          document.body.appendChild(d);
+        }
+
+        function scheduleOverlay(msg) {
+          pendingMsg = msg;
+          // Wait 4 s — if React mounted in time, root.children.length > 0 and
+          // showOverlay will bail out. Prevents false positives in dev mode.
+          setTimeout(function() { if (pendingMsg) showOverlay(pendingMsg); }, 4000);
+        }
+
+        window.onerror = function(msg, src, line, col, err) {
+          // Ignore errors from Vite dev client (HMR websocket etc.)
+          if (src && src.indexOf('@vite/client') !== -1) return;
+          scheduleOverlay(err ? err.toString() : String(msg));
+        };
+
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = e.reason ? String(e.reason) : '';
+          // Ignore Vite HMR WebSocket errors in dev mode
+          if (reason.indexOf('@vite/client') !== -1) return;
+          if (reason.indexOf('localhost:undefined') !== -1) return;
+          scheduleOverlay(reason || 'Unhandled promise rejection');
+        });
+      })();
+    </script>
     <noscript>
       <div style="font-family:sans-serif;max-width:800px;margin:40px auto;padding:0 20px">
         <h1>БФР — Best Flat Rent</h1>
